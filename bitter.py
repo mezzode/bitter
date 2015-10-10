@@ -55,15 +55,18 @@ def user_page(parameters, users_dir):
     user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
     details = curr_user.details_full()
+    pic = curr_user.pic
     # details_filename = os.path.join(user_to_show, "details.txt")
     # with open(details_filename) as f:
     #     details = f.read()
     return """
 <div class="container">
 <div class="row">
-<div class="col-md-3">
+<div class="col-sm-4 col-md-3">
 <div class="panel panel-primary">
 <div class="panel-body">
+<img src="%s" class="img-responsive" alt="Profile Picture">
+<p>
 %s
 </div>
 </div>
@@ -73,12 +76,23 @@ def user_page(parameters, users_dir):
     <input type="submit" value="Next user" class="btn btn-default">
 </form>
 </div>
-<div class="col-md-9">
-<h1>Bleats</h1>
+<div class="col-md-6 col-sm-8">
+<div class="panel panel-primary">
+<div class="panel-body">
+<p>Bleats</p>
 </div>
 </div>
 </div>
-""" % (details, n + 1) 
+<div class="col-md-3 col-sm-8">
+<div class="panel panel-primary">
+<div class="panel-body">
+<p>Bleh</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+""" % (pic, details, n + 1) 
 
 
 #
