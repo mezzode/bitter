@@ -23,11 +23,14 @@ class user(object):
         with open(os.path.join(user_dir,"bleats.txt")) as f:
             self.bleats = f.readlines()
 
-    def details(self):
-        details = ""
-        for field in vars(self):
-            details += field + ": " + self.details[field]
-        return details # sorted(vars(self))
+    def details_full(self):
+        details_formatted = ""
+        # for field in vars(self):
+        #     details += field + ": " + self.details[field]
+        for field in details:
+            details_formatted += field + ": " + self.details[field]
+        # return details # sorted(vars(self))
+        return join
 
 
 def main():
