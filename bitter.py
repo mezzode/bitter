@@ -93,38 +93,38 @@ def user_page(parameters, users_dir, bleats_dir):
     #     details = f.read()
     return """
 <div class="container">
-<div class="row">
-<div class="col-sm-5 col-md-3">
-<div class="panel panel-primary">
-<div class="panel-body">
-<img src="%s" class="img-responsive" alt="Profile Picture">
-%s
-</div>
-</div>
-<p>
-<form method="POST" action="">
-    <input type="hidden" name="n" value="%s">
-    <input type="submit" value="Next user" class="btn btn-default">
-</form>
-</div>
-<div class="col-md-6 col-sm-7">
-<div class="panel panel-primary">
-<div class="panel-body">
-<h1>Bleats</h1>
-</div>
-<ul class="list-group">
-%s
-</ul>
-</div>
-</div>
-<div class="col-md-3 col-sm-7">
-<div class="panel panel-primary">
-<div class="panel-body">
-<p>Bleh</p>
-</div>
-</div>
-</div>
-</div>
+    <div class="row">
+        <div class="col-sm-5 col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <img src="%s" class="img-responsive" alt="Profile Picture">
+                    %s
+                </div>
+            </div>
+            <p>
+            <form method="POST" action="">
+                <input type="hidden" name="n" value="%s">
+                <input type="submit" value="Next user" class="btn btn-default">
+            </form>
+        </div>
+        <div class="col-md-6 col-sm-7">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h1>Bleats</h1>
+                </div>
+                <ul class="list-group">
+                    %s
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-7">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <p>Bleh</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 """ % (curr_user.pic, details, n + 1,bleat_details) 
 
