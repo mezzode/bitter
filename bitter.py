@@ -35,14 +35,23 @@ class user(object):
         # return details # sorted(vars(self))
         return details_formatted
 
+class bleat(object):
+    'A bleat'
+    def __init__(self,bleat_id):
+        with open(os.path.join(bleats_dir,bleat_id)) as f:
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                self.details[field] = value
 
 def main():
     print page_header()
     cgitb.enable()
     dataset_size = "small" 
     users_dir = "dataset-%s/users"% dataset_size
+    bleats_dir = "dataset-%s/bleats"% dataset_size
+    bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
-    print user_page(parameters, users_dir)
+    print user_page(parameters, users_dir, bleats_dir)
     print page_trailer(parameters)
 
 
@@ -50,7 +59,7 @@ def main():
 # Show unformatted details for user "n".
 # Increment parameter n and store it as a hidden variable
 #
-def user_page(parameters, users_dir):
+def user_page(parameters, users_dir, bleats_dir):
     n = int(parameters.getvalue('n', 0))
     users = sorted(glob.glob(os.path.join(users_dir, "*")))
     user_to_show  = users[n % len(users)]
@@ -61,13 +70,27 @@ def user_page(parameters, users_dir):
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
     details += curr_user.details_basic()
+    bleat_details = ""
+    curr_bleat = {}
+    for bleat_id in curr_user.bleats:
+        with open(os.path.join(bleats_dir,bleat_id.rstrip())) as f:
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                curr_bleat[field] = value
+        bleat_details += '<li class="list-group-item">'
+        for field in sorted(curr_bleat): # sorted
+            bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
+        bleat_details += "</li>\n"
+        # curr_bleat = bleat(bleat_id)
+        # for field,_ in sorted(vars(curr_bleat)): # sorted
+        #     bleats += "<p>%s %s</p>" % (field, curr_bleat.)
     # details_filename = os.path.join(user_to_show, "details.txt")
     # with open(details_filename) as f:
     #     details = f.read()
     return """
 <div class="container">
 <div class="row">
-<div class="col-sm-4 col-md-3">
+<div class="col-sm-5 col-md-3">
 <div class="panel panel-primary">
 <div class="panel-body">
 <img src="%s" class="img-responsive" alt="Profile Picture">
@@ -80,14 +103,17 @@ def user_page(parameters, users_dir):
     <input type="submit" value="Next user" class="btn btn-default">
 </form>
 </div>
-<div class="col-md-6 col-sm-8">
+<div class="col-md-6 col-sm-7">
 <div class="panel panel-primary">
 <div class="panel-body">
-<p>Bleats</p>
+<h1>Bleats</h1>
+</div>
+<ul class="list-group">
+%s
+</ul>
 </div>
 </div>
-</div>
-<div class="col-md-3 col-sm-8">
+<div class="col-md-3 col-sm-7">
 <div class="panel panel-primary">
 <div class="panel-body">
 <p>Bleh</p>
@@ -96,7 +122,7 @@ def user_page(parameters, users_dir):
 </div>
 </div>
 </div>
-""" % (curr_user.pic, details, n + 1) 
+""" % (curr_user.pic, details, n + 1,bleat_details) 
 
 
 #
