@@ -82,7 +82,8 @@ def user_page(parameters, users_dir, bleats_dir):
             if field not in ["time"]:
                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
             elif field == "time":
-                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
+                # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
+                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S%p (%Z)</p>\n<p>%A, %d %B %Y</p>\n')
         bleat_details += "</li>\n"
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
