@@ -128,7 +128,8 @@ def page_header():
 						</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Log In</a></li>
+                        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link>John Doe</a></p>
+						<li><a href="#">Log Out</a></li>
 					</ul>
 				</div>
 			</div>
