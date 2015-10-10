@@ -52,7 +52,7 @@ def user_page(parameters, users_dir):
     users = sorted(glob.glob(os.path.join(users_dir, "*")))
     user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
-    details = curr_user.details()
+    details = curr_user.details_full()
     # details_filename = os.path.join(user_to_show, "details.txt")
     # with open(details_filename) as f:
     #     details = f.read()
