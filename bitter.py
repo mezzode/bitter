@@ -30,7 +30,8 @@ class user(object):
         for field,_ in sorted(self.details.items()): # sorted
         # for field in self.details: # unsorted
             # details_formatted += field + ": " + self.details[field]
-            details_formatted += "<p>%s: %s</p>\n" % (field,self.details[field])
+            if field not in ["email","password","username","full_name"]:
+                details_formatted += "<p>%s: %s</p>\n" % (field,self.details[field])
         # return details # sorted(vars(self))
         return details_formatted
 
@@ -60,7 +61,6 @@ def user_page(parameters, users_dir):
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
     details += curr_user.details_basic()
-    pic = curr_user.pic
     # details_filename = os.path.join(user_to_show, "details.txt")
     # with open(details_filename) as f:
     #     details = f.read()
@@ -96,7 +96,7 @@ def user_page(parameters, users_dir):
 </div>
 </div>
 </div>
-""" % (pic, details, n + 1) 
+""" % (curr_user.pic, details, n + 1) 
 
 
 #
