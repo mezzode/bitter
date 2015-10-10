@@ -27,10 +27,11 @@ class user(object):
         details_formatted = ""
         # for field in vars(self):
         #     details += field + ": " + self.details[field]
-        for field in details:
-            details_formatted += field + ": " + self.details[field]
+        for field in self.details:
+            # details_formatted += field + ": " + self.details[field]
+			details_formatted += "%s: %s\n" % (field,self.details[field])
         # return details # sorted(vars(self))
-        return join
+        return details_formatted
 
 
 def main():
