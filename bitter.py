@@ -98,6 +98,9 @@ def page_header():
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- <link href="bitter.css" rel="stylesheet"> -->
+		<style>
+		body { padding-top: 70px; }
+		</style>
     </head>
     <body>
         <!-- <div class="bitter_heading">Bitter</div> -->
@@ -128,9 +131,9 @@ def page_header():
 						</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-                        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link>John Doe</a></p>
 						<li><a href="#">Log Out</a></li>
 					</ul>
+                    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">John Doe</a></p>
 				</div>
 			</div>
 		</nav>
