@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os
+import cgi, cgitb, glob, os, datetime
 
 class user(object):
     """Bitter user"""
@@ -79,7 +79,10 @@ def user_page(parameters, users_dir, bleats_dir):
                 curr_bleat[field] = value
         bleat_details += '<li class="list-group-item">'
         for field in sorted(curr_bleat): # sorted
-            bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
+            if field not in ["time"]:
+                bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
+            elif field == "time":
+                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
         bleat_details += "</li>\n"
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
