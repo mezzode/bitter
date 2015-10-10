@@ -27,9 +27,10 @@ class user(object):
         details_formatted = ""
         # for field in vars(self):
         #     details += field + ": " + self.details[field]
-        for field in self.details:
+        for field,_ in sorted(self.details.items()): # sorted
+        # for field in self.details: # unsorted
             # details_formatted += field + ": " + self.details[field]
-			details_formatted += "%s: %s\n" % (field,self.details[field])
+            details_formatted += "%s: %s\n" % (field,self.details[field])
         # return details # sorted(vars(self))
         return details_formatted
 
