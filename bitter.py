@@ -165,32 +165,32 @@ def page_header():
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- <link href="bitter.css" rel="stylesheet"> -->
-		<style>
-		body { padding-top: 70px; }
-		</style>
+        <style>
+        body { padding-top: 70px; }
+        </style>
     </head>
     <body>
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle nagivation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>	
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Bitter</a>
-				</div>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle nagivation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>  
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Bitter</a>
+                </div>
 
-				<div id="navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
-						<li><a href="#">New Bleat</a></li>
-					</ul>
-					<form class="navbar-form navbar-left" role="search">
-					<div class="input-group">
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">New Bleat</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                    <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
                             <ul class="dropdown-menu">
@@ -201,21 +201,21 @@ def page_header():
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </div><!-- /btn-group -->
-						<input type="text" class="form-control" placeholder="Search">
-						<span class="input-group-btn">
-							<button type="submit" class="btn btn-default">
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-							</button>
-						</span>
-					</div>
-					</form>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Log Out</a></li>
-					</ul>
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
                     <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">John Doe</a></p>
-				</div>
-			</div>
-		</nav>
+                </div>
+            </div>
+        </nav>
 """
 
 
