@@ -6,10 +6,34 @@
 
 import cgi, cgitb, glob, os
 
+class user(object):
+    """Bitter user"""
+    def __init__(self, user_dir):
+        # super(user, self).__init__()
+        # self.arg = arg
+        self.details = {}
+        self.pic = os.path.join(user_dir,"profile.jpg")
+        with open(os.path.join(user_dir,"details.txt")) as f:
+            # details = f.read()
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                # if field == "listens":
+                    # list?
+                self.details[field] = value
+        with open(os.path.join(user_dir,"bleats.txt")) as f:
+            self.bleats = f.readlines()
+
+    def details(self):
+        details = ""
+        for field in vars(self):
+            details += field + ": " + self.details[field]
+        return details # sorted(vars(self))
+
+
 def main():
     print page_header()
     cgitb.enable()
-    dataset_size = "medium" 
+    dataset_size = "small" 
     users_dir = "dataset-%s/users"% dataset_size
     parameters = cgi.FieldStorage()
     print user_page(parameters, users_dir)
@@ -24,9 +48,11 @@ def user_page(parameters, users_dir):
     n = int(parameters.getvalue('n', 0))
     users = sorted(glob.glob(os.path.join(users_dir, "*")))
     user_to_show  = users[n % len(users)]
-    details_filename = os.path.join(user_to_show, "details.txt")
-    with open(details_filename) as f:
-        details = f.read()
+    curr_user = user(user_to_show)
+    details = curr_user.details()
+    # details_filename = os.path.join(user_to_show, "details.txt")
+    # with open(details_filename) as f:
+    #     details = f.read()
     return """
 <div class="bitter_user_details">
 %s
