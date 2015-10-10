@@ -78,14 +78,18 @@ def page_header():
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Bitter</title>
-<link href="bitter.css" rel="stylesheet">
-</head>
-<body>
-<div class="bitter_heading">
-Bitter
-</div>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bitter</title>
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- <link href="bitter.css" rel="stylesheet"> -->
+    </head>
+    <body>
+        <div class="bitter_heading">Bitter</div>
 """
 
 
@@ -98,6 +102,11 @@ def page_trailer(parameters):
     html = ""
     if debug:
         html += "".join("<!-- %s=%s -->\n" % (p, parameters.getvalue(p)) for p in parameters)
+    html += """
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>"""
     html += "</body>\n</html>"
     return html
 
