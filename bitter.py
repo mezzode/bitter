@@ -23,7 +23,7 @@ class user(object):
         with open(os.path.join(user_dir,"bleats.txt")) as f:
             self.bleats = f.readlines()
 
-    def details_full(self):
+    def details_basic(self):
         details_formatted = ""
         # for field in vars(self):
         #     details += field + ": " + self.details[field]
@@ -54,7 +54,12 @@ def user_page(parameters, users_dir):
     users = sorted(glob.glob(os.path.join(users_dir, "*")))
     user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
-    details = curr_user.details_full()
+    if curr_user.details["full_name"] != None:
+        details = "<h1>%s <small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
+        # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
+    else:
+        details = "<h1>%s</h1>\n" % curr_user.details["username"]
+    details += curr_user.details_basic()
     pic = curr_user.pic
     # details_filename = os.path.join(user_to_show, "details.txt")
     # with open(details_filename) as f:
@@ -66,7 +71,6 @@ def user_page(parameters, users_dir):
 <div class="panel panel-primary">
 <div class="panel-body">
 <img src="%s" class="img-responsive" alt="Profile Picture">
-<p>
 %s
 </div>
 </div>
