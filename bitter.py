@@ -30,7 +30,7 @@ class user(object):
         for field,_ in sorted(self.details.items()): # sorted
         # for field in self.details: # unsorted
             # details_formatted += field + ": " + self.details[field]
-            details_formatted += "%s: %s\n" % (field,self.details[field])
+            details_formatted += "<p>%s: %s</p>\n" % (field,self.details[field])
         # return details # sorted(vars(self))
         return details_formatted
 
@@ -59,14 +59,25 @@ def user_page(parameters, users_dir):
     # with open(details_filename) as f:
     #     details = f.read()
     return """
-<div class="bitter_user_details">
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<div class="panel panel-primary">
+<div class="panel-body">
 %s
+</div>
 </div>
 <p>
 <form method="POST" action="">
     <input type="hidden" name="n" value="%s">
-    <input type="submit" value="Next user" class="bitter_button">
+    <input type="submit" value="Next user" class="btn btn-default">
 </form>
+</div>
+<div class="col-md-9">
+<h1>Bleats</h1>
+</div>
+</div>
+</div>
 """ % (details, n + 1) 
 
 
@@ -89,7 +100,39 @@ def page_header():
         <!-- <link href="bitter.css" rel="stylesheet"> -->
     </head>
     <body>
-        <div class="bitter_heading">Bitter</div>
+        <!-- <div class="bitter_heading">Bitter</div> -->
+        <!-- <h1>Bitter</h1> -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle nagivation</span>
+						<span class="icon-bar></span>
+						<span class="icon-bar></span>	
+						<span class="icon-bar></span>
+					</button>
+					<a class="navbar-brand" href="#">Bitter</a>
+				</div>
+
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+						<li><a href="#">New Bleat</a></li>
+					</ul>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"</span>
+						</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Log In</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 """
 
 
