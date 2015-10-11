@@ -248,14 +248,18 @@ def page_header():
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Bitter</a>
+                    <!-- <input type="reset" class="navbar-brand" value="Bitter"> -->
                 </div>
 
                 <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+                    <!-- <ul class="nav navbar-nav">
+                        <li class="active"><input type="reset" value="Home" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
                         <li><a href="#">New Bleat</a></li>
-                    </ul>
+                        <li class="active"><input type="submit" value="New Bleat" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
+                    </ul> -->
                     <form class="navbar-form navbar-left" role="search">
+                    <input type="submit" value="Home" class="btn btn-link" name=".defaults">
+                    <input type="submit" value="Bleats" class="btn btn-link">
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></button>
