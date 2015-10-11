@@ -175,10 +175,11 @@ def user_page(parameters, users_dir, bleats_dir):
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
-            <!-- <div class="panel panel-primary">
-                <div class="panel-body"> -->
+            <div class="panel panel-primary">
+                <div class="panel-body">
                     <h1 class="list-group-item-heading">Bleats</h1>
-                <!-- </div> -->
+                </div>
+            </div>
                 <ul class="list-group">
                     %s
                 </ul>
