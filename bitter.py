@@ -22,6 +22,7 @@ class user(object):
                 self.details[field] = value
         with open(os.path.join(user_dir,"bleats.txt")) as f:
             self.bleats = f.readlines()
+            self.bleats.sort(reverse=True)
 
     def details_basic(self):
         details_formatted = ""
