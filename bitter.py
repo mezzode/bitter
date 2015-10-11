@@ -113,11 +113,13 @@ def user_page(parameters, users_dir, bleats_dir):
     bleat_details = ""
     curr_bleat = {}
     for bleat_id in curr_user.bleats:
+        bleat_id = bleat_id.rstrip()
         with open(os.path.join(bleats_dir,bleat_id.rstrip())) as f:
             for line in f:
                 field, _, value = line.rstrip().partition(": ")
                 curr_bleat[field] = value
-        bleat_details += '<li class="list-group-item">\n'
+        # bleat_details += '<li class="list-group-item">\n'
+        bleat_details += '<button class="list-group-item" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
         bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<p><small>%I:%M:%S %p %A, %d %B %Y</small></p>\n')
@@ -128,7 +130,13 @@ def user_page(parameters, users_dir, bleats_dir):
             # elif field == "time":
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
-        bleat_details += "</li>\n"
+        # bleat_details += "</li>\n"
+        bleat_details += "</button>\n"
+        bleat_details += """<div class="collapse" id="%s">
+    <div class="well">
+        ...
+    </div>
+</div>""" % bleat_id
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
         #     bleats += "<p>%s %s</p>" % (field, curr_bleat.)
