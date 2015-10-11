@@ -86,10 +86,11 @@ def user_page(parameters, users_dir, bleats_dir):
     details += curr_user.details.get('info','')
     # details += '<ul class="list-group">\n'
     # details += '<li class="list-group-item">\n'
-    home_details = '<h3 class="list-group-item-heading">Home Details</h3>\n'
+    home_details = '<h3 class="list-group-item-heading">Home Details</h3>\n<dl>\n'
     for field,_ in sorted(curr_user.details.items()):
         if field.startswith("home_"):
-            home_details += '<p>%s: %s</p>\n' % (field.replace("home_","",1).title(),curr_user.details[field])
+            home_details += '<dt>%s</dt><dd>%s</dd>\n' % (field.replace("home_","",1).title(),curr_user.details[field])
+    home_details += '</dl>\n'
     # details += '</li>\n'
     # details += '</ul>\n'
     listen_details = '<h3 class="list-group-item-heading">Listens</h3>\n'
@@ -156,7 +157,7 @@ def user_page(parameters, users_dir, bleats_dir):
         <div class="col-md-6 col-sm-7">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h1>Bleats</h1>
+                    <h1 class="list-group-item-heading">Bleats</h1>
                 </div>
                 <ul class="list-group">
                     %s
@@ -244,7 +245,7 @@ def search_page(parameters, users_dir, bleats_dir):
         <div class="col-md-12 col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h1>Search Results: <small>%s</small></h1>
+                    <h1 class="list-group-item-heading">Search Results: <small>%s</small></h1>
                 </div>
                 <ul class="list-group">
                     %s
