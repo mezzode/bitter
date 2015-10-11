@@ -64,8 +64,12 @@ def main():
 #
 def user_page(parameters, users_dir, bleats_dir):
     n = int(parameters.getvalue('n', 0))
-    users = sorted(glob.glob(os.path.join(users_dir, "*")))
-    user_to_show  = users[n % len(users)]
+    user_to_show = parameters.getvalue('user','')
+    if user_to_show != '':
+        user_to_show = os.path.join(users_dir,user_to_show)
+    else:
+        users = sorted(glob.glob(os.path.join(users_dir, "*")))
+        user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
     if curr_user.details["full_name"] != None:
         details = "<h1>%s<br><small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
@@ -87,7 +91,7 @@ def user_page(parameters, users_dir, bleats_dir):
     listens = curr_user.details["listens"]
     for listen in listens.split(' '):
         curr_listen = user(os.path.join(users_dir,listen))
-        listen_details += '<button type="button" class="list-group-item">\n'
+        listen_details += '<button type="submit" form="main" name="user" value=%s class="list-group-item">\n'% listen
         listen_details += '<div class="media">\n'
         listen_details += '    <div class="media-left">\n'
         listen_details += '        <img class="media-object" src="%s" height="64" width="64">\n' % curr_listen.pic
@@ -138,7 +142,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 </ul>
             </div>
             <p>
-            <form method="POST" action="">
+            <form method="POST" action="" id="main">
                 <input type="hidden" name="n" value="%s">
                 <input type="submit" value="Next user" class="btn btn-default">
             </form>
@@ -290,7 +294,7 @@ def page_header():
                         <li><a href="#">New Bleat</a></li>
                         <li class="active"><input type="submit" value="New Bleat" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
                     </ul> -->
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" id="search" role="search">
                     <input type="submit" value="Home" class="btn btn-link" name=".defaults">
                     <input type="submit" value="Bleats" class="btn btn-link">
                     <div class="input-group">
