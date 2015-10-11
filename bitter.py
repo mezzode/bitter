@@ -117,13 +117,17 @@ def user_page(parameters, users_dir, bleats_dir):
             for line in f:
                 field, _, value = line.rstrip().partition(": ")
                 curr_bleat[field] = value
-        bleat_details += '<li class="list-group-item">'
+        bleat_details += '<li class="list-group-item">\n'
+        bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
+        bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
+        bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<p><small>%I:%M:%S %p %A, %d %B %Y</small></p>\n')
+        bleat_details += '<p><small>Location: %s, %s</small></p>' % (curr_bleat['latitude'],curr_bleat['longitude'])
         for field in sorted(curr_bleat): # sorted
-            if field not in ["time"]:
+            if field not in ["time","username","bleat","latitude","longitude"]:
                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
-            elif field == "time":
+            # elif field == "time":
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
-                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S%p</p>\n<p>%A, %d %B %Y</p>\n')
+                # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
         bleat_details += "</li>\n"
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
