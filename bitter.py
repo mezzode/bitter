@@ -149,11 +149,67 @@ def user_page(parameters, users_dir, bleats_dir):
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term')
-    matches = []
+    # matches = []
+    matches = ""
     for curr_user in os.listdir(users_dir):
         if search_term in curr_user:
-            matches.append(curr_user)
-    return # return html
+            # matches.append(curr_user)
+            matches += '<p>%s</p>\n' % curr_user
+    return """
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5 col-md-3">
+            <!-- <div class="panel panel-primary">
+                <div class="panel-body">
+                    <img src="" class="img-responsive" alt="Profile Picture">
+                    
+                </div>
+            </div>
+            <p>
+            <form method="POST" action="">
+                <input type="hidden" name="n" value="">
+                <input type="submit" value="Next user" class="btn btn-default">
+            </form> -->
+        </div>
+        <div class="col-md-6 col-sm-7">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h1>Search Results: <small>%s</small></h1>
+                </div>
+                <ul class="list-group">
+                    %s
+                </ul>
+            </div>
+            <nav>
+              <ul class="pagination">
+                <li class="disabled">
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+        </div>
+        <div class="col-md-3 col-sm-5">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <p>Bleh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+""" % (search_term,matches)
 
 #
 # HTML placed at the top of every page
