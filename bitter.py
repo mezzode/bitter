@@ -72,7 +72,8 @@ def user_page(parameters, users_dir, bleats_dir):
         # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
-    details += curr_user.details_basic()
+    # details += curr_user.details_basic()
+    details += curr_user.details.get('info','')
     # details += '<ul class="list-group">\n'
     # details += '<li class="list-group-item">\n'
     home_details = '<h3 class="list-group-item-heading">Home Details</h3>\n'
