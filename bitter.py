@@ -68,11 +68,31 @@ def user_page(parameters, users_dir, bleats_dir):
     user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
     if curr_user.details["full_name"] != None:
-        details = "<h1>%s <small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
+        details = "<h1>%s<br><small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
         # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
     details += curr_user.details_basic()
+    # details += '<ul class="list-group">\n'
+    # details += '<li class="list-group-item">\n'
+    home_details = ""
+    for field,_ in sorted(curr_user.details.items()):
+        if field.startswith("home_"):
+            home_details += '<p>%s: %s</p>\n' % (field.replace("home_","",1).title(),curr_user.details[field])
+    # details += '</li>\n'
+    # details += '</ul>\n'
+    listen_details = ""
+    listens = curr_user.details["listens"]
+    for listen in listens.split(' '):
+        curr_listen = user(os.path.join(users_dir,listen))
+        listen_details += '<div class="media">\n'
+        listen_details += '    <div class="media-left">\n'
+        listen_details += '        <img class="media-object" src="%s" height="64" width="64">\n' % curr_listen.pic
+        listen_details += '    </div>\n'
+        listen_details += '    <div class="media-body">\n'
+        listen_details += '        <h4 class="media-heading">%s<br><small>%s</small></h4>\n' % (curr_listen.details["full_name"],listen)
+        listen_details += '    </div>\n'
+        listen_details += '</div>\n'
     bleat_details = ""
     curr_bleat = {}
     for bleat_id in curr_user.bleats:
@@ -103,6 +123,14 @@ def user_page(parameters, users_dir, bleats_dir):
                     <img src="%s" class="img-responsive" alt="Profile Picture">
                     %s
                 </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        %s
+                    </li>
+                    <li class="list-group-item">
+                        %s
+                    </li>    
+                </ul>
             </div>
             <p>
             <form method="POST" action="">
@@ -148,7 +176,7 @@ def user_page(parameters, users_dir, bleats_dir):
         </div>
     </div>
 </div>
-""" % (curr_user.pic, details, n + 1,bleat_details) 
+""" % (curr_user.pic, details, listen_details,home_details, n + 1,bleat_details) 
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term','')
