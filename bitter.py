@@ -138,6 +138,10 @@ def user_page(parameters, users_dir, bleats_dir):
         <h4 class="list-group-item-heading">Bleat</h4>
         <p>Bleat here</p>
         </button>
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">Bleat</h4>
+        <p>Bleat here</p>
+        </button>
     </div>
 </div>""" % bleat_id
         # curr_bleat = bleat(bleat_id)
