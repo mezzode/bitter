@@ -83,7 +83,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
             elif field == "time":
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
-                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S%p (%Z)</p>\n<p>%A, %d %B %Y</p>\n')
+                bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S%p</p>\n<p>%A, %d %B %Y</p>\n')
         bleat_details += "</li>\n"
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
@@ -136,7 +136,7 @@ def user_page(parameters, users_dir, bleats_dir):
               </ul>
             </nav>
         </div>
-        <div class="col-md-3 col-sm-7">
+        <div class="col-md-3 col-sm-5">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <p>Bleh</p>
@@ -173,7 +173,7 @@ def page_header():
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle nagivation</span>
@@ -192,13 +192,13 @@ def page_header():
                     <form class="navbar-form navbar-left" role="search">
                     <div class="input-group">
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Users</a></li>
+                                <li><a href="#">Username</a></li>
+                                <li><a href="#">Name</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Bleats</a></li>
                             </ul>
                         </div><!-- /btn-group -->
                         <input type="text" class="form-control" placeholder="Search">
