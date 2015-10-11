@@ -122,8 +122,10 @@ def user_page(parameters, users_dir, bleats_dir):
         bleat_details += '<button class="list-group-item panel-primary" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
-        bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<p><small>%I:%M:%S %p %A, %d %B %Y</small></p>\n')
-        bleat_details += '<p><small>Location: %s, %s</small></p>' % (curr_bleat['latitude'],curr_bleat['longitude'])
+        bleat_details += '<ul class="list-inline">'
+        bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
+        bleat_details += '<li><small>Location: %s, %s</small></li>' % (curr_bleat['latitude'],curr_bleat['longitude'])
+        bleat_details += "</ul>\n"
         for field in sorted(curr_bleat): # sorted
             if field not in ["time","username","bleat","latitude","longitude"]:
                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
