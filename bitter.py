@@ -246,8 +246,12 @@ def search_page(parameters, users_dir, bleats_dir):
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Search Results: <small>%s</small></h1>
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="#">Users</a></li>
+                        <li role="presentation"><a href="#">Bleats</a></li>
+                        <li role="presentation"><a href="#">All</a></li>
+                    <ul class="list-group">
                 </div>
-                <ul class="list-group">
                     %s
                 </ul>
             </div>
