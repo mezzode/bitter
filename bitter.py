@@ -147,6 +147,13 @@ def user_page(parameters, users_dir, bleats_dir):
 </div>
 """ % (curr_user.pic, details, n + 1,bleat_details) 
 
+def search_page(parameters, users_dir, bleats_dir):
+    search_term = parameters.getvalue('search_term')
+    matches = []
+    for curr_user in os.listdir(users_dir):
+        if search_term in curr_user:
+            matches.append(curr_user)
+    return # return html
 
 #
 # HTML placed at the top of every page
