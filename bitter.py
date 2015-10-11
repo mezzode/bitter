@@ -51,7 +51,10 @@ def main():
     bleats_dir = "dataset-%s/bleats"% dataset_size
     bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
-    print user_page(parameters, users_dir, bleats_dir)
+    if parameters.getvalue('search_term') != None:
+        print search_page(parameters,users_dir,bleats_dir)
+    else:
+        print user_page(parameters, users_dir, bleats_dir)
     print page_trailer(parameters)
 
 
@@ -152,14 +155,14 @@ def search_page(parameters, users_dir, bleats_dir):
     # matches = []
     matches = ""
     for curr_user in os.listdir(users_dir):
-        if search_term in curr_user:
+        if search_term.lower() in curr_user.lower():
             # matches.append(curr_user)
-            matches += '<p>%s</p>\n' % curr_user
+            matches += '<li class="list-group-item">%s</li>\n' % curr_user
     return """
 <div class="container">
     <div class="row">
-        <div class="col-sm-5 col-md-3">
-            <!-- <div class="panel panel-primary">
+        <!-- <div class="col-sm-5 col-md-3">
+            <div class="panel panel-primary">
                 <div class="panel-body">
                     <img src="" class="img-responsive" alt="Profile Picture">
                     
@@ -169,9 +172,9 @@ def search_page(parameters, users_dir, bleats_dir):
             <form method="POST" action="">
                 <input type="hidden" name="n" value="">
                 <input type="submit" value="Next user" class="btn btn-default">
-            </form> -->
-        </div>
-        <div class="col-md-6 col-sm-7">
+            </form>
+        </div> -->
+        <div class="col-md-12 col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h1>Search Results: <small>%s</small></h1>
@@ -200,13 +203,13 @@ def search_page(parameters, users_dir, bleats_dir):
               </ul>
             </nav>
         </div>
-        <div class="col-md-3 col-sm-5">
+        <!-- <div class="col-md-3 col-sm-5">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <p>Bleh</p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 """ % (search_term,matches)
