@@ -195,6 +195,15 @@ def search_page(parameters, users_dir, bleats_dir):
         if search_term.lower() in curr_user.lower():
             # matches.append(curr_user)
             matches += '<li class="list-group-item">%s</li>\n' % curr_user
+        else:
+            with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
+                for line in f:
+                    field, _, value = line.rstrip().partition(": ")
+                    if field == "full_name":
+                        if search_term.lower() in value.lower():
+                            matches += '<li class="list-group-item">%s</li>\n' % curr_user
+                        else:
+                            break
     return """
 <div class="container">
     <div class="row">
