@@ -75,13 +75,13 @@ def user_page(parameters, users_dir, bleats_dir):
     details += curr_user.details_basic()
     # details += '<ul class="list-group">\n'
     # details += '<li class="list-group-item">\n'
-    home_details = ""
+    home_details = '<h3 class="list-group-item-heading">Home Details</h3>\n'
     for field,_ in sorted(curr_user.details.items()):
         if field.startswith("home_"):
             home_details += '<p>%s: %s</p>\n' % (field.replace("home_","",1).title(),curr_user.details[field])
     # details += '</li>\n'
     # details += '</ul>\n'
-    listen_details = ""
+    listen_details = '<h3 class="list-group-item-heading">Listens</h3>\n'
     listens = curr_user.details["listens"]
     for listen in listens.split(' '):
         curr_listen = user(os.path.join(users_dir,listen))
