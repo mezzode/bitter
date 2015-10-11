@@ -119,7 +119,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 field, _, value = line.rstrip().partition(": ")
                 curr_bleat[field] = value
         # bleat_details += '<li class="list-group-item">\n'
-        bleat_details += '<button class="list-group-item" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+        bleat_details += '<button class="list-group-item panel-primary" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
         bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<p><small>%I:%M:%S %p %A, %d %B %Y</small></p>\n')
@@ -134,11 +134,11 @@ def user_page(parameters, users_dir, bleats_dir):
         bleat_details += "</button>\n"
         bleat_details += """<div class="collapse" id="%s">
     <div class="list-group">
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
         <h4 class="list-group-item-heading">Bleat</h4>
         <p>Bleat here</p>
         </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
         <h4 class="list-group-item-heading">Bleat</h4>
         <p>Bleat here</p>
         </button>
@@ -175,14 +175,14 @@ def user_page(parameters, users_dir, bleats_dir):
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
-            <div class="panel panel-primary">
-                <div class="panel-body">
+            <!-- <div class="panel panel-primary">
+                <div class="panel-body"> -->
                     <h1 class="list-group-item-heading">Bleats</h1>
-                </div>
+                <!-- </div> -->
                 <ul class="list-group">
                     %s
                 </ul>
-            </div>
+            <!-- </div> -->
             <nav>
               <ul class="pagination">
                 <li class="disabled">
