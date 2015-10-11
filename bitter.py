@@ -189,21 +189,36 @@ def user_page(parameters, users_dir, bleats_dir):
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term','')
-    # matches = []
-    matches = ""
+    matches = []
+    # matches = ""
     for curr_user in os.listdir(users_dir):
         if search_term.lower() in curr_user.lower():
-            # matches.append(curr_user)
-            matches += '<li class="list-group-item">%s</li>\n' % curr_user
+            matches.append(curr_user)
+            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
         else:
             with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
                 for line in f:
                     field, _, value = line.rstrip().partition(": ")
                     if field == "full_name":
                         if search_term.lower() in value.lower():
-                            matches += '<li class="list-group-item">%s</li>\n' % curr_user
+                            matches.append(curr_user)
+                            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
                         else:
                             break
+    results = ""
+    for match in matches:
+        curr_user = user(os.path.join(users_dir,match))
+        results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
+<div class="media">
+    <div class="media-left">
+        <img class="media-object" src="%s" height="64" width="64">
+    </div>
+    <div class="media-body">
+        <h2 class="media-heading">%s<br><small>%s</small></h4>
+    </div>
+</div>
+</button>
+""" % (match,curr_user.pic,curr_user.details["full_name"],match)
     return """
 <div class="container">
     <div class="row">
@@ -258,7 +273,7 @@ def search_page(parameters, users_dir, bleats_dir):
         </div> -->
     </div>
 </div>
-""" % (search_term,matches)
+""" % (search_term,results)
 
 #
 # HTML placed at the top of every page
