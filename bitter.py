@@ -148,7 +148,7 @@ def user_page(parameters, users_dir, bleats_dir):
 """ % (curr_user.pic, details, n + 1,bleat_details) 
 
 def search_page(parameters, users_dir, bleats_dir):
-    search_term = parameters.getvalue('search_term')
+    search_term = parameters.getvalue('search_term','')
     # matches = []
     matches = ""
     for curr_user in os.listdir(users_dir):
@@ -264,9 +264,9 @@ def page_header():
                                 <li><a href="#">Bleats</a></li>
                             </ul>
                         </div><!-- /btn-group -->
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search_term" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" name="search" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
