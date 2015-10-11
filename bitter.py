@@ -51,12 +51,18 @@ def main():
     bleats_dir = "dataset-%s/bleats"% dataset_size
     bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
-    if parameters.getvalue('search_term') != None:
+    print main_form()
+    if parameters.getvalue('user') != None:
+        print user_page(parameters, users_dir, bleats_dir)
+    elif parameters.getvalue('search_term') != None:
         print search_page(parameters,users_dir,bleats_dir)
     else:
         print user_page(parameters, users_dir, bleats_dir)
     print page_trailer(parameters)
 
+def main_form():
+    return """<form method="POST" action="" id="main">
+</form>"""
 
 #
 # Show unformatted details for user "n".
@@ -142,7 +148,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 </ul>
             </div>
             <p>
-            <form method="POST" action="" id="main">
+            <form method="POST" action=""><!-- id="main"> -->
                 <input type="hidden" name="n" value="%s">
                 <input type="submit" value="Next user" class="btn btn-default">
             </form>
