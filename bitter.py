@@ -250,7 +250,7 @@ def search_page(parameters, users_dir, bleats_dir):
         results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
 <div class="media">
     <div class="media-left">
-        <img class="media-object" src="%s" height="64" width="64">
+        <img class="media-object" src="%s" height="128" width="128">
     </div>
     <div class="media-body">
         <h2 class="media-heading">%s<br><small>%s</small></h4>
@@ -281,9 +281,10 @@ def search_page(parameters, users_dir, bleats_dir):
                     <ul class="nav nav-pills">
                         <li role="presentation" class="active"><a href="#">Users</a></li>
                         <li role="presentation"><a href="#">Bleats</a></li>
-                        <li role="presentation"><a href="#">All</a></li>
-                    <ul class="list-group">
+                        <!-- <li role="presentation"><a href="#">All</a></li> -->
+                    </ul>    
                 </div>
+                <ul class="list-group">
                     %s
                 </ul>
             </div>
