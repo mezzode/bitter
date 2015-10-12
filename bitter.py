@@ -119,21 +119,26 @@ def user_page(parameters, users_dir, bleats_dir):
                 field, _, value = line.rstrip().partition(": ")
                 curr_bleat[field] = value
         # bleat_details += '<li class="list-group-item">\n'
-        bleat_details += '<button class="list-group-item panel-primary" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+        # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+        bleat_details += '<div class="panel panel-default">'
+        bleat_details += '<div class="panel-body">'
         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
         bleat_details += '<ul class="list-inline">'
         bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
         bleat_details += '<li><small>Location: %s, %s</small></li>' % (curr_bleat['latitude'],curr_bleat['longitude'])
         bleat_details += "</ul>\n"
+        bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>' % bleat_id
         for field in sorted(curr_bleat): # sorted
-            if field not in ["time","username","bleat","latitude","longitude"]:
+            if field not in ["time","username","bleat","latitude","longitude","in_reply_to"]:
                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
             # elif field == "time":
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
         # bleat_details += "</li>\n"
-        bleat_details += "</button>\n"
+        bleat_details += "</div>"
+        # bleat_details += "</button>\n"
+        bleat_details += "</div>"
         bleat_details += """<div class="collapse" id="%s">
     <div class="list-group">
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
@@ -181,14 +186,14 @@ def user_page(parameters, users_dir, bleats_dir):
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Bleats</h1>
                 </div>
-            <!-- </div> -->
-                <ul class="list-group">
+            </div>
+                <!-- <ul class="list-group"> -->
                     <!-- <li class="list-group-item panel-primary">
                         <h1 class="list-group-item-heading">Bleats</h1>
                     </li> -->
                     %s
-                </ul>
-            </div>
+                <!-- </ul> -->
+            <!-- </div> -->
             <nav>
               <ul class="pagination">
                 <li class="disabled">
