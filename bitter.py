@@ -377,7 +377,7 @@ def page_header():
                         </div> --><!-- /btn-group -->
                         <input type="text" name="search_term" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
-                            <button type="submit" name="search" class="btn btn-default">
+                            <button type="submit" name="search" class="btn btn-link">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
