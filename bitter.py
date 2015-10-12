@@ -340,23 +340,21 @@ def search_page(parameters, users_dir, bleats_dir):
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h2 class="list-group-item-heading">Search Results: <small>%s</small></h2>
-                    <ul class="nav nav-pills">
-                        <li role="presentation" class="active"><a href="#users" data-toggle="pill">Users</a></li>
-                        <li role="presentation"><a href="#bleats" data-toggle="pill">Bleats</a></li>
-                        <!-- <li role="presentation"><a href="#">All</a></li> -->
-                    </ul>    
                 </div>
-                <ul class="list-group">
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="users">
-                        %s
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="bleats">
-                        <!-- <li class="list-group-item"><h3>No results</h3></li> -->
-                        %s
-                    </div>
+            </div>
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="#users" data-toggle="pill">Users</a></li>
+                <li role="presentation"><a href="#bleats" data-toggle="pill">Bleats</a></li>
+                <!-- <li role="presentation"><a href="#">All</a></li> -->
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="users">
+                    %s
                 </div>
-                </ul>
+                <div role="tabpanel" class="tab-pane fade" id="bleats">
+                    <!-- <li class="list-group-item"><h3>No results</h3></li> -->
+                    %s
+                </div>
             </div>
             <nav>
               <ul class="pagination">
