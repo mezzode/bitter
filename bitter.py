@@ -65,6 +65,50 @@ def main_form():
     return """<form method="POST" action="" id="main">
 </form>"""
 
+def bleat_panels(bleats,bleats_dir): # list of bleats
+    bleat_details = ""
+    for bleat_id in bleats:
+            bleat_details += bleat_panel(bleat_id.rstrip(),bleats_dir)
+    return bleat_details
+
+def bleat_panel(bleat_id,bleats_dir):
+    curr_bleat = {}
+    bleat_details = ""
+    with open(os.path.join(bleats_dir,bleat_id)) as f:
+        for line in f:
+            field, _, value = line.rstrip().partition(": ")
+            curr_bleat[field] = value
+    # bleat_details += '<li class="list-group-item">\n'
+    # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+    bleat_details += '<div class="panel panel-default">\n'
+    bleat_details += '<div class="list-group">\n'
+    bleat_details += '<div class="list-group-item">\n'
+    bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
+    bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat']
+    bleat_details += '<ul class="list-inline">\n'
+    bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
+    bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
+    bleat_details += "</ul>\n"
+    bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>\n' % bleat_id
+    # bleat_details += "</li>\n"
+    bleat_details += "</div>\n</div>\n"
+    # bleat_details += "</button>\n"
+    # bleat_details += "</div>"
+    # previous bleats in conversation:
+    bleat_details += """<div class="collapse panel-collapse" id="%s">
+    <div class="list-group">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">Bleat</h4>
+        <p>Bleat here</p>
+        </button>
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">Bleat</h4>
+        <p>Bleat here</p>
+        </button>
+    </div>
+</div></div>""" % bleat_id
+    return bleat_details
+
 #
 # Show unformatted details for user "n".
 # Increment parameter n and store it as a hidden variable
@@ -110,48 +154,48 @@ def user_page(parameters, users_dir, bleats_dir):
         listen_details += '</div>\n'
         listen_details += '</button>\n'
     listen_details += '</div>\n'
-    bleat_details = ""
-    curr_bleat = {}
-    for bleat_id in curr_user.bleats:
-        bleat_id = bleat_id.rstrip()
-        with open(os.path.join(bleats_dir,bleat_id.rstrip())) as f:
-            for line in f:
-                field, _, value = line.rstrip().partition(": ")
-                curr_bleat[field] = value
-        # bleat_details += '<li class="list-group-item">\n'
-        # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
-        bleat_details += '<div class="panel panel-default">'
-        bleat_details += '<div class="list-group">'
-        bleat_details += '<div class="list-group-item">'
-        bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
-        bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
-        bleat_details += '<ul class="list-inline">'
-        bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
-        bleat_details += '<li><small>Location: %s, %s</small></li>' % (curr_bleat['latitude'],curr_bleat['longitude'])
-        bleat_details += "</ul>\n"
-        bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>' % bleat_id
-        for field in sorted(curr_bleat): # sorted
-            if field not in ["time","username","bleat","latitude","longitude","in_reply_to"]:
-                bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
-            # elif field == "time":
-                # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
-                # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
-        # bleat_details += "</li>\n"
-        bleat_details += "</div></div>"
-        # bleat_details += "</button>\n"
-        # bleat_details += "</div>"
-        bleat_details += """<div class="collapse panel-collapse" id="%s">
-    <div class="list-group">
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">Bleat</h4>
-        <p>Bleat here</p>
-        </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">Bleat</h4>
-        <p>Bleat here</p>
-        </button>
-    </div>
-</div></div>""" % bleat_id
+#     bleat_details = ""
+#     curr_bleat = {}
+#     for bleat_id in curr_user.bleats:
+#         bleat_id = bleat_id.rstrip()
+#         with open(os.path.join(bleats_dir,bleat_id.rstrip())) as f:
+#             for line in f:
+#                 field, _, value = line.rstrip().partition(": ")
+#                 curr_bleat[field] = value
+#         # bleat_details += '<li class="list-group-item">\n'
+#         # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+#         bleat_details += '<div class="panel panel-default">'
+#         bleat_details += '<div class="list-group">'
+#         bleat_details += '<div class="list-group-item">'
+#         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
+#         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
+#         bleat_details += '<ul class="list-inline">'
+#         bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
+#         bleat_details += '<li><small>Location: %s, %s</small></li>' % (curr_bleat['latitude'],curr_bleat['longitude'])
+#         bleat_details += "</ul>\n"
+#         bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>' % bleat_id
+#         for field in sorted(curr_bleat): # sorted
+#             if field not in ["time","username","bleat","latitude","longitude","in_reply_to"]:
+#                 bleat_details += "<p>%s: %s</p>\n" % (field,curr_bleat[field])
+#             # elif field == "time":
+#                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
+#                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
+#         # bleat_details += "</li>\n"
+#         bleat_details += "</div></div>"
+#         # bleat_details += "</button>\n"
+#         # bleat_details += "</div>"
+#         bleat_details += """<div class="collapse panel-collapse" id="%s">
+#     <div class="list-group">
+#         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+#         <h4 class="list-group-item-heading">Bleat</h4>
+#         <p>Bleat here</p>
+#         </button>
+#         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+#         <h4 class="list-group-item-heading">Bleat</h4>
+#         <p>Bleat here</p>
+#         </button>
+#     </div>
+# </div></div>""" % bleat_id
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
         #     bleats += "<p>%s %s</p>" % (field, curr_bleat.)
@@ -224,7 +268,7 @@ def user_page(parameters, users_dir, bleats_dir):
         </div>
     </div>
 </div>
-""" % (curr_user.pic, details, listen_details,home_details, n + 1,bleat_details) 
+""" % (curr_user.pic, details, listen_details,home_details, n + 1,bleat_panels(curr_user.bleats,bleats_dir)) 
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term','')
