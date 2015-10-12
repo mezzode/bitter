@@ -313,13 +313,13 @@ def search_page(parameters, users_dir, bleats_dir):
                         matches.append(curr_bleat)
                     else:
                         break
-    bleat_results = ""
-    for match in matches:
-        # put bleat parsing here or use function
-        bleat_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
-<p>%s</p>
-</button>            
-""" % (match,match)
+    # bleat_results = ""
+    # for match in matches:
+        # # put bleat parsing here or use function
+        # bleat_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
+# <p>%s</p>
+# </button>            
+# """ % (match,match)
     return """
 <div class="container">
     <div class="row">
@@ -385,7 +385,7 @@ def search_page(parameters, users_dir, bleats_dir):
         </div> -->
     </div>
 </div>
-""" % (search_term,user_results,bleat_results)
+""" % (search_term,user_results,bleat_panels(matches,bleats_dir))
 
 #
 # HTML placed at the top of every page
