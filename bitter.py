@@ -138,8 +138,8 @@ def user_page(parameters, users_dir, bleats_dir):
         # bleat_details += "</li>\n"
         bleat_details += "</div>"
         # bleat_details += "</button>\n"
-        bleat_details += "</div>"
-        bleat_details += """<div class="collapse" id="%s">
+        # bleat_details += "</div>"
+        bleat_details += """<div class="collapse panel-collapse" id="%s">
     <div class="list-group">
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
         <h4 class="list-group-item-heading">Bleat</h4>
@@ -150,7 +150,7 @@ def user_page(parameters, users_dir, bleats_dir):
         <p>Bleat here</p>
         </button>
     </div>
-</div>""" % bleat_id
+</div></div>""" % bleat_id
         # curr_bleat = bleat(bleat_id)
         # for field,_ in sorted(vars(curr_bleat)): # sorted
         #     bleats += "<p>%s %s</p>" % (field, curr_bleat.)
