@@ -121,7 +121,8 @@ def user_page(parameters, users_dir, bleats_dir):
         # bleat_details += '<li class="list-group-item">\n'
         # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
         bleat_details += '<div class="panel panel-default">'
-        bleat_details += '<div class="panel-body">'
+        bleat_details += '<div class="list-group">'
+        bleat_details += '<div class="list-group-item">'
         bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
         bleat_details += '<p class="lead">%s</p>' % curr_bleat['bleat']
         bleat_details += '<ul class="list-inline">'
@@ -136,7 +137,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('%I:%M:%S%p, %d %B %Y (%Z)') #'%Y-%m-%d %H:%M:%S')
                 # bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat[field])).strftime('<p>%I:%M:%S %p</p>\n<p>%A, %d %B %Y</p>\n')
         # bleat_details += "</li>\n"
-        bleat_details += "</div>"
+        bleat_details += "</div></div>"
         # bleat_details += "</button>\n"
         # bleat_details += "</div>"
         bleat_details += """<div class="collapse panel-collapse" id="%s">
