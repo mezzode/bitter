@@ -142,11 +142,11 @@ def user_page(parameters, users_dir, bleats_dir):
         # bleat_details += "</div>"
         bleat_details += """<div class="collapse panel-collapse" id="%s">
     <div class="list-group">
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">Bleat</h4>
         <p>Bleat here</p>
         </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item panel-primary">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">Bleat</h4>
         <p>Bleat here</p>
         </button>
