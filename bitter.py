@@ -87,7 +87,8 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat']
     bleat_details += '<ul class="list-inline">\n'
     bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
-    bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
+    if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
+        bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
     bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>\n' % bleat_id
     # bleat_details += "</li>\n"
