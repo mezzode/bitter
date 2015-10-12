@@ -177,18 +177,18 @@ def user_page(parameters, users_dir, bleats_dir):
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
-            <!-- <div class="panel panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Bleats</h1>
                 </div>
-            </div> -->
+            <!-- </div> -->
                 <ul class="list-group">
-                    <li class="list-group-item panel-primary">
+                    <!-- <li class="list-group-item panel-primary">
                         <h1 class="list-group-item-heading">Bleats</h1>
-                    </li>
+                    </li> -->
                     %s
                 </ul>
-            <!-- </div> -->
+            </div>
             <nav>
               <ul class="pagination">
                 <li class="disabled">
@@ -330,7 +330,7 @@ def page_header():
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- <link href="bitter.css" rel="stylesheet"> -->
         <style>
-        body { padding-top: 70px; }
+        body { padding-top: 80px; }
         </style>
     </head>
     <body>
