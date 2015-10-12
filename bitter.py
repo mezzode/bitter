@@ -364,7 +364,7 @@ def page_header():
                     <input type="submit" value="Home" class="btn btn-link" name=".defaults">
                     <input type="submit" value="Bleats" class="btn btn-link">
                     <div class="input-group">
-                        <div class="input-group-btn">
+                        <!-- <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Users</a></li>
@@ -373,7 +373,7 @@ def page_header():
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Bleats</a></li>
                             </ul>
-                        </div><!-- /btn-group -->
+                        </div> --><!-- /btn-group -->
                         <input type="text" name="search_term" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
                             <button type="submit" name="search" class="btn btn-default">
