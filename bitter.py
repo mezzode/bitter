@@ -244,10 +244,10 @@ def search_page(parameters, users_dir, bleats_dir):
                             # matches += '<li class="list-group-item">%s</li>\n' % curr_user
                         else:
                             break
-    results = ""
+    user_results = ""
     for match in matches:
         curr_user = user(os.path.join(users_dir,match))
-        results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
+        user_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
 <div class="media">
     <div class="media-left">
         <img class="media-object" src="%s" height="100" width="100">
@@ -258,6 +258,23 @@ def search_page(parameters, users_dir, bleats_dir):
 </div>
 </button>
 """ % (match,curr_user.pic,curr_user.details["full_name"],match)
+    matches = []
+    for curr_bleat in os.listdir(bleats_dir):
+        with open(os.path.join(bleats_dir,curr_bleat)) as f:
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                if field == "bleat":
+                    if search_term.lower() in value.lower():
+                        matches.append(curr_bleat)
+                    else:
+                        break
+    bleat_results = ""
+    for match in matches:
+        # put bleat parsing here or use function
+        bleat_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
+<p>%s</p>
+</button>            
+""" % (match,match)
     return """
 <div class="container">
     <div class="row">
@@ -290,7 +307,8 @@ def search_page(parameters, users_dir, bleats_dir):
                         %s
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="bleats">
-                        <li class="list-group-item"><h3>No results</h3></li>
+                        <!-- <li class="list-group-item"><h3>No results</h3></li> -->
+                        %s
                     </div>
                 </div>
                 </ul>
@@ -324,7 +342,7 @@ def search_page(parameters, users_dir, bleats_dir):
         </div> -->
     </div>
 </div>
-""" % (search_term,results)
+""" % (search_term,user_results,bleat_results)
 
 #
 # HTML placed at the top of every page
