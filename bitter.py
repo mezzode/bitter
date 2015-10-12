@@ -279,13 +279,20 @@ def search_page(parameters, users_dir, bleats_dir):
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Search Results: <small>%s</small></h1>
                     <ul class="nav nav-pills">
-                        <li role="presentation" class="active"><a href="#">Users</a></li>
-                        <li role="presentation"><a href="#">Bleats</a></li>
+                        <li role="presentation" class="active"><a href="#users" data-toggle="pill">Users</a></li>
+                        <li role="presentation"><a href="#bleats" data-toggle="pill">Bleats</a></li>
                         <!-- <li role="presentation"><a href="#">All</a></li> -->
                     </ul>    
                 </div>
                 <ul class="list-group">
-                    %s
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="users">
+                        %s
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="bleats">
+                        <p>ble</p>
+                    </div>
+                </div>
                 </ul>
             </div>
             <nav>
