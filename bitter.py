@@ -290,7 +290,7 @@ def search_page(parameters, users_dir, bleats_dir):
                         %s
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="bleats">
-                        <p>ble</p>
+                        <li class="list-group-item"><h3>No results</h3></li>
                     </div>
                 </div>
                 </ul>
