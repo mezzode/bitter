@@ -91,10 +91,15 @@ def bleat_panel(bleat_id,bleats_dir):
     if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
-    bleat_details += '<div class="btn-group btn-group-sm">\n'
+    bleat_details += '<div class="btn-group btn-group-sm" id="%s-selector">\n' % bleat_id
     bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
     bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
     bleat_details += '</div>\n'
+    bleat_details += """<script>$('#%s-selector').click(function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    // TODO: insert whatever you want to do with $(this) here
+    });
+    </script>\n""" % bleat_id # https://stackoverflow.com/questions/9262827/twitter-bootstrap-onclick-event-on-buttons-radio
     # bleat_details += "</li>\n"
     bleat_details += "</div>\n" # list-group-item
     bleat_details += "</div>\n" # list-group
