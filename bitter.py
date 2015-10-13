@@ -83,31 +83,48 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += '<div class="panel panel-default">\n'
     bleat_details += '<div class="list-group">\n'
     bleat_details += '<div class="list-group-item">\n'
-    bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username']
-    bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat']
-    bleat_details += '<ul class="list-inline">\n'
+    bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
+    bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat'] # bleat
+    bleat_details += '<ul class="list-inline">\n' # metadata
     bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
     if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
-    bleat_details +='<p><a data-toggle="collapse" href="#%s"><small>View conversation</small></a></p>\n' % bleat_id
+    bleat_details +='<p><a data-toggle="collapse" href="#%s-conversations"><small>View conversation</small></a></p>\n' % bleat_id
+    bleat_details +='<p><a data-toggle="collapse" href="#%s-replies"><small>View replies</small></a></p>\n' % bleat_id
     # bleat_details += "</li>\n"
-    bleat_details += "</div>\n</div>\n"
+    bleat_details += "</div>\n" # list-group-item
+    bleat_details += "</div>\n" # list-group
     # bleat_details += "</button>\n"
     # bleat_details += "</div>"
     # previous bleats in conversation:
-    bleat_details += """<div class="collapse panel-collapse" id="%s">
+    bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
     <div class="list-group">
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">Bleat</h4>
-        <p>Bleat here</p>
+        <h4 class="list-group-item-heading">User</h4>
+        <p>Previous 1</p>
         </button>
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">Bleat</h4>
-        <p>Bleat here</p>
+        <h4 class="list-group-item-heading">User</h4>
+        <p>Previous 2</p>
         </button>
     </div>
-</div></div>""" % bleat_id
+</div>
+""" % bleat_id
+    bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
+    <div class="list-group">
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">User</h4>
+        <p>Reply 1</p>
+        </button>
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">User</h4>
+        <p>Reply 2</p>
+        </button>
+    </div>
+</div>
+""" % bleat_id
+    bleat_details += "</div>\n" # panel
     return bleat_details
 
 #
@@ -228,11 +245,11 @@ def user_page(parameters, users_dir, bleats_dir):
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
-            <div class="panel panel-primary">
+            <!-- <div class="panel panel-primary">
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Bleats</h1>
                 </div>
-            </div>
+            </div> -->
                 <!-- <ul class="list-group"> -->
                     <!-- <li class="list-group-item panel-primary">
                         <h1 class="list-group-item-heading">Bleats</h1>
