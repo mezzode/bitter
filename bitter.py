@@ -91,7 +91,7 @@ def bleat_panel(bleat_id,bleats_dir):
     if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
-    bleat_details += '<div class="btn-group btn-group-sm">'
+    bleat_details += '<div class="btn-group btn-group-sm">\n'
     bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
     bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
     bleat_details += '</div>\n'
@@ -428,6 +428,7 @@ def page_header():
         <title>Bitter</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
         <!-- <link href="bitter.css" rel="stylesheet"> -->
         <style>
         body { padding-top: 80px; }
