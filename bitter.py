@@ -122,6 +122,10 @@ def bleat_panel(bleat_id,bleats_dir):
         <h4 class="list-group-item-heading">User</h4>
         <p>Reply 2</p>
         </button>
+        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <h4 class="list-group-item-heading">User</h4>
+        <p>Reply 2</p>
+        </button>
     </div>
 </div>
 """ % bleat_id
