@@ -80,6 +80,7 @@ def bleat_panel(bleat_id,bleats_dir):
             curr_bleat[field] = value
     # bleat_details += '<li class="list-group-item">\n'
     # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
+    bleat_details += '<div id="%s">' % bleat_id
     bleat_details += '<div class="panel panel-default">\n'
     bleat_details += '<div class="list-group">\n'
     bleat_details += '<div class="list-group-item">\n'
@@ -90,8 +91,8 @@ def bleat_panel(bleat_id,bleats_dir):
     if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
-    bleat_details +='<p><a data-toggle="collapse" href="#%s-conversations"><small>View conversation</small></a></p>\n' % bleat_id
-    bleat_details +='<p><a data-toggle="collapse" href="#%s-replies"><small>View replies</small></a></p>\n' % bleat_id
+    bleat_details +='<p><a data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
+    bleat_details +='<a data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a></p>\n' % (bleat_id,bleat_id)
     # bleat_details += "</li>\n"
     bleat_details += "</div>\n" # list-group-item
     bleat_details += "</div>\n" # list-group
@@ -125,6 +126,7 @@ def bleat_panel(bleat_id,bleats_dir):
 </div>
 """ % bleat_id
     bleat_details += "</div>\n" # panel
+    bleat_details += "</div>\n"
     return bleat_details
 
 #
