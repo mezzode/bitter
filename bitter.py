@@ -503,19 +503,33 @@ def page_trailer(parameters):
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script>
-    $('.collapse-link').click(function(){
+    /*$('.collapse-link').mouseup(function(){
         id = this.getAttribute('data-id');
-        active_change($(this),id);
-    });
+        ref = this.getAttribute('href');
+        active_change($(this),id,ref);
+    }); */
 
-    function active_change(item,id){
+    // if panel open, show associated button as active
+    $('.collapse').on('show.bs.collapse', function () {
+        id = this.getAttribute('id');
+        $('.btn[href="#'+id+'"').addClass('active');
+    })
+    
+    // if panel closed, show associated button as inactive
+    $('.collapse').on('hide.bs.collapse', function () {
+        id = this.getAttribute('id');
+        $('.btn[href="#'+id+'"').removeClass('active');
+    })
+
+    /* function active_change(item,id,ref){
+        collapser = item.getElementById("'"+ref.substring(1)+"'"); 
         if ($(item).hasClass('active')){
             $(item).removeClass('active');
-        } else {   
+        } else if $(collapser).hasClass('collapse'){   
             $(".collapse-link[data-id='"+id+"']").removeClass('active');
             $(item).addClass('active');
         }
-    }
+    }*/
     </script>
     """
     html += "</body>\n</html>"
