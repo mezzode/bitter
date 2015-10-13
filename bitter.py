@@ -92,8 +92,8 @@ def bleat_panel(bleat_id,bleats_dir):
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
     bleat_details += "</ul>\n"
     bleat_details += '<div class="btn-group btn-group-sm" id="%s-selector">\n' % bleat_id
-    bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
-    bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
+    bleat_details +='<a class="btn btn-link collapse-link" data-id="%s" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id,bleat_id)
+    bleat_details +='<a class="btn btn-link collapse-link" data-id="%s" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id,bleat_id)
     bleat_details += '</div>\n'
     # bleat_details += "</li>\n"
     bleat_details += "</div>\n" # list-group-item
@@ -503,13 +503,19 @@ def page_trailer(parameters):
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script>
-    $('.btn').click(function(){
-        $('.btn').removeClass('active');
-        var collapseId = $(this).attr("href");
-        if(!$(collapseId).hasClass("in")) { // the bootstrap class "in" when the collapse is expanded
-            $(this).addClass('active');
+    $('.collapse-link').click(function(){
+        id = this.getAttribute('data-id');
+        active_change($(this),id);
+    });
+
+    function active_change(item,id){
+        if ($(item).hasClass('active')){
+            $(item).removeClass('active');
+        } else {   
+            $(".collapse-link[data-id='"+id+"']").removeClass('active');
+            $(item).addClass('active');
         }
-    }) // http://stackoverflow.com/questions/25343872/bootstrap-3-active-class-add-remove-on-button-outside-of-accordion-container
+    }
     </script>
     """
     html += "</body>\n</html>"
