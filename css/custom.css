@@ -1,0 +1,25 @@
+.btn-link:active,
+.btn-link.active,
+.open > .dropdown-toggle.btn-link {
+  color: #444444;
+  background-color: #e6e6e6;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-link:active:hover,
+.btn-link.active:hover,
+.open > .dropdown-toggle.btn-link:hover,
+.btn-link:active:focus,
+.btn-link.active:focus,
+.open > .dropdown-toggle.btn-link:focus,
+.btn-link:active.focus,
+.btn-link.active.focus,
+.open > .dropdown-toggle.btn-link.focus {
+  color: #444444;
+  background-color: #d4d4d4;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-link:active,
+.btn-link.active,
+.open > .dropdown-toggle.btn-link {
+  background-image: none;
+}
