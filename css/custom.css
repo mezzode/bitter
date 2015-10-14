@@ -23,3 +23,7 @@
 .open > .dropdown-toggle.btn-link {
   background-image: none;
 }
+
+textarea {
+    resize: vertical;
+}
