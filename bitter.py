@@ -503,8 +503,13 @@ def page_header():
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Bitter</title>
+        <!-- MDL -->
+        <link href="./material.min.css" rel="stylesheet">
+        <script src="./material.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- My CSS -->
         <link href="css/custom.css" rel="stylesheet">
         <!-- <link href="bitter.css" rel="stylesheet"> -->
         <style>
@@ -512,6 +517,9 @@ def page_header():
         </style>
     </head>
     <body>
+        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button>
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         <nav class="navbar navbar-default navbar-fixed-top">

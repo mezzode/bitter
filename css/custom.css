@@ -27,3 +27,9 @@
 textarea {
     resize: vertical;
 }
+
+.fab-fixed {
+    bottom: 24px;
+    right: 24px;
+    position: fixed;
+}
