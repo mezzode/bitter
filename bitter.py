@@ -115,7 +115,7 @@ def bleat_panel(bleat_id,bleats_dir):
     <!-- <label for="reply-text">Reply</label> -->
     <textarea id="reply-text" placeholder="Your reply" class="form-control" rows="4"></textarea>
     </div>
-    <button type="submit" class="btn btn-link">Submit</button>
+    <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Log in to reply">Submit</button>
 </form>
 </li>
 </ul>
@@ -585,6 +585,10 @@ def page_trailer(parameters):
         ref = this.getAttribute('href');
         active_change($(this),id,ref);
     }); */
+    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
     // if panel open, show associated button as active
     $('.collapse').on('show.bs.collapse', function () {
