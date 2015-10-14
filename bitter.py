@@ -112,14 +112,13 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += """<li class="list-group-item">
     <form id="bleat-reply">
     <div class="form-group">
-    <!-- <label for="reply-text">Reply</label> -->
-    <textarea id="reply-text" placeholder="Your reply" class="form-control" rows="4"></textarea>
+    <textarea placeholder="Your reply" class="form-control" rows="4"></textarea>
     </div>
-    <button type="submit" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Log in to reply">Submit</button>
+    <button type="submit" name="bleat-reply" value="%s" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
 </form>
 </li>
 </ul>
-"""
+""" % bleat_id
     bleat_details += "</ul>\n</div>\n"
     # previous bleats in conversation:
     if precursors:
@@ -590,15 +589,26 @@ def page_trailer(parameters):
         $('[data-toggle="tooltip"]').tooltip()
     })
 
+    $('form').on('input', function () {
+        var area = $("textarea",this);
+        var count = $("textarea",this).val().length;
+        if (count > 0) {
+            $("button",this).attr("disabled",false);
+        } else {
+            $("button",this).attr("disabled","disabled");
+        }
+        // alert(">>"+count);
+    })
+
     // if panel open, show associated button as active
     $('.collapse').on('show.bs.collapse', function () {
-        id = this.getAttribute('id');
+        var id = this.getAttribute('id');
         $('.btn[href="#'+id+'"').addClass('active');
     })
     
     // if panel closed, show associated button as inactive
     $('.collapse').on('hide.bs.collapse', function () {
-        id = this.getAttribute('id');
+        var id = this.getAttribute('id');
         $('.btn[href="#'+id+'"').removeClass('active');
     })
 
