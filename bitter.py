@@ -113,6 +113,7 @@ def bleat_panel(bleat_id,bleats_dir):
     <form id="bleat-reply">
     <div class="form-group">
     <textarea placeholder="Your reply" class="form-control" rows="4"></textarea>
+    <span id="helpBlock" class="help-block pull-right">0/142</span>
     </div>
     <button type="submit" name="bleat-reply" value="%s" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
 </form>
@@ -597,6 +598,7 @@ def page_trailer(parameters):
         } else {
             $("button",this).attr("disabled","disabled");
         }
+        $("span.help-block",this).text(count+'/142');
         // alert(">>"+count);
     })
 
