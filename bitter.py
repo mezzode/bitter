@@ -135,6 +135,57 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += "</div>\n"
     return bleat_details
 
+# take a bleat and return a list of its replies
+def bleat_replies(bleat_id,bleats_dir):
+    replies = ()
+    for curr_bleat in os.listdir(bleats_dir): # sort by time first?
+        with open(os.path.join(bleats_dir,curr_bleat)) as f:
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                if field == "in_reply_to":
+                    if value == bleat_id:
+                        replies.append(curr_bleat)
+                    else:
+                        break
+   return curr_bleat
+
+# take a bleat and return a list of its precursors
+def bleat_conversation(bleat_id,bleats_dir): # pass a dict/object instead of the id?
+    curr_bleat = bleat_id
+    precursors = ()
+    precursor = None
+    bleat_precursor = ""
+    with open(os.path.join(bleats_dir,bleat_id)) as f:
+        for line in f:
+            field, _, value = line.rstrip().partition(": ")
+            if field = "in_reply_to":
+                precursors.append(value)
+                precursor = value
+                break
+    while precursor != None:
+        precursor = None
+        with open(os.path.join(bleats_dir,bleat_id)) as f:
+            for line in f:
+                field, _, value = line.rstrip().partition(": ")
+                if field = "in_reply_to":
+                    precursors.append(value)
+                    precursor = value
+                    break
+    return precursors
+
+def bleat_child(bleat_id,bleats_dir):
+    curr_bleat = {}
+    with open(os.path.join(bleats_dir,bleat_id) as f:
+        for line in f:
+            field, _, value = line.rstrip().partition(": ")
+            curr_bleat[field] = value
+    return """
+    <button type="submit" form="main" name="user" value="%s" class="list-group-item">
+    <h4 class="list-group-item-heading">%s</h4>
+    <p>%s</p>
+    </button>
+""" % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"])
+
 #
 # Show unformatted details for user "n".
 # Increment parameter n and store it as a hidden variable
