@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime
+import cgi, cgitb, glob, os, datetime, re
 
 class user(object):
     """Bitter user"""
@@ -94,26 +94,41 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += "</ul>\n"
     precursors = bleat_conversation(bleat_id,bleats_dir)
     replies = bleat_replies(bleat_id,bleats_dir)
-    if precursors or replies:
-        bleat_details += '<div class="btn-group btn-group-sm">\n'
-        if precursors:
-            bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
-        if replies:
-            bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
-        bleat_details += '</div>\n'
+    bleat_details += '<div class="btn-group btn-group-sm">\n'
+    bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-reply"><small>Reply</small></a>\n' % (bleat_id,bleat_id)
+    if precursors:
+        bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-conversations"><small>View conversation</small></a>\n' % (bleat_id,bleat_id)
+    if replies:
+        bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
+    bleat_details += '</div>\n'
     # bleat_details += "</li>\n"
     bleat_details += "</div>\n" # list-group-item
     bleat_details += "</div>\n" # list-group
     # bleat_details += "</button>\n"
     # bleat_details += "</div>"
+    bleat_details += """<div class="collapse panel-collapse" id="%s-reply">
+    <ul class="list-group">
+""" % (bleat_id)
+    bleat_details += """<li class="list-group-item">
+    <form id="bleat-reply">
+    <div class="form-group">
+    <!-- <label for="reply-text">Reply</label> -->
+    <textarea id="reply-text" placeholder="Your reply" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-link">Submit</button>
+</form>
+</li>
+</ul>
+"""
+    bleat_details += "</ul>\n</div>\n"
     # previous bleats in conversation:
     if precursors:
         bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
-    <div class="list-group">
+    <ul class="list-group">
 """ % (bleat_id)
         for precursor in precursors:
             bleat_details += bleat_child(precursor,bleats_dir)
-        bleat_details += "    </div>\n</div>\n"
+        bleat_details += "    </ul>\n</div>\n"
     if replies:
         bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
     <ul class="list-group">
