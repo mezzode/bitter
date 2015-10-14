@@ -109,37 +109,17 @@ def bleat_panel(bleat_id,bleats_dir):
     if precursors:
         bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
     <div class="list-group">
-        <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">User</h4>
-        <p>Previous 1</p>
-        </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">User</h4>
-        <p>Previous 2</p>
-        </button> -->
 """ % (bleat_id)
         for precursor in precursors:
             bleat_details += bleat_child(precursor,bleats_dir)
         bleat_details += "    </div>\n</div>\n"
     if replies:
         bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
-    <div class="list-group">
-        <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">User</h4>
-        <p>Reply 1</p>
-        </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">User</h4>
-        <p>Reply 2</p>
-        </button>
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
-        <h4 class="list-group-item-heading">User</h4>
-        <p>Reply 2</p>
-        </button> -->
+    <ul class="list-group">
 """ % (bleat_id)
         for reply in replies:
             bleat_details += bleat_child(reply,bleats_dir)
-        bleat_details += "    </div>\n</div>\n"
+        bleat_details += "    </ul>\n</div>\n"
     bleat_details += "</div>\n" # panel
     bleat_details += "</div>\n"
     return bleat_details
@@ -199,14 +179,15 @@ def bleat_child(bleat_id,bleats_dir):
     if "in_reply_to" not in curr_bleat:
         curr_bleat["in_reply_to"] = "N/A"
     bleat_details = ''
-    bleat_details += '<button type="submit" form="main" name="user" value="%s" class="list-group-item">' % curr_bleat['username']
-    bleat_details += '<h4 class="list-group-item-heading"><a class="list-group-item-heading" href="?user=%s">%s</a></h4>\n' % (curr_bleat['username'],curr_bleat['username']) # user
+    bleat_details += '<li class="list-group-item">\n'
+    bleat_details += '<a class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p><!--this:%s in-reply-to:%s-->\n' % (curr_bleat['bleat'],bleat_id,curr_bleat['in_reply_to'])  # bleat
     bleat_details += '<ul class="list-inline">\n' # metadata
     bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
     if 'latitude' in curr_bleat and 'longitude' in curr_bleat:
         bleat_details += '<li><small>Location: %s, %s</small></li>\n' % (curr_bleat['latitude'],curr_bleat['longitude'])
-    bleat_details += '</buttons>\n'
+    bleat_details += "</ul>\n"
+    bleat_details += '</li>\n'
     return bleat_details
     return """
     <button type="submit" form="main" name="user" value="%s" class="list-group-item">
