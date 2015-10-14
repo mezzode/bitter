@@ -200,7 +200,7 @@ def bleat_child(bleat_id,bleats_dir):
         curr_bleat["in_reply_to"] = "N/A"
     bleat_details = ''
     bleat_details += '<button type="submit" form="main" name="user" value="%s" class="list-group-item">' % curr_bleat['username']
-    bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
+    bleat_details += '<h4 class="list-group-item-heading"><a class="list-group-item-heading" href="?user=%s">%s</a></h4>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p><!--this:%s in-reply-to:%s-->\n' % (curr_bleat['bleat'],bleat_id,curr_bleat['in_reply_to'])  # bleat
     bleat_details += '<ul class="list-inline">\n' # metadata
     bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
