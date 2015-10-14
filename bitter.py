@@ -103,20 +103,21 @@ def bleat_panel(bleat_id,bleats_dir):
     # previous bleats in conversation:
     bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
     <div class="list-group">
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
         <p>Previous 1</p>
         </button>
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
         <p>Previous 2</p>
-        </button>
+        </button> -->
+        %s
     </div>
 </div>
-""" % bleat_id
+""" % (bleat_id,bleat_conversation(bleat_id,bleats_dir))
     bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
     <div class="list-group">
-        <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
+        <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
         <p>Reply 1</p>
         </button>
@@ -127,17 +128,18 @@ def bleat_panel(bleat_id,bleats_dir):
         <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
         <p>Reply 2</p>
-        </button>
+        </button> -->
+        %s
     </div>
 </div>
-""" % bleat_id
+""" % (bleat_id,bleat_replies(bleat_id,bleats_dir))
     bleat_details += "</div>\n" # panel
     bleat_details += "</div>\n"
     return bleat_details
 
 # take a bleat and return a list of its replies
 def bleat_replies(bleat_id,bleats_dir):
-    replies = ()
+    replies = []
     for curr_bleat in os.listdir(bleats_dir): # sort by time first?
         with open(os.path.join(bleats_dir,curr_bleat)) as f:
             for line in f:
@@ -147,35 +149,41 @@ def bleat_replies(bleat_id,bleats_dir):
                         replies.append(curr_bleat)
                     else:
                         break
-   return curr_bleat
+    replies_details = ""
+    for curr_bleat in replies:
+         replies_details += bleat_child(curr_bleat,bleats_dir)
+    return replies_details
 
 # take a bleat and return a list of its precursors
 def bleat_conversation(bleat_id,bleats_dir): # pass a dict/object instead of the id?
     curr_bleat = bleat_id
-    precursors = ()
+    precursors = []
     precursor = None
     bleat_precursor = ""
     with open(os.path.join(bleats_dir,bleat_id)) as f:
         for line in f:
             field, _, value = line.rstrip().partition(": ")
-            if field = "in_reply_to":
+            if field == "in_reply_to":
                 precursors.append(value)
                 precursor = value
                 break
     while precursor != None:
-        precursor = None
-        with open(os.path.join(bleats_dir,bleat_id)) as f:
+        with open(os.path.join(bleats_dir,precursor)) as f:
+            precursor = None
             for line in f:
                 field, _, value = line.rstrip().partition(": ")
-                if field = "in_reply_to":
+                if field == "in_reply_to":
                     precursors.append(value)
                     precursor = value
                     break
-    return precursors
+    pre_details = ""
+    for curr_bleat in precursors:
+        pre_details += bleat_child(curr_bleat,bleats_dir)
+    return pre_details
 
 def bleat_child(bleat_id,bleats_dir):
     curr_bleat = {}
-    with open(os.path.join(bleats_dir,bleat_id) as f:
+    with open(os.path.join(bleats_dir,bleat_id)) as f:
         for line in f:
             field, _, value = line.rstrip().partition(": ")
             curr_bleat[field] = value
