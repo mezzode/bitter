@@ -106,7 +106,8 @@ def bleat_panel(bleat_id,bleats_dir):
     # bleat_details += "</button>\n"
     # bleat_details += "</div>"
     # previous bleats in conversation:
-    bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
+    if precursors:
+        bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
     <div class="list-group">
         <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
@@ -117,10 +118,11 @@ def bleat_panel(bleat_id,bleats_dir):
         <p>Previous 2</p>
         </button> -->
 """ % (bleat_id)
-    for precursor in precursors:
-        bleat_details += bleat_child(precursor,bleats_dir)
-    bleat_details += "    </div>\n</div>\n"
-    bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
+        for precursor in precursors:
+            bleat_details += bleat_child(precursor,bleats_dir)
+        bleat_details += "    </div>\n</div>\n"
+    if replies:
+        bleat_details += """<div class="collapse panel-collapse" id="%s-replies">
     <div class="list-group">
         <!-- <button type="submit" form="main" name="user" value="VitaliKlitschko" class="list-group-item">
         <h4 class="list-group-item-heading">User</h4>
@@ -135,9 +137,9 @@ def bleat_panel(bleat_id,bleats_dir):
         <p>Reply 2</p>
         </button> -->
 """ % (bleat_id)
-    for reply in replies:
-        bleat_details += bleat_child(reply,bleats_dir)
-    bleat_details += "    </div>\n</div>\n"
+        for reply in replies:
+            bleat_details += bleat_child(reply,bleats_dir)
+        bleat_details += "    </div>\n</div>\n"
     bleat_details += "</div>\n" # panel
     bleat_details += "</div>\n"
     return bleat_details
@@ -194,12 +196,14 @@ def bleat_child(bleat_id,bleats_dir):
         for line in f:
             field, _, value = line.rstrip().partition(": ")
             curr_bleat[field] = value
+    if "in_reply_to" not in curr_bleat:
+        curr_bleat["in_reply_to"] = "N/A"
     return """
     <button type="submit" form="main" name="user" value="%s" class="list-group-item">
     <h4 class="list-group-item-heading">%s</h4>
-    <p>%s</p>
+    <p>%s</p> <!--this:%s in-reply-to:%s-->
     </button>
-""" % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"])
+""" % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"],bleat_id, curr_bleat["in_reply_to"])
 
 #
 # Show unformatted details for user "n".
