@@ -84,7 +84,8 @@ def bleat_panel(bleat_id,bleats_dir):
     bleat_details += '<div class="panel panel-default">\n'
     bleat_details += '<div class="list-group">\n'
     bleat_details += '<div class="list-group-item">\n'
-    bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
+    # bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
+    bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat'] # bleat
     bleat_details += '<ul class="list-inline">\n' # metadata
     bleat_details += datetime.datetime.fromtimestamp(int(curr_bleat['time'])).strftime('<li><small>%I:%M:%S %p</small></li>\n<li><small>%A, %d %B %Y</small></li>\n')
