@@ -518,7 +518,7 @@ def page_header():
     </head>
     <body>
         <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat">
-            <i class="material-icons">add</i>
+            <i class="material-icons">create</i>
         </button>
         <div class="modal fade" id="new-bleat" tabindex="-1" role="dialog">
             <div class="modal-dialog">
