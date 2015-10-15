@@ -353,7 +353,7 @@ def user_page(parameters, users_dir, bleats_dir):
             <form method="POST" action=""><!-- id="main"> -->
                 <input type="hidden" name="n" value="%s">
                 <input type="submit" value="Next user" class="btn btn-default">
-                <input type="button" value="Listen" class="btn btn-default alerter" href="#listen-alert"> <!-- onclick="$('.alert').show()"> -->
+                <input type="button" value="Listen" class="btn btn-default toaster" href="#listen-alert"> <!-- onclick="$('.alert').show()"> -->
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
@@ -674,7 +674,8 @@ def page_trailer(parameters):
         $('.btn[href="#'+id+'"').removeClass('active');
     })
 
-    $('.alerter').click(function() {
+    // toggle hiding of toasts
+    $('.toaster').click(function() {
         var alert = this.getAttribute('href');
         if ($(alert).hasClass('in')){
             $(alert).removeClass('in');
@@ -682,11 +683,6 @@ def page_trailer(parameters):
             $(alert).addClass('in');
         }
     })
-
-    // close button
-    /*$('.close').click(function() {
-        $('.alert').hide();
-    })*/
 
     /* function active_change(item,id,ref){
         collapser = item.getElementById("'"+ref.substring(1)+"'"); 
