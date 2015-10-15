@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime, re
+import cgi, cgitb, glob, os, datetime, time, re
 
 class user(object):
     """Bitter user"""
@@ -66,8 +66,14 @@ def main():
     print page_trailer(parameters)
 
 def new_bleat(parameters, users_dir, bleats_dir):
-    text = cgi.escape(parameters['new-bleat'].value)
-    print text
+    text = parameters.getvalue('new-bleat')
+    user = parameters.getvalue('new-bleat-user')
+    reply = parameters.getvalue('new-bleat-reply',None)
+    # text = cgi.escape(parameters['new-bleat'].value)
+    # user = cgi.escape(parameters['new-bleat-user'].value)
+    # reply = cgi.escape(parameters['new-bleat-reply'].value)
+    curr_time = int(time.time())
+    print text,"by",user,"at",curr_time
     return
 
 def main_form():
@@ -539,6 +545,7 @@ def page_header():
                     <div class="modal-body">
                         <!-- <p>Test</p> -->
                         <form id="bleat-reply" method="POST">
+                        <input type="hidden" name="new-bleat-user" value="test_user">
                         <div class="form-group">
                         <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
                         <span id="helpBlock" class="help-block pull-right">0/142</span>
