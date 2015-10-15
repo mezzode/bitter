@@ -100,16 +100,19 @@ def main_form():
 
 def add_listen(parameters,users_dir,bleats_dir):
     user = parameters.getvalue('listen')
-    with open(os.path.join(users_dir,"test_user",'details.txt'),'r+') as f:
+    lines = []
+    field = ""
+    with open(os.path.join(users_dir,"test_user",'details.txt')) as f:
         lines = f.readlines()
-        for index, line in enumerate(lines):
-            field, _, value = line.rstrip().partition(": ")
-            if field == "listens":
-                lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
-                # could use split and join?
-                break
-        # if field != "listens": # if no listens
-        #    lines.append("listens: " + user + "\n")
+    for index, line in enumerate(lines):
+        field, _, value = line.rstrip().partition(": ")
+        if field == "listens":
+            lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
+            # could use split and join?
+            break
+    if field != "listens": # if no listens
+        lines.append("listens: " + user + "\n")
+    with open(os.path.join(users_dir,"test_user",'details.txt'),'w') as f:
         f.writelines(lines)
 
 def bleat_panels(bleats,bleats_dir): # list of bleats
