@@ -568,8 +568,8 @@ def page_header():
                 </div>
             </div>
         </div><!-- New Bleat Modal -->
-        <div class="alert alert-info toast fade" id="listen-alert" role="alert">
-            <button type="button" class="close"><span>&times;</span></button>
+        <div class="alert alert-info alert-dismissible toast fade in" id="listen-alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
             You are now following <strong>this user</strong>.
         </div>
         <!-- <div class="bitter_heading">Bitter</div> -->
