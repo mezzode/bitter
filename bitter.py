@@ -517,9 +517,18 @@ def page_header():
         </style>
     </head>
     <body>
-        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat">
             <i class="material-icons">add</i>
         </button>
+        <div class="modal fade" id="new-bleat" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Test</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         <nav class="navbar navbar-default navbar-fixed-top">
