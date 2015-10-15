@@ -124,6 +124,7 @@ def add_listen(parameters,users_dir,bleats_dir):
             break
     if field != "listens": # if no listens
         lines.append("listens: " + user + "\n")
+        message = "You are now listening to"
     with open(os.path.join(users_dir,"test_user",'details.txt'),'w') as f:
         f.writelines(lines)
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
