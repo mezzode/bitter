@@ -303,7 +303,7 @@ def user_page(parameters, users_dir, bleats_dir):
     listen_details = '<h3 class="list-group-item-heading">Listens</h3>\n'
     listen_details += '<div class="list-group">\n'
     listens = curr_user.details["listens"]
-    for listen in listens.split(' '):
+    for listen in listens.split():
         curr_listen = user(os.path.join(users_dir,listen))
         listen_details += '<a href="?user=%s" class="list-group-item">\n'% listen
         listen_details += '<div class="media">\n'
@@ -316,6 +316,11 @@ def user_page(parameters, users_dir, bleats_dir):
         listen_details += '</div>\n'
         listen_details += '</a>\n'
     listen_details += '</div>\n'
+    active_user = user(os.path.join(users_dir,"test_user"))
+    if curr_user.details['username'] in active_user.details["listens"].split():
+        listen_button = "Stop Listening"
+    else:
+        listen_button = "Listen"
 #     bleat_details = ""
 #     curr_bleat = {}
 #     for bleat_id in curr_user.bleats:
@@ -386,7 +391,7 @@ def user_page(parameters, users_dir, bleats_dir):
             <form method="POST"><!-- id="main"> -->
                 <!-- <input type="hidden" name="n" value="%s">
                 <input type="submit" value="Next user" class="btn btn-default">-->
-                <button type="submit" name="listen" value="%s" class="btn btn-default toaster" href="#listen-alert">Listen</button> <!-- onclick="$('.alert').show()"> -->
+                <button type="submit" name="listen" value="%s" class="btn btn-default toaster" href="#listen-alert">%s</button> <!-- onclick="$('.alert').show()"> -->
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
@@ -431,7 +436,7 @@ def user_page(parameters, users_dir, bleats_dir):
         </div>
     </div>
 </div>
-""" % (curr_user.pic, details, listen_details,home_details, n+1, curr_user.details['username'],bleat_panels(curr_user.bleats,bleats_dir)) 
+""" % (curr_user.pic, details, listen_details,home_details, n+1, curr_user.details['username'],listen_button,bleat_panels(curr_user.bleats,bleats_dir)) 
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term','')
