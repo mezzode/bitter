@@ -107,7 +107,8 @@ def add_listen(parameters,users_dir,bleats_dir):
     for index, line in enumerate(lines):
         field, _, value = line.rstrip().partition(": ")
         if field == "listens":
-            lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
+            if user not in value.split():
+                lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
             # could use split and join?
             break
     if field != "listens": # if no listens
