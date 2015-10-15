@@ -57,7 +57,7 @@ def main():
     if parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters,users_dir,bleats_dir)
-    elif parameters.getvalue('user') != None:
+    if parameters.getvalue('user') != None:
         print user_page(parameters, users_dir, bleats_dir)
     elif parameters.getvalue('search_term') != None:
         print search_page(parameters,users_dir,bleats_dir)
@@ -73,7 +73,7 @@ def new_bleat(parameters, users_dir, bleats_dir):
     # user = cgi.escape(parameters['new-bleat-user'].value)
     # reply = cgi.escape(parameters['new-bleat-reply'].value)
     curr_time = int(time.time())
-    print text,"by",user,"at",curr_time 
+    # print text,"by",user,"at",curr_time,"to",reply
     bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
     with open(os.path.join(users_dir,user,"bleats.txt"),"a") as f:
         f.write(bleat_id+"\n")
@@ -83,6 +83,11 @@ def new_bleat(parameters, users_dir, bleats_dir):
         f.write("username: %s\n" % user)
         if reply != None:
             f.write("in_reply_to: %s\n" % reply)
+    print """<div class="alert alert-success alert-dismissible toast fade in" id="bleat-alert" role="alert">
+<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+Bleat successful!
+</div>
+    """
     return
 
 def main_form():
@@ -568,10 +573,10 @@ def page_header():
                 </div>
             </div>
         </div><!-- New Bleat Modal -->
-        <div class="alert alert-info alert-dismissible toast fade in" id="listen-alert" role="alert">
+        <!-- <div class="alert alert-info alert-dismissible toast fade in" id="listen-alert" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
             You are now following <strong>this user</strong>.
-        </div>
+        </div> -->
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         <nav class="navbar navbar-default navbar-fixed-top">
