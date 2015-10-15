@@ -73,8 +73,7 @@ def new_bleat(parameters, users_dir, bleats_dir):
     # user = cgi.escape(parameters['new-bleat-user'].value)
     # reply = cgi.escape(parameters['new-bleat-reply'].value)
     curr_time = int(time.time())
-    print text,"by",user,"at",curr_time
-    
+    print text,"by",user,"at",curr_time 
     bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
     with open(os.path.join(users_dir,user,"bleats.txt"),"a") as f:
         f.write(bleat_id+"\n")
@@ -135,12 +134,14 @@ def bleat_panel(bleat_id,bleats_dir):
     <ul class="list-group">
 """ % (bleat_id)
     bleat_details += """<li class="list-group-item">
-    <form id="bleat-reply">
+    <form id="bleat-reply" method="POST">
+    <input type="hidden" name="new-bleat-user" value="test_user">
+    <input type="hidden" name="new-bleat-reply" value="%s">
     <div class="form-group">
-    <textarea placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
+    <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
     <span id="helpBlock" class="help-block pull-right">0/142</span>
     </div>
-    <button type="submit" name="bleat-reply" value="%s" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+    <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
 </form>
 </li>
 </ul>
