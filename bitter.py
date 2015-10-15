@@ -114,6 +114,12 @@ def add_listen(parameters,users_dir,bleats_dir):
         lines.append("listens: " + user + "\n")
     with open(os.path.join(users_dir,"test_user",'details.txt'),'w') as f:
         f.writelines(lines)
+    print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
+<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+You are now listening to <strong>%s</strong>.
+</div>
+    """ % user
+    return
 
 def bleat_panels(bleats,bleats_dir): # list of bleats
     bleat_details = ""
