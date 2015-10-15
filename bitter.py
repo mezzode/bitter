@@ -20,6 +20,8 @@ class user(object):
                 # if field == "listens":
                     # list?
                 self.details[field] = value
+            if "listens" not in self.details:
+                self.details['listens'] = ''
         with open(os.path.join(user_dir,"bleats.txt")) as f:
             # self.bleats = f.readlines() # has newlines
             self.bleats = f.read().split()
@@ -114,7 +116,10 @@ def add_listen(parameters,users_dir,bleats_dir):
                 message = "You are now listening to"
             else: # unlisten
                 listens.remove(user)
-                lines[index] = field + ": " + ' '.join(listens) + "\n"
+                if listens: # if there are still listens
+                    lines[index] = field + ": " + ' '.join(listens) + "\n"
+                else:
+                    del lines[index]
                 message = "You have stopped listening to"
             break
     if field != "listens": # if no listens
