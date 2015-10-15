@@ -75,6 +75,7 @@ def new_bleat(parameters, users_dir, bleats_dir):
     curr_time = int(time.time())
     # print text,"by",user,"at",curr_time,"to",reply
     bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
+    bleat_type = "Bleat"
     with open(os.path.join(users_dir,user,"bleats.txt"),"a") as f:
         f.write(bleat_id+"\n")
     with open(os.path.join(bleats_dir,bleat_id),"w") as f:
@@ -83,11 +84,12 @@ def new_bleat(parameters, users_dir, bleats_dir):
         f.write("username: %s\n" % user)
         if reply != None:
             f.write("in_reply_to: %s\n" % reply)
+            bleat_type = "Reply"
     print """<div class="alert alert-success alert-dismissible toast fade in" id="bleat-alert" role="alert">
 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-Bleat successful!
+%s successful!
 </div>
-    """
+    """ % bleat_type
     return
 
 def main_form():
