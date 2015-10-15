@@ -74,6 +74,16 @@ def new_bleat(parameters, users_dir, bleats_dir):
     # reply = cgi.escape(parameters['new-bleat-reply'].value)
     curr_time = int(time.time())
     print text,"by",user,"at",curr_time
+    
+    bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
+    with open(os.path.join(users_dir,user,"bleats.txt"),"a") as f:
+        f.write(bleat_id+"\n")
+    with open(os.path.join(bleats_dir,bleat_id),"w") as f:
+        f.write("time: %s\n" % curr_time)
+        f.write("bleat: %s\n" % text)
+        f.write("username: %s\n" % user)
+        if reply != None:
+            f.write("in_reply_to: %s\n" % reply)
     return
 
 def main_form():
