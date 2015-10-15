@@ -53,13 +53,21 @@ def main():
     bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
     print main_form()
-    if parameters.getvalue('user') != None:
+    if parameters.getvalue('new-bleat') != None:
+        # new bleat
+        new_bleat(parameters,users_dir,bleats_dir)
+    elif parameters.getvalue('user') != None:
         print user_page(parameters, users_dir, bleats_dir)
     elif parameters.getvalue('search_term') != None:
         print search_page(parameters,users_dir,bleats_dir)
     else:
         print user_page(parameters, users_dir, bleats_dir)
     print page_trailer(parameters)
+
+def new_bleat(parameters, users_dir, bleats_dir):
+    text = cgi.escape(parameters['new-bleat'].value)
+    print text
+    return
 
 def main_form():
     return """<form method="POST" action="" id="main">
@@ -517,10 +525,10 @@ def page_header():
         </style>
     </head>
     <body>
-        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat">
+        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
             <i class="material-icons">create</i>
         </button>
-        <div class="modal fade" id="new-bleat" tabindex="-1" role="dialog">
+        <div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -529,12 +537,12 @@ def page_header():
                     </div>
                     <div class="modal-body">
                         <!-- <p>Test</p> -->
-                        <form id="bleat-reply">
+                        <form id="bleat-reply" method="POST">
                         <div class="form-group">
-                        <textarea placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
+                        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
                         <span id="helpBlock" class="help-block pull-right">0/142</span>
                         </div>
-                        <button type="submit" name="bleat-reply" value="%s" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+                        <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
                         </form>
                     </div>
                 </div>
