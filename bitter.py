@@ -102,14 +102,20 @@ def add_listen(parameters,users_dir,bleats_dir):
     user = parameters.getvalue('listen')
     lines = []
     field = ""
+    message = ""
     with open(os.path.join(users_dir,"test_user",'details.txt')) as f:
         lines = f.readlines()
     for index, line in enumerate(lines):
         field, _, value = line.rstrip().partition(": ")
         if field == "listens":
-            if user not in value.split():
-                lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
-            # could use split and join?
+            listens = value.split()
+            if user not in listens: # listen
+                lines[index] = field + ": " + value.rstrip() + " " + user + "\n"
+                message = "You are now listening to"
+            else: # unlisten
+                listens.remove(user)
+                lines[index] = field + ": " + ' '.join(listens) + "\n"
+                message = "You have stopped listening to"
             break
     if field != "listens": # if no listens
         lines.append("listens: " + user + "\n")
@@ -117,9 +123,9 @@ def add_listen(parameters,users_dir,bleats_dir):
         f.writelines(lines)
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-You are now listening to <strong>%s</strong>.
+%s <strong>%s</strong>.
 </div>
-    """ % user
+    """ % (message,user)
     return
 
 def bleat_panels(bleats,bleats_dir): # list of bleats
