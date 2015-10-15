@@ -21,7 +21,8 @@ class user(object):
                     # list?
                 self.details[field] = value
         with open(os.path.join(user_dir,"bleats.txt")) as f:
-            self.bleats = f.readlines()
+            # self.bleats = f.readlines() # has newlines
+            self.bleats = f.read().split()
             self.bleats.sort(reverse=True)
 
     def details_basic(self):
