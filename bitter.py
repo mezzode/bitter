@@ -57,6 +57,8 @@ def main():
     if parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters,users_dir,bleats_dir)
+    elif parameters.getvalue('listen') != None:
+        add_listen(parameters,users_dir,bleats_dir)
     if parameters.getvalue('user') != None:
         print user_page(parameters, users_dir, bleats_dir)
     elif parameters.getvalue('search_term') != None:
@@ -95,6 +97,20 @@ def new_bleat(parameters, users_dir, bleats_dir):
 def main_form():
     return """<form method="POST" action="" id="main">
 </form>"""
+
+def add_listen(parameters,users_dir,bleats_dir):
+    user = parameters.getvalue('listen')
+    with open(os.path.join(users_dir,"test_user",'details.txt'),'r+') as f:
+        lines = f.readlines()
+        for index, line in enumerate(lines):
+            field, _, value = line.rstrip().partition(": ")
+            if field == "listens":
+                lines[index] = field + ": " + value.rstrip() + " " + user + "\n" 
+                # could use split and join?
+                break
+        # if field != "listens": # if no listens
+        #    lines.append("listens: " + user + "\n")
+        f.writelines(lines)
 
 def bleat_panels(bleats,bleats_dir): # list of bleats
     bleat_details = ""
@@ -258,7 +274,7 @@ def user_page(parameters, users_dir, bleats_dir):
         users = sorted(glob.glob(os.path.join(users_dir, "*")))
         user_to_show  = users[n % len(users)]
     curr_user = user(user_to_show)
-    if curr_user.details["full_name"] != None:
+    if "full_name" in curr_user.details:
         details = "<h1>%s<br><small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
         # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
     else:
@@ -357,10 +373,10 @@ def user_page(parameters, users_dir, bleats_dir):
                 </ul>
             </div>
             <p>
-            <form method="POST" action=""><!-- id="main"> -->
-                <input type="hidden" name="n" value="%s">
-                <input type="submit" value="Next user" class="btn btn-default">
-                <input type="button" value="Listen" class="btn btn-default toaster" href="#listen-alert"> <!-- onclick="$('.alert').show()"> -->
+            <form method="POST"><!-- id="main"> -->
+                <!-- <input type="hidden" name="n" value="%s">
+                <input type="submit" value="Next user" class="btn btn-default">-->
+                <button type="submit" name="listen" value="%s" class="btn btn-default toaster" href="#listen-alert">Listen</button> <!-- onclick="$('.alert').show()"> -->
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
@@ -405,7 +421,7 @@ def user_page(parameters, users_dir, bleats_dir):
         </div>
     </div>
 </div>
-""" % (curr_user.pic, details, listen_details,home_details, n + 1,bleat_panels(curr_user.bleats,bleats_dir)) 
+""" % (curr_user.pic, details, listen_details,home_details, n+1, curr_user.details['username'],bleat_panels(curr_user.bleats,bleats_dir)) 
 
 def search_page(parameters, users_dir, bleats_dir):
     search_term = parameters.getvalue('search_term','')
