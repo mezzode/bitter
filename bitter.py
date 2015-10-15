@@ -279,7 +279,7 @@ def user_page(parameters, users_dir, bleats_dir):
     listens = curr_user.details["listens"]
     for listen in listens.split(' '):
         curr_listen = user(os.path.join(users_dir,listen))
-        listen_details += '<button type="submit" form="main" name="user" value=%s class="list-group-item">\n'% listen
+        listen_details += '<a href="?user=%s" class="list-group-item">\n'% listen
         listen_details += '<div class="media">\n'
         listen_details += '    <div class="media-left">\n'
         listen_details += '        <img class="media-object" src="%s" height="64" width="64">\n' % curr_listen.pic
@@ -288,7 +288,7 @@ def user_page(parameters, users_dir, bleats_dir):
         listen_details += '        <h4 class="media-heading">%s<br><small>%s</small></h4>\n' % (curr_listen.details["full_name"],listen)
         listen_details += '    </div>\n'
         listen_details += '</div>\n'
-        listen_details += '</button>\n'
+        listen_details += '</a>\n'
     listen_details += '</div>\n'
 #     bleat_details = ""
 #     curr_bleat = {}
