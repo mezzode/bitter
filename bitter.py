@@ -353,6 +353,7 @@ def user_page(parameters, users_dir, bleats_dir):
             <form method="POST" action=""><!-- id="main"> -->
                 <input type="hidden" name="n" value="%s">
                 <input type="submit" value="Next user" class="btn btn-default">
+                <input type="button" value="Listen" class="btn btn-default alerter" href="#listen-alert"> <!-- onclick="$('.alert').show()"> -->
             </form>
         </div>
         <div class="col-md-6 col-sm-7">
@@ -566,6 +567,10 @@ def page_header():
                     </div>
                 </div>
             </div>
+        </div><!-- New Bleat Modal -->
+        <div class="alert alert-info toast fade" id="listen-alert" role="alert">
+            <button type="button" class="close"><span>&times;</span></button>
+            You are now following <strong>this user</strong>.
         </div>
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
@@ -668,6 +673,20 @@ def page_trailer(parameters):
         var id = this.getAttribute('id');
         $('.btn[href="#'+id+'"').removeClass('active');
     })
+
+    $('.alerter').click(function() {
+        var alert = this.getAttribute('href');
+        if ($(alert).hasClass('in')){
+            $(alert).removeClass('in');
+        } else {
+            $(alert).addClass('in');
+        }
+    })
+
+    // close button
+    /*$('.close').click(function() {
+        $('.alert').hide();
+    })*/
 
     /* function active_change(item,id,ref){
         collapser = item.getElementById("'"+ref.substring(1)+"'"); 

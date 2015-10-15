@@ -34,3 +34,12 @@ textarea {
     position: fixed;
     z-index: 1000;
 }
+
+.toast {
+    width: 500px;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    margin-left: -250px;
+    z-index: 1000;
+}
