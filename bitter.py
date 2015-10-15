@@ -523,8 +523,19 @@ def page_header():
         <div class="modal fade" id="new-bleat" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h4 class="modal-title">New Bleat</h4>
+                    </div>
                     <div class="modal-body">
-                        <p>Test</p>
+                        <!-- <p>Test</p> -->
+                        <form id="bleat-reply">
+                        <div class="form-group">
+                        <textarea placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
+                        <span id="helpBlock" class="help-block pull-right">0/142</span>
+                        </div>
+                        <button type="submit" name="bleat-reply" value="%s" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
