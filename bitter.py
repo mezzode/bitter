@@ -12,12 +12,12 @@ bleats_dir = "dataset-%s/bleats"% dataset_size
 
 class user(object):
     """Bitter user"""
-    def __init__(self, user_dir):
+    def __init__(self, user):
         # super(user, self).__init__()
         # self.arg = arg
         self.details = {}
-        self.pic = os.path.join(user_dir,"profile.jpg")
-        with open(os.path.join(user_dir,"details.txt")) as f:
+        self.pic = os.path.join(users_dir,user,"profile.jpg")
+        with open(os.path.join(users_dir,user,"details.txt")) as f:
             # details = f.read()
             for line in f:
                 field, _, value = line.rstrip().partition(": ")
@@ -26,7 +26,7 @@ class user(object):
                 self.details[field] = value
             if "listens" not in self.details:
                 self.details['listens'] = ''
-        with open(os.path.join(user_dir,"bleats.txt")) as f:
+        with open(os.path.join(users_dir,user,"bleats.txt")) as f:
             # self.bleats = f.readlines() # has newlines
             self.bleats = f.read().split()
             self.bleats.sort(reverse=True)
@@ -70,7 +70,8 @@ def main():
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
-        print user_page(parameters)
+        # print user_page(parameters)
+        print "Dashboard\n"
     print page_trailer(parameters)
 
 def new_bleat(parameters):
@@ -292,14 +293,14 @@ def bleat_child(bleat_id):
 # Increment parameter n and store it as a hidden variable
 #
 def user_page(parameters):
-    n = int(parameters.getvalue('n', 0))
-    user_to_show = parameters.getvalue('user','')
-    if user_to_show != '':
-        user_to_show = os.path.join(users_dir,user_to_show)
-    else:
-        users = sorted(glob.glob(os.path.join(users_dir, "*")))
-        user_to_show  = users[n % len(users)]
-    curr_user = user(user_to_show)
+    # n = int(parameters.getvalue('n', 0))
+    username = parameters.getvalue('user')
+    # if user_to_show != '':
+    #     user_to_show = os.path.join(users_dir,user_to_show)
+    # else:
+    #    users = sorted(glob.glob(os.path.join(users_dir, "*")))
+    #    user_to_show  = users[n % len(users)]
+    curr_user = user(username)
     if "full_name" in curr_user.details:
         details = "<h1>%s<br><small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
         # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
@@ -320,7 +321,7 @@ def user_page(parameters):
     listen_details += '<div class="list-group">\n'
     listens = curr_user.details["listens"]
     for listen in listens.split():
-        curr_listen = user(os.path.join(users_dir,listen))
+        curr_listen = user(listen)
         listen_details += '<a href="?user=%s" class="list-group-item">\n'% listen
         listen_details += '<div class="media">\n'
         listen_details += '    <div class="media-left">\n'
@@ -332,7 +333,7 @@ def user_page(parameters):
         listen_details += '</div>\n'
         listen_details += '</a>\n'
     listen_details += '</div>\n'
-    active_user = user(os.path.join(users_dir,"test_user"))
+    active_user = user("test_user")
     if curr_user.details['username'] in active_user.details["listens"].split():
         listen_button = "Stop Listening"
     else:
@@ -428,7 +429,7 @@ def search_page(parameters):
                             break
     user_results = ""
     for match in matches:
-        curr_user = user(os.path.join(users_dir,match))
+        curr_user = user(match)
         user_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
 <div class="media">
     <div class="media-left">
