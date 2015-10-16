@@ -629,7 +629,7 @@ def navbar():
                         <span class="icon-bar"></span>  
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Bitter</a>
+                    <a class="navbar-brand" href="?">Bitter</a>
                     <!-- <input type="reset" class="navbar-brand" value="Bitter"> -->
                 </div>
 
@@ -640,8 +640,8 @@ def navbar():
                         <li class="active"><input type="submit" value="New Bleat" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
                     </ul> -->
                     <form class="navbar-form navbar-left" id="search" role="search">
-                    <input type="submit" value="Home" class="btn btn-link" name=".defaults">
-                    <input type="submit" value="Bleats" class="btn btn-link">
+                    <!-- <input type="submit" value="Home" class="btn btn-link" name=".defaults">
+                    <input type="submit" value="Bleats" class="btn btn-link"> -->
                     <div class="input-group">
                         <!-- <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></button>
