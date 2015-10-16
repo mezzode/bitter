@@ -439,7 +439,7 @@ def search_page(parameters, users_dir, bleats_dir):
     </div>
 </div>
 </button>
-""" % (match,curr_user.pic,curr_user.details["full_name"],match)
+""" % (match,curr_user.pic,curr_user.details["username"],match)
     matches = []
     for curr_bleat in os.listdir(bleats_dir):
         with open(os.path.join(bleats_dir,curr_bleat)) as f:
