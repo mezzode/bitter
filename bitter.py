@@ -53,46 +53,22 @@ class bleat(object):
 
 def main():
     print "Content-Type: text/html"
-    print # end header
     cgitb.enable()
-    # dataset_size = "small" 
-    # users_dir = "dataset-%s/users"% dataset_size
-    # bleats_dir = "dataset-%s/bleats"% dataset_size
-    # bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
+    if parameters.getvalue('password') != None and parameters.getvalue('username') != None:
+        authenticate(parameters)
+    print # end header
     active_user = None
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         if "session" in cookie:
             session = cookie["session"].value
-            # parse/validate session_id here; uuid?
-        # for morsel in cookie:
-            # print morsel
+            with open("sessions.txt") as f:
+                lines = readlines()
+                if (session + "\n") in lines:
+                    active_user, _ = session.split()
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
-    if parameters.getvalue('password') != None and parameters.getvalue('username') != None:
-        # cookies are in header so need to move this
-        # validate; if username and pass do not match the records, divert to incorrect pass screen
-        username = parameters.getvalue('username')
-        password = parameters.getvalue('password')
-        # with open(os.path.join(users_dir,username,'details.txt') as f:
-        curr_user = user(username)
-        if password != curr_user.details['password']:   
-            pass # wrong password
-        else:
-            # right password
-            cookie = Cookie.SimpleCookie()
-            # session_id = random.getrandbits(128)
-            session_id = uuid.uuid4()
-            session = username + " " + str(session_id)
-            cookie['session'] = session
-            if parameters.getvalue('remember-me'): # for 30 days
-                # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-                # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
-                cookie['session']['max-age'] = 60 * 60 * 24 * 30
-            with open('sessions.txt','a') as f:
-                f.write(session+"\n")
-            print cookie
     print page_header()
     print main_form()
     if parameters.getvalue('new-bleat') != None:
@@ -108,6 +84,29 @@ def main():
         # print user_page(parameters)
         print "Dashboard\n"
     print page_trailer(parameters)
+
+def authenticate(parameters):
+    # validate; if username and pass do not match the records, divert to incorrect pass screen
+    username = parameters.getvalue('username')
+    password = parameters.getvalue('password')
+    # with open(os.path.join(users_dir,username,'details.txt') as f:
+    curr_user = user(username)
+    if password != curr_user.details['password']:   
+        pass # wrong password
+    else:
+        # right password
+        cookie = Cookie.SimpleCookie()
+        # session_id = random.getrandbits(128)
+        session_id = uuid.uuid4()
+        session = username + " " + str(session_id)
+        cookie['session'] = session
+        if parameters.getvalue('remember-me'): # for 30 days
+            # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
+            # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
+            cookie['session']['max-age'] = 60 * 60 * 24 * 30
+        with open('sessions.txt','a') as f:
+            f.write(session+"\n")
+        print cookie + "\n"
 
 def new_bleat(parameters):
     text = parameters.getvalue('new-bleat')
