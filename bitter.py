@@ -420,6 +420,7 @@ def user_page(parameters, users_dir, bleats_dir):
                 <!-- </ul> -->
             <!-- </div> -->
             <nav>
+              <div class="text-center">
               <ul class="pagination">
                 <li class="disabled">
                   <a href="#" aria-label="Previous">
@@ -437,6 +438,7 @@ def user_page(parameters, users_dir, bleats_dir):
                   </a>
                 </li>
               </ul>
+              </div>
             </nav>
         </div>
         <div class="col-md-3 col-sm-5">
