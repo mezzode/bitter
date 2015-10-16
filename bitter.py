@@ -62,18 +62,18 @@ def main():
     print main_form()
     if parameters.getvalue('new-bleat') != None:
         # new bleat
-        new_bleat(parameters,users_dir,bleats_dir)
+        new_bleat(parameters)
     elif parameters.getvalue('listen') != None:
-        add_listen(parameters,users_dir,bleats_dir)
+        add_listen(parameters)
     if parameters.getvalue('user') != None:
         print user_page(parameters)
-    elif parameters.getvalue('search_term') != None:
-        print search_page(parameters,users_dir,bleats_dir)
+    elif parameters.getvalue('search') != None:
+        print search_page(parameters)
     else:
-        print user_page(parameters, users_dir, bleats_dir)
+        print user_page(parameters)
     print page_trailer(parameters)
 
-def new_bleat(parameters, users_dir, bleats_dir):
+def new_bleat(parameters):
     text = parameters.getvalue('new-bleat')
     user = parameters.getvalue('new-bleat-user')
     reply = parameters.getvalue('new-bleat-reply',None)
@@ -104,7 +104,7 @@ def main_form():
     return """<form method="POST" action="" id="main">
 </form>"""
 
-def add_listen(parameters,users_dir,bleats_dir):
+def add_listen(parameters):
     user = parameters.getvalue('listen')
     lines = []
     field = ""
@@ -408,8 +408,8 @@ def user_page(parameters):
 </div>
 """ % (curr_user.pic, details, listen_details,home_details, curr_user.details['username'],listen_button,bleat_panels(curr_user.bleats)) 
 
-def search_page(parameters, users_dir, bleats_dir):
-    search_term = parameters.getvalue('search_term','')
+def search_page(parameters):
+    search_term = parameters.getvalue('search')
     matches = []
     # matches = ""
     for curr_user in os.listdir(users_dir):
@@ -522,7 +522,7 @@ def search_page(parameters, users_dir, bleats_dir):
         </div> -->
     </div>
 </div>
-""" % (search_term,user_results,bleat_panels(matches,bleats_dir))
+""" % (search_term,user_results,bleat_panels(matches))
 
 #
 # HTML placed at the top of every page
@@ -615,9 +615,9 @@ def page_header():
                                 <li><a href="#">Bleats</a></li>
                             </ul>
                         </div> --><!-- /btn-group -->
-                        <input type="text" name="search_term" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
-                            <button type="submit" name="search" class="btn btn-link">
+                            <button type="submit" class="btn btn-link">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
