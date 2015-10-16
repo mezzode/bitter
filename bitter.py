@@ -70,7 +70,7 @@ def main():
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     print page_header()
-    print navbar()
+    navbar()
     print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
@@ -619,9 +619,10 @@ def page_header():
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         """
-def navbar():        
-    return """<nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
+def navbar():
+    active_user = "test_user"
+    print """<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle nagivation</span>
@@ -661,15 +662,32 @@ def navbar():
                         </span>
                     </div>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
+                    """
+    if active_user:
+        curr_user = user(active_user)
+        if "full_name" in curr_user.details:
+            name = curr_user.details['full_name']
+        else:
+            name = active_user
+        print """<!-- <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Log Out</a></li>
-                    </ul>
-                    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">John Doe</a></p>
-                </div>
+                    </ul> -->
+    <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
+    <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log Out</button></li>
+</ul>
+""" % (active_user,name)
+    else:
+        print """<!-- <ul class="nav navbar-nav navbar-right">
+    <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
+</ul> -->
+<button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="">Log In</button>
+"""
+    print """</div>
             </div>
         </nav>
 """
-
+    return
 
 #
 # HTML placed at the bottom of every page
