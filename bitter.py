@@ -70,7 +70,10 @@ def main():
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     print page_header()
+    print navbar()
     print main_form()
+    if active_user != None: # someone is logged in
+        print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     if parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
@@ -615,7 +618,9 @@ def page_header():
         </div> -->
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
-        <nav class="navbar navbar-default navbar-fixed-top">
+        """
+def navbar():        
+    return """<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
