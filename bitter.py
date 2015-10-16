@@ -620,7 +620,7 @@ def page_header():
         <!-- <h1>Bitter</h1> -->
         """
 def navbar():
-    active_user = "test_user"
+    active_user = None # "test_user"
     print """<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -676,16 +676,50 @@ def navbar():
                     <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log Out</button></li>
 </ul>
+</div>
+</div>
+</nav>
 """ % (active_user,name)
     else:
         print """<!-- <ul class="nav navbar-nav navbar-right">
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
 </ul> -->
-<button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="">Log In</button>
-"""
-    print """</div>
+<button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
+</div>
             </div>
         </nav>
+        <div class="modal fade" id="log-in" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h4 class="modal-title">Log In</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p>Test</p> -->
+                        <form method="GET">
+                        <!-- <input type="hidden" name="new-bleat-user" value="test_user">
+                        <div class="form-group">
+                        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
+                        <span id="helpBlock" class="help-block pull-right">0/142</span>
+                        </div> -->
+                        <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                             </label>
+                        </div>
+                        <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 """
     return
 
