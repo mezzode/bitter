@@ -52,22 +52,22 @@ class bleat(object):
                 self.details[field] = value
 
 def main():
-    print page_header()
+    print "Content-Type: text/html"
+    print # end header
     cgitb.enable()
     # dataset_size = "small" 
     # users_dir = "dataset-%s/users"% dataset_size
     # bleats_dir = "dataset-%s/bleats"% dataset_size
     # bleat.bleats_dir = bleats_dir
     parameters = cgi.FieldStorage()
-    print main_form()
     active_user = None
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         if "session" in cookie:
             session = cookie["session"].value
             # parse/validate session_id here; uuid?
-        for morsel in cookie:
-            print morsel
+        # for morsel in cookie:
+            # print morsel
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     if parameters.getvalue('password') != None and parameters.getvalue('username') != None:
@@ -92,7 +92,9 @@ def main():
                 cookie['session']['max-age'] = 60 * 60 * 24 * 30
             with open('sessions.txt','a') as f:
                 f.write(session+"\n")
-            print cookie.output()
+            print cookie
+    print page_header()
+    print main_form()
     if parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
@@ -562,9 +564,7 @@ def search_page(parameters):
 # HTML placed at the top of every page
 #
 def page_header():
-    return """Content-Type: text/html
-
-<!DOCTYPE html>
+    return """<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
