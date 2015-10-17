@@ -104,7 +104,7 @@ def main():
         if parameters.getvalue('user') in os.listdir(users_dir):
             user_page(parameters)
         else:
-            print "User not found\n"
+            user_missing(parameters.getvalue('user'))
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
@@ -372,10 +372,9 @@ def bleat_child(bleat_id):
     </button>
 """ % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"],bleat_id, curr_bleat["in_reply_to"])
 
-#
-# Show unformatted details for user "n".
-# Increment parameter n and store it as a hidden variable
-#
+def user_missing(username):
+    print '<h1 class="text-center">User not found<br><small>No user named "%s"</h1>' % username
+
 def user_page(parameters):
     # n = int(parameters.getvalue('n', 0))
     username = parameters.getvalue('user')
