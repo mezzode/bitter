@@ -483,6 +483,8 @@ def bleat_child(bleat_id):
             else:
                 listen_button = "heart-empty"
             bleat_details += '<form method="POST"><button type="submit" name="listen" value="%s" style="margin-top: -4px;" href="#" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-%s"></span></button></form>\n' % (curr_bleat['username'],listen_button)
+        else:
+            bleat_details += '<button type="button" data-bleat="%s" data-toggle="modal" data-target="#delete-bleat-dialog" style="margin-top: -4px;" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-trash"></span></button>\n' % bleat_id
     bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p><!--this:%s in-reply-to:%s-->\n' % (curr_bleat['bleat'],bleat_id,curr_bleat['in_reply_to'])  # bleat
     bleat_details += '<a href="?bleat=%s" style="margin-top: -4px;" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-link"></span></a>\n' % bleat_id
