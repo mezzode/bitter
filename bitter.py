@@ -697,12 +697,7 @@ def navbar(active_user):
                     </div>
                     <div class="modal-body">
                         <!-- <p>Test</p> -->
-                        <form id="bleat" method="GET">
-                        <!-- <input type="hidden" name="new-bleat-user" value="test_user">
-                        <div class="form-group">
-                        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
-                        <span id="helpBlock" class="help-block pull-right">0/142</span>
-                        </div> -->
+                        <form method="GET" login>
                         <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
@@ -757,6 +752,19 @@ def page_trailer(parameters):
             $("button",this).attr("disabled","disabled");
         }
         $("span.help-block",this).text(count+'/142');
+        // alert(">>"+count);
+    })
+
+    $('[login]').on('input', function () {
+        var username = $("input[type=text]",this).val().length;
+        var password = $("input[type=password]",this).val().length;
+        // var count = username.val().length + password.val().length
+        if ((username > 0) && (password > 0)) {
+            $("button",this).attr("disabled",false);
+        } else {
+            $("button",this).attr("disabled","disabled");
+        }
+        // $("span.help-block",this).text(count+'/142');
         // alert(">>"+count);
     })
 
