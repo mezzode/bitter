@@ -185,7 +185,7 @@ def add_listen(parameters):
     lines = []
     field = ""
     message = ""
-    with open(os.path.join(users_dir,"test_user",'details.txt')) as f:
+    with open(os.path.join(users_dir,active_user,'details.txt')) as f:
         lines = f.readlines()
     for index, line in enumerate(lines):
         field, _, value = line.rstrip().partition(": ")
@@ -205,7 +205,7 @@ def add_listen(parameters):
     if field != "listens": # if no listens
         lines.append("listens: " + user + "\n")
         message = "You are now listening to"
-    with open(os.path.join(users_dir,"test_user",'details.txt'),'w') as f:
+    with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
         f.writelines(lines)
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
@@ -258,19 +258,26 @@ def bleat_panel(bleat_id):
     bleat_details += """<div class="collapse panel-collapse" id="%s-reply">
     <ul class="list-group">
 """ % (bleat_id)
-    bleat_details += """<li class="list-group-item">
+    if active_user:
+        bleat_details += """<li class="list-group-item">
     <form method="POST" bleat>
-    <input type="hidden" name="new-bleat-user" value="test_user">
+    <input type="hidden" name="new-bleat-user" value="%s">
     <input type="hidden" name="new-bleat-reply" value="%s">
     <div class="form-group">
     <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
     <span id="helpBlock" class="help-block pull-right">0/142</span>
     </div>
-    <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+    <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
 </form>
 </li>
 </ul>
-""" % bleat_id
+""" % (active_user,bleat_id)
+    else:
+        bleat_details += """<li class="list-group-item">
+        <p class="list-group-item-text">Login to reply to this bleat</p>
+</li>
+</ul>
+"""
     bleat_details += "</ul>\n</div>\n"
     # previous bleats in conversation:
     if precursors:
