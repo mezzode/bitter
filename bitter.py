@@ -305,6 +305,7 @@ def bleat_panel(bleat_id):
     bleat_details += '<div class="list-group">\n'
     bleat_details += '<div class="list-group-item">\n'
     # bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
+    bleat_details += '<form method="POST"><button type="submit" name="listen" value="%s" style="margin-top: -4px; margin-right: -5px;" href="#" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-heart"></span></button></form>\n' % curr_bleat['username']
     bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat'] # bleat
     bleat_details += '<ul class="list-inline">\n' # metadata
