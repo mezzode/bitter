@@ -588,7 +588,7 @@ def page_header():
         </style>
     </head>
     <body>
-        <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
+        <!-- <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
             <button disabled="disabled" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
                 <i class="material-icons">create</i>
             </button>
@@ -601,7 +601,6 @@ def page_header():
                         <h4 class="modal-title">New Bleat</h4>
                     </div>
                     <div class="modal-body">
-                        <!-- <p>Test</p> -->
                         <form method="POST" bleat>
                         <input type="hidden" name="new-bleat-user" value="test_user">
                         <div class="form-group">
@@ -613,7 +612,7 @@ def page_header():
                     </div>
                 </div>
             </div>
-        </div><!-- New Bleat Modal -->
+        </div>--><!-- New Bleat Modal -->
         <!-- <div class="alert alert-info alert-dismissible toast fade in" id="listen-alert" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
             You are now following <strong>this user</strong>.
@@ -622,7 +621,7 @@ def page_header():
         <!-- <h1>Bitter</h1> -->
         """
 def navbar(active_user):
-    # active_user = None # "test_user"
+    # active_user = "test_user" # "test_user"
     print """<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -681,6 +680,29 @@ def navbar(active_user):
 </div>
 </div>
 </nav>
+        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
+                <i class="material-icons">create</i>
+        </button>
+        <div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h4 class="modal-title">New Bleat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" bleat>
+                        <input type="hidden" name="new-bleat-user" value="test_user">
+                        <div class="form-group">
+                        <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
+                        <span id="helpBlock" class="help-block pull-right">0/142</span>
+                        </div>
+                        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- New Bleat Modal -->
 """ % (active_user,name)
     else:
         print """<!-- <ul class="nav navbar-nav navbar-right">
@@ -716,6 +738,11 @@ def navbar(active_user):
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
+            <button disabled="disabled" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">create</i>
+            </button>
         </div>
 """
     return
