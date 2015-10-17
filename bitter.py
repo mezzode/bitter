@@ -270,15 +270,21 @@ def new_bleat(parameters):
 
 def delete_bleat(bleat_id):
     bleat = {}
+    lines = []
     with open(os.path.join(bleats_dir,bleat_id)) as f:
-        for line in f:
+        lines = f.readlines()
+        for line in lines:
             field, _, value = line.rstrip().partition(": ")
             bleat[field] = value
+    lines = ['deleted\n'] + lines
+    with open(os.path.join(bleats_dir,bleat_id),'w') as f:
+        f.writelines(lines)
     username = bleat['username']
     bleats = []
     with open(os.path.join(users_dir,username,'bleats.txt')) as f:
         bleats = f.readlines()
-    bleats.remove(bleat_id+"\n")
+    if (bleat_id+"\n") in bleats:
+        bleats.remove(bleat_id+"\n")
     with open(os.path.join(users_dir,username,'bleats.txt'),'w') as f:
         f.writelines(bleats)
     # os.remove(os.path.join(bleats_dir,bleat_id)) # maybe just keep "deleted" bleats
@@ -336,7 +342,10 @@ def bleat_panel(bleat_id):
     curr_bleat = {}
     bleat_details = ""
     with open(os.path.join(bleats_dir,bleat_id)) as f:
-        for line in f:
+        lines = f.readlines()
+        if 'deleted\n' in lines:
+            return '<h1 class="text-center">Bleat deleted</h1>'
+        for line in lines:
             field, _, value = line.rstrip().partition(": ")
             curr_bleat[field] = value
     # bleat_details += '<li class="list-group-item">\n'
@@ -425,7 +434,10 @@ def bleat_replies(bleat_id):
     replies = []
     for curr_bleat in os.listdir(bleats_dir): # sort by time first?
         with open(os.path.join(bleats_dir,curr_bleat)) as f:
-            for line in f:
+            lines = f.readlines()
+            if 'deleted\n' in lines:
+                continue
+            for line in lines:
                 field, _, value = line.rstrip().partition(": ")
                 if field == "in_reply_to":
                     if value == bleat_id:
@@ -453,8 +465,12 @@ def bleat_conversation(bleat_id): # pass a dict/object instead of the id?
                 break
     while precursor != None:
         with open(os.path.join(bleats_dir,precursor)) as f:
+            lines = f.readlines()
+            if 'deleted\n' in lines:
+                precursors.pop() # remove the deleted bleat
+                precursors.append('deleted')
             precursor = None
-            for line in f:
+            for line in lines:
                 field, _, value = line.rstrip().partition(": ")
                 if field == "in_reply_to":
                     precursors.append(value)
@@ -467,6 +483,10 @@ def bleat_conversation(bleat_id): # pass a dict/object instead of the id?
     return pre_details
 
 def bleat_child(bleat_id):
+    if bleat_id == 'deleted':
+        return '''<li class="list-group-item">
+<p class="lead">Deleted Bleat</p>
+</li>'''
     curr_bleat = {}
     with open(os.path.join(bleats_dir,bleat_id)) as f:
         for line in f:
