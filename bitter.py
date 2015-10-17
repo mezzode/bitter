@@ -97,7 +97,11 @@ def main():
         # new bleat
         new_bleat(parameters)
     elif parameters.getvalue('listen') != None:
-        add_listen(parameters)
+        if parameters.getvalue('listen') in os.listdir(users_dir):
+            add_listen(parameters)
+    elif parameters.getvalue('delete-bleat') != None:
+        if parameters.getvalue('delete-bleat') in os.listdir(bleats_dir):
+            delete_bleat(parameters.getvalue('delete-bleat'))
     if failed_login:
         print "Incorrect username/password."
     elif parameters.getvalue('user') != None:
@@ -106,7 +110,10 @@ def main():
         else:
             user_missing(parameters.getvalue('user'))
     elif parameters.getvalue('bleat') != None:
-        bleat_page(parameters)
+        if parameters.getvalue('bleat') in os.listdir(bleats_dir):
+            bleat_page(parameters)
+        else:
+            bleat_missing()
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
@@ -261,6 +268,21 @@ def new_bleat(parameters):
     """ % bleat_type
     return
 
+def delete_bleat(bleat_id):
+    bleat = {}
+    with open(os.path.join(bleats_dir,bleat_id)) as f:
+        for line in f:
+            field, _, value = line.rstrip().partition(": ")
+            bleat[field] = value
+    username = bleat['username']
+    bleats = []
+    with open(os.path.join(users_dir,username,'bleats.txt')) as f:
+        bleats = f.readlines()
+    bleats.remove(bleat_id+"\n")
+    with open(os.path.join(users_dir,username,'bleats.txt'),'w') as f:
+        f.writelines(bleats)
+    # os.remove(os.path.join(bleats_dir,bleat_id)) # maybe just keep "deleted" bleats
+
 def main_form():
     return """<form method="POST" action="" id="main">
 </form>"""
@@ -326,6 +348,8 @@ def bleat_panel(bleat_id):
             else:
                 listen_button = "heart-empty"
             bleat_details += '<form method="POST"><button type="submit" name="listen" value="%s" style="margin-top: -4px;" href="#" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-%s"></span></button></form>\n' % (curr_bleat['username'],listen_button)
+        else:
+            bleat_details += '<button type="button" data-bleat="%s" data-toggle="modal" data-target="#delete-bleat-dialog" style="margin-top: -4px;" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-trash"></span></button>\n' % bleat_id
     bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat'] # bleat
     bleat_details += '<ul class="list-inline">\n' # metadata
@@ -470,6 +494,9 @@ def bleat_child(bleat_id):
     <p>%s</p> <!--this:%s in-reply-to:%s-->
     </button>
 """ % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"],bleat_id, curr_bleat["in_reply_to"])
+
+def bleat_missing():
+    print '<h1 class="text-center">Bleat not found</h1>'
 
 def user_missing(username):
     print '<h1 class="text-center">User not found<br><small>No user named "%s"</h1>' % username
@@ -817,6 +844,35 @@ def navbar():
 </div>
 </div><!-- New Bleat Modal -->
 """ % active_user
+        print """<div class="modal fade" id="delete-bleat-dialog" tabindex="-1" role="dialog">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <h4 class="modal-title">Delete Bleat</h4>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this bleat?</p>
+        </div>
+            <!-- <form method="POST" bleat>
+            <input type="hidden" name="new-bleat-user" value="%s">
+            <div class="form-group">
+                <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
+                <span id="helpBlock" class="help-block pull-right">0/142</span>
+            </div>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            </form>
+        </div> -->
+        <div class="modal-footer">
+            <form method="POST">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" name="delete-bleat" class="btn btn-danger">Delete Bleat</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div><!-- New Bleat Modal -->
+""" % active_user
     else: # just print disabled button
         print """<!-- <ul class="nav navbar-nav navbar-right">
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
@@ -939,6 +995,12 @@ def page_trailer(parameters):
             $(alert).addClass('in');
         }
     })
+
+    $('#delete-bleat-dialog').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var bleat = button.data('bleat')
+        $('button.btn-danger',this).val(bleat)
+    });
 
     /* function active_change(item,id,ref){
         collapser = item.getElementById("'"+ref.substring(1)+"'"); 
