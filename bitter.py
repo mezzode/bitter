@@ -9,6 +9,7 @@ import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid
 dataset_size = "small" 
 users_dir = "dataset-%s/users"% dataset_size
 bleats_dir = "dataset-%s/bleats"% dataset_size
+active_user = None
 
 class user(object):
     """Bitter user"""
@@ -52,10 +53,11 @@ class bleat(object):
                 self.details[field] = value
 
 def main():
+    global active_user
     print "Content-Type: text/html"
     cgitb.enable()
     parameters = cgi.FieldStorage()
-    active_user = None
+    # active_user = None
     failed_login = False
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
@@ -86,7 +88,8 @@ def main():
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     print page_header()
-    navbar(active_user)
+    print "<!-- active_user: %s -->" % active_user
+    navbar()
     print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
@@ -98,7 +101,7 @@ def main():
     if failed_login:
         print "Incorrect username/password."
     elif parameters.getvalue('user') != None:
-        print user_page(parameters)
+        user_page(parameters)
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
@@ -405,12 +408,12 @@ def user_page(parameters):
         listen_details += '</div>\n'
         listen_details += '</a>\n'
     listen_details += '</div>\n'
-    active_user = user("test_user")
-    if curr_user.details['username'] in active_user.details["listens"].split():
-        listen_button = "Stop Listening"
-    else:
-        listen_button = "Listen"
-    return """
+    if active_user:
+        if curr_user.details['username'] in user(active_user).details["listens"].split():
+            listen_button = "Stop Listening"
+        else:
+            listen_button = "Listen"
+    print """
 <div class="container">
     <div class="row">
         <div class="col-sm-5 col-md-3">
@@ -428,14 +431,13 @@ def user_page(parameters):
                     </li>    
                 </ul>
             </div>
-            <p>
-            <form method="POST"><!-- id="main"> -->
-                <!-- <input type="hidden" name="n" value="1">
-                <input type="submit" value="Next user" class="btn btn-default">-->
-                <button type="submit" name="listen" value="%s" class="btn btn-default toaster" href="#listen-alert">%s</button> <!-- onclick="$('.alert').show()"> -->
-            </form>
-        </div>
-        <div class="col-md-6 col-sm-7">
+            """ % (curr_user.pic, details, listen_details,home_details) 
+    if active_user:
+        print """<form method="POST"><!-- id="main"> -->
+                <button type="submit" name="listen" value="%s" class="btn btn-default toaster">%s</button>
+            </form>""" % (curr_user.details['username'],listen_button)
+    print "</div>"
+    print  """ <div class="col-md-6 col-sm-7">
             <!-- <div class="panel panel-primary">
                 <div class="panel-body">
                     <h1 class="list-group-item-heading">Bleats</h1>
@@ -479,7 +481,7 @@ def user_page(parameters):
         </div>
     </div>
 </div>
-""" % (curr_user.pic, details, listen_details,home_details, curr_user.details['username'],listen_button,bleat_panels(curr_user.bleats)) 
+""" % bleat_panels(curr_user.bleats)
 
 def search_page(parameters):
     search_term = parameters.getvalue('search')
@@ -657,9 +659,10 @@ def page_header():
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         """
-def navbar(active_user):
+def navbar():
     # active_user = "test_user" # "test_user"
-    print """<nav class="navbar navbar-default navbar-fixed-top">
+    print """<!-- active_user: %s -->
+    <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -700,7 +703,7 @@ def navbar(active_user):
                         </span>
                     </div>
                     </form>
-                    """
+                    """ % active_user
     if active_user:
         curr_user = user(active_user)
         if "full_name" in curr_user.details:
