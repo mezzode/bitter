@@ -67,7 +67,7 @@ def main():
                 lines = f.readlines()
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
-    if parameters.getvalue('logout'):
+    if parameters.getvalue('logout') and active_user:
         with open('sessions.txt') as f:
             sessions = f.readlines()
         session = active_user + ' ' + session_id + '\n'
@@ -274,7 +274,7 @@ def bleat_panel(bleat_id):
 """ % (active_user,bleat_id)
     else:
         bleat_details += """<li class="list-group-item">
-        <p class="list-group-item-text">Login to reply to this bleat</p>
+        <p class="list-group-item-text"><a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
 </li>
 </ul>
 """
