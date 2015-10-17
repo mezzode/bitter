@@ -70,7 +70,7 @@ def main():
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     print page_header()
-    navbar()
+    navbar(active_user)
     print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
@@ -221,7 +221,7 @@ def bleat_panel(bleat_id):
     <ul class="list-group">
 """ % (bleat_id)
     bleat_details += """<li class="list-group-item">
-    <form id="bleat-reply" method="POST">
+    <form method="POST" bleat>
     <input type="hidden" name="new-bleat-user" value="test_user">
     <input type="hidden" name="new-bleat-reply" value="%s">
     <div class="form-group">
@@ -600,10 +600,10 @@ def page_header():
                     </div>
                     <div class="modal-body">
                         <!-- <p>Test</p> -->
-                        <form id="bleat-reply" method="POST">
+                        <form method="POST" bleat>
                         <input type="hidden" name="new-bleat-user" value="test_user">
                         <div class="form-group">
-                        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
+                        <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
                         <span id="helpBlock" class="help-block pull-right">0/142</span>
                         </div>
                         <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
@@ -619,8 +619,8 @@ def page_header():
         <!-- <div class="bitter_heading">Bitter</div> -->
         <!-- <h1>Bitter</h1> -->
         """
-def navbar():
-    active_user = None # "test_user"
+def navbar(active_user):
+    # active_user = None # "test_user"
     print """<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -697,7 +697,7 @@ def navbar():
                     </div>
                     <div class="modal-body">
                         <!-- <p>Test</p> -->
-                        <form method="GET">
+                        <form id="bleat" method="GET">
                         <!-- <input type="hidden" name="new-bleat-user" value="test_user">
                         <div class="form-group">
                         <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
@@ -707,11 +707,11 @@ def navbar():
                         <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
                         <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Remember Me
+                                <input type="checkbox" name="remember-me"> Remember Me
                              </label>
                         </div>
                         <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
@@ -748,7 +748,7 @@ def page_trailer(parameters):
         $('[data-toggle="tooltip"]').tooltip()
     })
 
-    $('form').on('input', function () {
+    $('[bleat]').on('input', function () {
         var area = $("textarea",this);
         var count = $("textarea",this).val().length;
         if (count > 0) {
