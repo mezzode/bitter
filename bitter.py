@@ -235,7 +235,7 @@ def issue_token(parameters):
     print cookie.output()
 
 def new_bleat(parameters):
-    text = parameters.getvalue('new-bleat')
+    text = cgi.escape(parameters.getvalue('new-bleat'))
     user = parameters.getvalue('new-bleat-user')
     reply = parameters.getvalue('new-bleat-reply',None)
     # text = cgi.escape(parameters['new-bleat'].value)
