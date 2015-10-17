@@ -56,6 +56,7 @@ def main():
     cgitb.enable()
     parameters = cgi.FieldStorage()
     active_user = None
+    failed_login = False
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         if "session" in cookie:
@@ -78,8 +79,10 @@ def main():
         # print "\n <!DOCTYPE html> <!--bleh-->"
     elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
         # need a page if incorrect username/password
-        authenticate(parameters)
-        active_user = parameters.getvalue('username')
+         if authenticate(parameters):
+            active_user = parameters.getvalue('username')
+         else:
+            failed_login = True
     print # end header
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
@@ -93,7 +96,9 @@ def main():
         new_bleat(parameters)
     elif parameters.getvalue('listen') != None:
         add_listen(parameters)
-    if parameters.getvalue('user') != None:
+    if failed_login:
+        print "Incorrect username/password."
+    elif parameters.getvalue('user') != None:
         print user_page(parameters)
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
@@ -107,11 +112,27 @@ def authenticate(parameters):
     username = parameters.getvalue('username')
     password = parameters.getvalue('password')
     # with open(os.path.join(users_dir,username,'details.txt') as f:
+    if username not in os.listdir(users_dir):
+        return False
     curr_user = user(username)
-    if password != curr_user.details['password']:   
-        pass # wrong password
+    if password == curr_user.details['password']:   
+        return True
     else:
-        # right password
+        return False
+        cookie = Cookie.SimpleCookie()
+        # session_id = random.getrandbits(128)
+        session_id = uuid.uuid4()
+        session = username + " " + str(session_id)
+        cookie['session'] = session
+        if parameters.getvalue('remember-me'): # for 30 days
+            # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
+            # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
+            cookie['session']['max-age'] = 60 * 60 * 24 * 30
+        with open('sessions.txt','a') as f:
+            f.write(session+"\n")
+        print cookie.output()
+
+def issue_token():
         cookie = Cookie.SimpleCookie()
         # session_id = random.getrandbits(128)
         session_id = uuid.uuid4()
