@@ -322,9 +322,9 @@ def bleat_panel(bleat_id):
     if active_user:
         if curr_bleat['username'] != active_user:
             if curr_bleat['username'] in user(active_user).details["listens"].split():
-                listen_button = "heart-empty"
-            else:
                 listen_button = "heart"
+            else:
+                listen_button = "heart-empty"
             bleat_details += '<form method="POST"><button type="submit" name="listen" value="%s" style="margin-top: -4px;" href="#" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-%s"></span></button></form>\n' % (curr_bleat['username'],listen_button)
     bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p>\n' % curr_bleat['bleat'] # bleat
@@ -450,9 +450,9 @@ def bleat_child(bleat_id):
     if active_user:
         if curr_bleat['username'] != active_user:
             if curr_bleat['username'] in user(active_user).details["listens"].split():
-                listen_button = "heart-empty"
-            else:
                 listen_button = "heart"
+            else:
+                listen_button = "heart-empty"
             bleat_details += '<form method="POST"><button type="submit" name="listen" value="%s" style="margin-top: -4px;" href="#" class="btn-sm btn btn-link pull-right"><span class="glyphicon glyphicon-%s"></span></button></form>\n' % (curr_bleat['username'],listen_button)
     bleat_details += '<a style="color: inherit;" class="list-group-item-heading" href="?user=%s"><h4 class="list-group-item-heading">%s</h4></a>\n' % (curr_bleat['username'],curr_bleat['username']) # user
     bleat_details += '<p class="lead">%s</p><!--this:%s in-reply-to:%s-->\n' % (curr_bleat['bleat'],bleat_id,curr_bleat['in_reply_to'])  # bleat
