@@ -588,9 +588,11 @@ def page_header():
         </style>
     </head>
     <body>
-        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
-            <i class="material-icons">create</i>
-        </button>
+        <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
+            <button disabled="disabled" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
+                <i class="material-icons">create</i>
+            </button>
+        </div>
         <div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -606,7 +608,7 @@ def page_header():
                         <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
                         <span id="helpBlock" class="help-block pull-right">0/142</span>
                         </div>
-                        <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+                        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -696,7 +698,6 @@ def navbar(active_user):
                         <h4 class="modal-title">Log In</h4>
                     </div>
                     <div class="modal-body">
-                        <!-- <p>Test</p> -->
                         <form method="GET" login>
                         <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
@@ -709,7 +710,8 @@ def navbar(active_user):
                                 <input type="checkbox" name="remember-me"> Remember Me
                              </label>
                         </div>
-                        <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Log in to reply" disabled="disabled">Submit</button>
+                        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+                        
                         </form>
                     </div>
                 </div>
