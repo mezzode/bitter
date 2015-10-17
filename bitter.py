@@ -502,7 +502,7 @@ def search_page(parameters):
     user_results = ""
     for match in matches:
         curr_user = user(match)
-        user_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
+        user_results += """<a href="?user=%s" class="list-group-item">
 <div class="media">
     <div class="media-left">
         <img class="media-object" src="%s" height="100" width="100">
@@ -511,7 +511,7 @@ def search_page(parameters):
         <h3 class="media-heading">%s<br><small>%s</small></h3>
     </div>
 </div>
-</button>
+</a>
 """ % (match,curr_user.pic,curr_user.details["username"],match)
     matches = []
     for curr_bleat in os.listdir(bleats_dir):
@@ -547,16 +547,18 @@ def search_page(parameters):
             </form>
         </div> -->
         <div class="col-md-12 col-sm-12">
-            <div class="panel panel-primary">
+            <!-- div class="panel panel-primary">
                 <div class="panel-body">
-                    <h2 class="list-group-item-heading">Search Results: <small>%s</small></h2>
+                    <h2 class="list-group-item-heading">Search Results: <small></small></h2>
                 </div>
-            </div>
+            </div> -->
+            <h2> Search Results: <small>%s</small></h2>
             <ul class="nav nav-pills">
                 <li role="presentation" class="active"><a href="#users" data-toggle="pill">Users</a></li>
                 <li role="presentation"><a href="#bleats" data-toggle="pill">Bleats</a></li>
                 <!-- <li role="presentation"><a href="#">All</a></li> -->
             </ul>
+            <br>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="users">
                     %s
