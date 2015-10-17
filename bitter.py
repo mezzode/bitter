@@ -517,9 +517,9 @@ def user_page(parameters):
     listen_details += '</div>\n'
     if active_user:
         if curr_user.details['username'] in user(active_user).details["listens"].split():
-            listen_button = "Stop Listening"
+            listen_button = '<span class="glyphicon glyphicon-heart"></span>  Stop Listening'
         else:
-            listen_button = "Listen"
+            listen_button = '<span class="glyphicon glyphicon-heart-empty"></span>  Listen'
     print """
 <div class="container">
     <div class="row">
