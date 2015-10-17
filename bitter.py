@@ -282,6 +282,11 @@ def delete_bleat(bleat_id):
     with open(os.path.join(users_dir,username,'bleats.txt'),'w') as f:
         f.writelines(bleats)
     # os.remove(os.path.join(bleats_dir,bleat_id)) # maybe just keep "deleted" bleats
+    print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
+<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+Bleat deleted.
+</div>
+    """
 
 def main_form():
     return """<form method="POST" action="" id="main">
