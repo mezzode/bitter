@@ -65,15 +65,17 @@ def main():
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
     if parameters.getvalue('logout'):
+        # exit()
         with open('sessions.txt') as f:
             sessions = f.readlines()
-        session = username + ' ' + session_id + '\n'
+        session = active_user + ' ' + session_id + '\n'
         if session in sessions:
             sessions.remove(session)
         with open('sessions.txt','w') as f:
             f.writelines(sessions)
         # disable cookie?
         active_user = None
+        # print "\n <!DOCTYPE html> <!--bleh-->"
     elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
         # need a page if incorrect username/password
         authenticate(parameters)
@@ -687,7 +689,7 @@ def navbar(active_user):
                     </ul> -->
     <ul class="nav navbar-nav navbar-right">
                     <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
-    <li><button class="btn btn-link navbar-btn" type="submit" name="logout">Log Out</button></li>
+    <li><form method="POST"><button class="btn btn-link navbar-btn" type="submit" name="logout" value="True">Log Out</button></form></li>
 </ul>
 </div>
 </div>
@@ -732,7 +734,7 @@ def navbar(active_user):
                         <h4 class="modal-title">Log In</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="GET" login>
+                        <form method="POST" login>
                         <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
