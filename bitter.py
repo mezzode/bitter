@@ -887,6 +887,7 @@ def page_trailer(parameters):
 
     $('[bleat]').on('input', function () {
         var area = $("textarea",this);
+        $("textarea",this).val($("textarea",this).val().replace(/\\n/g,''));
         var count = $("textarea",this).val().length;
         if (count > 0) {
             $("button",this).attr("disabled",false);
@@ -896,6 +897,13 @@ def page_trailer(parameters):
         $("span.help-block",this).text(count+'/142');
         // alert(">>"+count);
     })
+
+    $('[bleat]').keypress(function(e) {
+        if (e.which == 13) { // enter key
+            this.submit()
+        }
+    })
+
 
     $('[login]').on('input', function () {
         var username = $("input[type=text]",this).val().length;
