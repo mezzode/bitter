@@ -115,15 +115,44 @@ def main():
     print page_trailer(parameters)
 
 def dashboard():
+    curr_user = user(active_user)
+    listens = curr_user.details['listens'].split()
+    listens.append(active_user) # or manually listen to self?
+    bleats = []
+    for listen in listens:
+        curr_user = user(listen)
+        bleats += curr_user.bleats
+    bleat_details = bleat_panels(sorted(bleats,reverse=True))
     print """<div class="container">
 <div class="row">
     <div class="col-md-3">
     </div>
     <div class="col-md-6 col-sm-12">
-    Dashboard
+    %s
+            <nav>
+              <div class="text-center">
+              <ul class="pagination">
+                <li class="disabled">
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+              </div>
+              </nav>
     </div>
     <div class="col-md-3">
-    </div>"""
+    </div>""" % bleat_details
 
 def landing_page():
     print """<div class="jumbotron">
