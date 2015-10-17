@@ -55,9 +55,6 @@ def main():
     print "Content-Type: text/html"
     cgitb.enable()
     parameters = cgi.FieldStorage()
-    if parameters.getvalue('password') != None and parameters.getvalue('username') != None:
-        authenticate(parameters)
-    print # end header
     active_user = None
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
@@ -66,7 +63,22 @@ def main():
             with open("sessions.txt") as f:
                 lines = readlines()
                 if (session + "\n") in lines:
-                    active_user, _ = session.split()
+                    active_user, session_id = session.split()
+    if parameters.getvalue('logout'):
+        with open('sessions.txt') as f:
+            sessions = readlines()
+        session = username + ' ' + session_id + '\n'
+        if session in sessions:
+            sessions.remove(session)
+        with open('sessions.txt','w') as f:
+            writelines(sessions)
+        # disable cookie?
+        active_user = None
+    elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
+        # need a page if incorrect username/password
+        authenticate(parameters)
+        active_user = parameters.getvalue('username')
+    print # end header
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     print page_header()
@@ -675,7 +687,7 @@ def navbar(active_user):
                     </ul> -->
     <ul class="nav navbar-nav navbar-right">
                     <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
-    <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log Out</button></li>
+    <li><button class="btn btn-link navbar-btn" type="submit" name="logout">Log Out</button></li>
 </ul>
 </div>
 </div>
