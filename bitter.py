@@ -108,8 +108,33 @@ def main():
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
-        print "Dashboard\n"
+        if active_user:
+            dashboard()
+        else:
+            landing_page()
     print page_trailer(parameters)
+
+def dashboard():
+    print """<div class="container">
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 col-sm-12">
+    Dashboard
+    </div>
+    <div class="col-md-3">
+    </div>"""
+
+def landing_page():
+    print """<div class="container">
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 col-sm-12">
+    Landing
+    </div>
+    <div class="col-md-3">
+    </div>"""
 
 def authenticate(parameters):
     # validate; if username and pass do not match the records, divert to incorrect pass screen
