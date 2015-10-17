@@ -61,17 +61,17 @@ def main():
         if "session" in cookie:
             session = cookie["session"].value
             with open("sessions.txt") as f:
-                lines = readlines()
+                lines = f.readlines()
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
     if parameters.getvalue('logout'):
         with open('sessions.txt') as f:
-            sessions = readlines()
+            sessions = f.readlines()
         session = username + ' ' + session_id + '\n'
         if session in sessions:
             sessions.remove(session)
         with open('sessions.txt','w') as f:
-            writelines(sessions)
+            f.writelines(sessions)
         # disable cookie?
         active_user = None
     elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
@@ -121,7 +121,7 @@ def authenticate(parameters):
             cookie['session']['max-age'] = 60 * 60 * 24 * 30
         with open('sessions.txt','a') as f:
             f.write(session+"\n")
-        print cookie + "\n"
+        print cookie.output()
 
 def new_bleat(parameters):
     text = parameters.getvalue('new-bleat')
