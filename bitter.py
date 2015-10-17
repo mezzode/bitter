@@ -126,20 +126,30 @@ def dashboard():
     </div>"""
 
 def landing_page():
-    print """
+    print """<div class="jumbotron">
     <div class="container">
 <div class="row">
-    <div class="col-md-3">
-    </div>
     <div class="col-md-12">
-    <div class="jumbotron">
+    <!-- <div class="jumbotron"> -->
     <h1>Welcome to Bitter</h1>
     <p>The latest and greatest thing since sliced bread!</p>
     <p><a class="btn btn-primary btn-lg" href="" role="button">Join Now</a></p>
     </div>
     </div>
-    <div class="col-md-3">
-    </div>"""
+    </div>
+    </div>
+    <div class="container">
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+    <h2>Featured</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+    <h2>Most Recent</h2>
+    </div>
+    </div>
+    </div>
+    """
+
 
 def authenticate(parameters):
     # validate; if username and pass do not match the records, divert to incorrect pass screen
