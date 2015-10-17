@@ -87,7 +87,7 @@ def main():
     print # end header
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
-    print page_header()
+    page_header()
     print "<!-- active_user: %s -->" % active_user
     navbar()
     print main_form()
@@ -612,7 +612,7 @@ def search_page(parameters):
 # HTML placed at the top of every page
 #
 def page_header():
-    return """<!DOCTYPE html>
+    print """<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -634,38 +634,8 @@ def page_header():
         </style>
     </head>
     <body>
-        <!-- <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
-            <button disabled="disabled" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
-                <i class="material-icons">create</i>
-            </button>
-        </div>
-        <div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                        <h4 class="modal-title">New Bleat</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" bleat>
-                        <input type="hidden" name="new-bleat-user" value="test_user">
-                        <div class="form-group">
-                        <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
-                        <span id="helpBlock" class="help-block pull-right">0/142</span>
-                        </div>
-                        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>--><!-- New Bleat Modal -->
-        <!-- <div class="alert alert-info alert-dismissible toast fade in" id="listen-alert" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-            You are now following <strong>this user</strong>.
-        </div> -->
-        <!-- <div class="bitter_heading">Bitter</div> -->
-        <!-- <h1>Bitter</h1> -->
-        """
+"""
+
 def navbar():
     # active_user = "test_user" # "test_user"
     print """<!-- active_user: %s -->
