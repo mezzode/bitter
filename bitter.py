@@ -101,11 +101,13 @@ def main():
     if failed_login:
         print "Incorrect username/password."
     elif parameters.getvalue('user') != None:
-        user_page(parameters)
+        if parameters.getvalue('user') in os.listdir(users_dir):
+            user_page(parameters)
+        else:
+            print "User not found\n"
     elif parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
-        # print user_page(parameters)
         print "Dashboard\n"
     print page_trailer(parameters)
 
