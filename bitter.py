@@ -509,7 +509,7 @@ def user_page(parameters):
                 </ul>
             </div>
             """ % (curr_user.pic, details, listen_details,home_details) 
-    if active_user:
+    if active_user and active_user != curr_user.details['username']:
         print """<form method="POST"><!-- id="main"> -->
                 <button type="submit" name="listen" value="%s" class="btn btn-default toaster">%s</button>
             </form>""" % (curr_user.details['username'],listen_button)
