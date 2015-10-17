@@ -637,7 +637,6 @@ def page_header():
 """
 
 def navbar():
-    # active_user = "test_user" # "test_user"
     print """<!-- active_user: %s -->
     <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -687,41 +686,38 @@ def navbar():
             name = curr_user.details['full_name']
         else:
             name = active_user
-        print """<!-- <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Log Out</a></li>
-                    </ul> -->
-    <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
+        print """<ul class="nav navbar-nav navbar-right">
+    <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
     <li><form method="POST"><button class="btn btn-link navbar-btn" type="submit" name="logout" value="True">Log Out</button></form></li>
 </ul>
 </div>
 </div>
-</nav>
-        <button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
+</nav>""" % (active_user,name)
+        print """<button class="fab-fixed mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-toggle="modal" data-target="#new-bleat-dialog">
                 <i class="material-icons">create</i>
-        </button>
-        <div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                        <h4 class="modal-title">New Bleat</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" bleat>
-                        <input type="hidden" name="new-bleat-user" value="test_user">
-                        <div class="form-group">
-                        <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
-                        <span id="helpBlock" class="help-block pull-right">0/142</span>
-                        </div>
-                        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
-                        </form>
-                    </div>
-                </div>
+        </button>"""
+        print """<div class="modal fade" id="new-bleat-dialog" tabindex="-1" role="dialog">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <h4 class="modal-title">New Bleat</h4>
+        </div>
+        <div class="modal-body">
+            <form method="POST" bleat>
+            <input type="hidden" name="new-bleat-user" value="%s">
+            <div class="form-group">
+                <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
+                <span id="helpBlock" class="help-block pull-right">0/142</span>
             </div>
-        </div><!-- New Bleat Modal -->
-""" % (active_user,name)
-    else:
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div><!-- New Bleat Modal -->
+""" % active_user
+    else: # just print disabled button
         print """<!-- <ul class="nav navbar-nav navbar-right">
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
 </ul> -->
