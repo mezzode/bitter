@@ -66,7 +66,6 @@ def main():
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
     if parameters.getvalue('logout'):
-        # exit()
         with open('sessions.txt') as f:
             sessions = f.readlines()
         session = active_user + ' ' + session_id + '\n'
@@ -76,10 +75,10 @@ def main():
             f.writelines(sessions)
         # disable cookie?
         active_user = None
-        # print "\n <!DOCTYPE html> <!--bleh-->"
     elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
         # need a page if incorrect username/password
          if authenticate(parameters):
+            issue_token(parameters)
             active_user = parameters.getvalue('username')
          else:
             failed_login = True
@@ -132,19 +131,20 @@ def authenticate(parameters):
             f.write(session+"\n")
         print cookie.output()
 
-def issue_token():
-        cookie = Cookie.SimpleCookie()
-        # session_id = random.getrandbits(128)
-        session_id = uuid.uuid4()
-        session = username + " " + str(session_id)
-        cookie['session'] = session
-        if parameters.getvalue('remember-me'): # for 30 days
-            # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-            # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
-            cookie['session']['max-age'] = 60 * 60 * 24 * 30
-        with open('sessions.txt','a') as f:
-            f.write(session+"\n")
-        print cookie.output()
+def issue_token(parameters):
+    cookie = Cookie.SimpleCookie()
+    username = parameters.getvalue('username')
+    # session_id = random.getrandbits(128)
+    session_id = uuid.uuid4()
+    session = username + " " + str(session_id)
+    cookie['session'] = session
+    if parameters.getvalue('remember-me'): # for 30 days
+        # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
+        # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
+        cookie['session']['max-age'] = 60 * 60 * 24 * 30
+    with open('sessions.txt','a') as f:
+        f.write(session+"\n")
+    print cookie.output()
 
 def new_bleat(parameters):
     text = parameters.getvalue('new-bleat')
