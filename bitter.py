@@ -686,7 +686,7 @@ def user_page(parameters):
 """ % bleat_panels(curr_user.bleats)
 
 def search_page(parameters):
-    search_term = parameters.getvalue('search')
+    search_term = parameters.getfirst('search')
     matches = []
     # matches = ""
     for curr_user in os.listdir(users_dir):
