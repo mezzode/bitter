@@ -146,13 +146,15 @@ def dashboard():
         curr_user = user(listen)
         bleats += curr_user.bleats
     bleat_details = bleat_panels(sorted(bleats,reverse=True))
+    page_details = paginator(None,len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """<div class="container">
 <div class="row">
     <div class="col-md-3">
     </div>
     <div class="col-md-6 col-sm-12">
     %s
-            <nav>
+    %s
+            <!-- <nav>
               <div class="text-center">
               <ul class="pagination">
                 <li class="disabled">
@@ -172,10 +174,47 @@ def dashboard():
                 </li>
               </ul>
               </div>
-              </nav>
+              </nav> -->
     </div>
     <div class="col-md-3">
-    </div>""" % bleat_details
+    </div>""" % (bleat_details,page_details)
+
+def paginator(parameters,pages): # TODO Need parameters so goes to same url
+    page_details = """<nav>
+    <div class="text-center">
+    <ul class="pagination">"""
+    for i in range(1,page):
+        page_details += '<li><a href="?page=%s">%s</a></li>\n' % (i,i)
+    page_details += '<li class="active"><a href="?page=%s">%s</a></li>\n' % (page,page)
+    for i in range(page+1,pages+1):
+        page_details += '<li><a href="?page=%s">%s</a></li>\n' % (i,i)
+    page_details += """</ul>
+    </div>
+    </nav>
+    """
+    return page_details
+    return """<nav>
+              <div class="text-center">
+              <ul class="pagination">
+                <li class="disabled">
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+              </div>
+            </nav>"""
+    
 
 def landing_page():
     print """<div class="jumbotron">
