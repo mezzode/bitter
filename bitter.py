@@ -102,6 +102,8 @@ def main():
     elif parameters.getvalue('delete-bleat') != None:
         if parameters.getvalue('delete-bleat') in os.listdir(bleats_dir):
             delete_bleat(parameters.getvalue('delete-bleat'))
+    global page
+    page = int(parameters.getvalue('page','1'))
     if failed_login:
         print "Incorrect username/password."
     elif parameters.getvalue('user') != None:
@@ -332,9 +334,9 @@ def add_listen(parameters):
     """ % (message,user)
     return
 
-def bleat_panels(bleats): # list of bleats
+def bleat_panels(bleats):
     bleat_details = ""
-    for bleat_id in bleats:
+    for bleat_id in bleats[(16*(page-1)):(16*page)]:
             bleat_details += bleat_panel(bleat_id.rstrip())
     return bleat_details
 
