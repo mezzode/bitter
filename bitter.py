@@ -93,7 +93,8 @@ def main():
     print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
-    if parameters.getvalue('new-bleat') != None:
+    # print os.getenv('QUERY_STRING')
+    if 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
     elif parameters.getvalue('listen') != None:
@@ -103,7 +104,7 @@ def main():
         if parameters.getvalue('delete-bleat') in os.listdir(bleats_dir):
             delete_bleat(parameters.getvalue('delete-bleat'))
     global page
-    page = int(parameters.getvalue('page','1'))
+    page = int(parameters.getfirst('page','1'))
     if failed_login:
         print "Incorrect username/password."
     elif parameters.getvalue('user') != None:
@@ -116,7 +117,7 @@ def main():
             bleat_page(parameters)
         else:
             bleat_missing()
-    elif parameters.getvalue('search') != None:
+    elif 'search' in parameters: # parameters.getvalue('search') != None:
         print search_page(parameters)
     else:
         if active_user:
@@ -146,7 +147,7 @@ def dashboard():
         curr_user = user(listen)
         bleats += curr_user.bleats
     bleat_details = bleat_panels(sorted(bleats,reverse=True))
-    page_details = paginator(None,len(bleats) / 16 + (len(bleats) % 16 > 0))
+    page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """<div class="container">
 <div class="row">
     <div class="col-md-3">
@@ -179,15 +180,17 @@ def dashboard():
     <div class="col-md-3">
     </div>""" % (bleat_details,page_details)
 
-def paginator(parameters,pages): # TODO Need parameters so goes to same url
+def paginator(origin,pages): # TODO Need parameters so goes to same url
+    if origin:
+        origin += '&'
     page_details = """<nav>
     <div class="text-center">
     <ul class="pagination">"""
     for i in range(1,page):
-        page_details += '<li><a href="?page=%s">%s</a></li>\n' % (i,i)
-    page_details += '<li class="active"><a href="?page=%s">%s</a></li>\n' % (page,page)
+        page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
+    page_details += '<li class="active"><a href="?%spage=%s">%s</a></li>\n' % (origin,page,page)
     for i in range(page+1,pages+1):
-        page_details += '<li><a href="?page=%s">%s</a></li>\n' % (i,i)
+        page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
     page_details += """</ul>
     </div>
     </nav>
@@ -639,6 +642,7 @@ def user_page(parameters):
                 <button type="submit" name="listen" value="%s" class="btn btn-default toaster">%s</button>
             </form>""" % (curr_user.details['username'],listen_button)
     print "</div>"
+    page_details = paginator('user='+curr_user.details['username'],len(curr_user.bleats) / 16 + (len(curr_user.bleats) % 16 > 0))
     print  """ <div class="col-md-6 col-sm-7">
             <!-- <div class="panel panel-primary">
                 <div class="panel-body">
@@ -652,7 +656,7 @@ def user_page(parameters):
                     %s
                 <!-- </ul> -->
             <!-- </div> -->
-            <nav>
+            <!-- <nav>
               <div class="text-center">
               <ul class="pagination">
                 <li class="disabled">
@@ -672,7 +676,8 @@ def user_page(parameters):
                 </li>
               </ul>
               </div>
-            </nav>
+            </nav> -->
+            %s
         </div>
         <div class="col-md-3 col-sm-5">
             <div class="panel panel-primary">
@@ -683,7 +688,7 @@ def user_page(parameters):
         </div>
     </div>
 </div>
-""" % bleat_panels(curr_user.bleats)
+""" % (bleat_panels(curr_user.bleats),page_details)
 
 def search_page(parameters):
     search_term = parameters.getfirst('search')
