@@ -146,6 +146,11 @@ def new_user():
                     <input type="text" class="form-control" placeholder="Full Name">
                 </div>
                 <div class="form-group">
+                    <label>Profile Picture</label>
+                    <input type="file">
+                    <p class="help-block">Profile picture.</p>
+                </div>
+                <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" placeholder="Username">
                 </div>
