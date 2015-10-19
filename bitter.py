@@ -6,7 +6,7 @@
 
 import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid
 
-dataset_size = "small" 
+dataset_size = "medium" 
 users_dir = "dataset-%s/users"% dataset_size
 bleats_dir = "dataset-%s/bleats"% dataset_size
 active_user = None
