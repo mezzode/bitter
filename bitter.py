@@ -118,7 +118,8 @@ def main():
         else:
             bleat_missing()
     elif 'search' in parameters: # parameters.getvalue('search') != None:
-        print search_page(parameters)
+        # print search_page(parameters)
+        bleat_search(parameters)
     else:
         if active_user:
             dashboard()
@@ -689,6 +690,44 @@ def user_page(parameters):
     </div>
 </div>
 """ % (bleat_panels(curr_user.bleats),page_details)
+
+def user_search():
+    pass
+    #
+
+def bleat_search(parameters):
+    search_term = parameters.getfirst('search')
+    matches = []
+    for curr_bleat in os.listdir(bleats_dir):
+        with open(os.path.join(bleats_dir,curr_bleat)) as f:
+            lines = f.readlines()
+            if 'deleted\n' in lines:
+                continue
+            for line in lines:
+                field, _, value = line.rstrip().partition(": ")
+                if field == "bleat":
+                    if search_term.lower() in value.lower():
+                        matches.append(curr_bleat)
+                    else:
+                        break
+    # bleat_panels(matches)
+    # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
+    print """
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h2> Search Results: <small>%s</small></h2>
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="#">Users</a></li>
+                <li role="presentation" class="active"><a href="#">Bleats</a></li>
+            </ul>
+            <br>
+            %s
+            %s
+        </div>
+    </div>
+</div>
+""" % (search_term,bleat_panels(matches),paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def search_page(parameters):
     search_term = parameters.getfirst('search')
