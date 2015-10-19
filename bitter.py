@@ -713,7 +713,7 @@ def user_search(parameters):
                         else:
                             break
     user_panels = ""
-    for match in matches:
+    for match in matches[(16*(page-1)):(16*page)]:
         curr_user = user(match)
         user_panels += """<a href="?user=%s" class="list-group-item">
 <div class="media">
