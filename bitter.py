@@ -79,11 +79,13 @@ def main():
         active_user = None
     elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
         # need a page if incorrect username/password
-         if authenticate(parameters):
+        if authenticate(parameters):
             issue_token(parameters)
             active_user = parameters.getvalue('username')
-         else:
+        else:
             failed_login = True
+    elif {'new-username','email','new-password','new-password-confirm'}.issubset(parameters):
+        new_user(parameters)
     print # end header
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
@@ -108,7 +110,7 @@ def main():
     if failed_login:
         print "Incorrect username/password."
     elif 'new-user' in parameters:
-        new_user()
+        new_user_page()
     elif parameters.getvalue('user') != None:
         if parameters.getvalue('user') in os.listdir(users_dir):
             user_page(parameters)
@@ -134,16 +136,19 @@ def main():
     print page_trailer(parameters)
 
 def new_user():
+    pass
+
+def new_user_page():
     print """<div class="container">
     <div class="row">
         <div class="col-md-3">
         </div>
         <div class="col-md-6 col-md-12">
             <h1>New Profile</h1>
-            <form>
+            <form method="POST">
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" class="form-control" placeholder="Full Name">
+                    <input type="text" name="full-name" class="form-control" placeholder="Full Name">
                 </div>
                 <div class="form-group">
                     <label>Profile Picture</label>
@@ -152,32 +157,32 @@ def new_user():
                 </div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="text" name="new-username" class="form-control" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label>Email address</label>
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" name="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" name="new-password" class="form-control" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" class="form-control" placeholder="Confirm Password">
+                    <input type="password" name="new-password-confirm" class="form-control" placeholder="Confirm Password">
                 </div>
                 <h2>Home Details</h2>
                 <div class="form-group">
                     <label>Suburb</label>
-                    <input type="text" class="form-control" placeholder="Suburb">
+                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
                 </div>
                 <div class="form-group">
                     <label>Latitude</label>
-                    <input type="text" class="form-control" placeholder="Latitude">
+                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
                 </div>
                 <div class="form-group">
                     <label>Longitude</label>
-                    <input type="text" class="form-control" placeholder="Longitude">
+                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
