@@ -120,7 +120,10 @@ def main():
     elif 'search' in parameters: # parameters.getvalue('search') != None:
         # print search_page(parameters)
         # bleat_search(parameters)
-        user_search(parameters)
+        if parameters.getfirst('type') == 'bleat':
+            bleat_search(parameters)
+        else:
+            user_search(parameters)
     else:
         if active_user:
             dashboard()
@@ -732,7 +735,7 @@ def user_search(parameters):
             <h2> Search Results: <small>%s</small></h2>
             <ul class="nav nav-pills">
                 <li role="presentation" class="active"><a href="#">Users</a></li>
-                <li role="presentation"><a href="#">Bleats</a></li>
+                <li role="presentation"><a href="?search=%s&type=bleat">Bleats</a></li>
             </ul>
             <br>
             <div class="panel panel-default">
@@ -742,7 +745,7 @@ def user_search(parameters):
         </div>
     </div>
 </div>
-""" % (search_term,user_panels,paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
+""" % (search_term,search_term,user_panels,paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def bleat_search(parameters):
     search_term = parameters.getfirst('search')
@@ -767,7 +770,7 @@ def bleat_search(parameters):
         <div class="col-md-12 col-sm-12">
             <h2> Search Results: <small>%s</small></h2>
             <ul class="nav nav-pills">
-                <li role="presentation"><a href="#">Users</a></li>
+                <li role="presentation"><a href="?search=%s">Users</a></li>
                 <li role="presentation" class="active"><a href="#">Bleats</a></li>
             </ul>
             <br>
@@ -776,7 +779,7 @@ def bleat_search(parameters):
         </div>
     </div>
 </div>
-""" % (search_term,bleat_panels(matches),paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
+""" % (search_term,search_term,bleat_panels(matches),paginator('search='+search_term+'&type=bleat',len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def search_page(parameters):
     search_term = parameters.getfirst('search')
