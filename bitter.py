@@ -119,7 +119,8 @@ def main():
             bleat_missing()
     elif 'search' in parameters: # parameters.getvalue('search') != None:
         # print search_page(parameters)
-        bleat_search(parameters)
+        # bleat_search(parameters)
+        user_search(parameters)
     else:
         if active_user:
             dashboard()
@@ -691,9 +692,57 @@ def user_page(parameters):
 </div>
 """ % (bleat_panels(curr_user.bleats),page_details)
 
-def user_search():
-    pass
-    #
+def user_search(parameters):
+    search_term = parameters.getfirst('search')
+    matches = []
+    for curr_user in os.listdir(users_dir):
+        if search_term.lower() in curr_user.lower():
+            matches.append(curr_user)
+            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
+        else:
+            with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
+                for line in f:
+                    field, _, value = line.rstrip().partition(": ")
+                    if field == "full_name":
+                        if search_term.lower() in value.lower():
+                            matches.append(curr_user)
+                            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
+                        else:
+                            break
+    user_panels = ""
+    for match in matches:
+        curr_user = user(match)
+        user_panels += """<a href="?user=%s" class="list-group-item">
+<div class="media">
+    <div class="media-left">
+        <img class="media-object" src="%s" height="100" width="100">
+    </div>
+    <div class="media-body">
+        <h3 class="media-heading">%s<br><small>%s</small></h3>
+    </div>
+</div>
+</a>
+""" % (match,curr_user.pic,curr_user.details["username"],match)
+    # bleat_panels(matches)
+    # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
+    print """
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h2> Search Results: <small>%s</small></h2>
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="#">Users</a></li>
+                <li role="presentation"><a href="#">Bleats</a></li>
+            </ul>
+            <br>
+            <div class="panel panel-default">
+            %s
+            </div>
+            %s
+        </div>
+    </div>
+</div>
+""" % (search_term,user_panels,paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def bleat_search(parameters):
     search_term = parameters.getfirst('search')
