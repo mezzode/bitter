@@ -725,7 +725,10 @@ def search_page(parameters):
     matches = []
     for curr_bleat in os.listdir(bleats_dir):
         with open(os.path.join(bleats_dir,curr_bleat)) as f:
-            for line in f:
+            lines = f.readlines()
+            if 'deleted\n' in lines:
+                continue
+            for line in lines:
                 field, _, value = line.rstrip().partition(": ")
                 if field == "bleat":
                     if search_term.lower() in value.lower():
