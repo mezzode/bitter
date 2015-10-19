@@ -107,6 +107,8 @@ def main():
     page = int(parameters.getfirst('page','1'))
     if failed_login:
         print "Incorrect username/password."
+    elif 'new-user' in parameters:
+        new_user()
     elif parameters.getvalue('user') != None:
         if parameters.getvalue('user') in os.listdir(users_dir):
             user_page(parameters)
@@ -130,6 +132,56 @@ def main():
         else:
             landing_page()
     print page_trailer(parameters)
+
+def new_user():
+    print """<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 col-md-12">
+            <h1>New Profile</h1>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" placeholder="Full Name">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="Confirm Password">
+                </div>
+                <h2>Home Details</h2>
+                <div class="form-group">
+                    <label>Suburb</label>
+                    <input type="text" class="form-control" placeholder="Suburb">
+                </div>
+                <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="text" class="form-control" placeholder="Latitude">
+                </div>
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="text" class="form-control" placeholder="Longitude">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+"""
 
 def bleat_page(parameters):
     bleat_details = bleat_panel(parameters.getvalue('bleat'))
