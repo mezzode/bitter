@@ -764,7 +764,7 @@ def user_search(parameters):
     </div>
 </div>
 </a>
-""" % (match,curr_user.pic,curr_user.details["username"],match)
+""" % (match,curr_user.pic,curr_user.details["full_name"],match)
     # bleat_panels(matches)
     # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """
