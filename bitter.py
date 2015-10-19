@@ -191,38 +191,25 @@ def paginator(origin,pages): # TODO Need parameters so goes to same url
     page_details = """<nav>
     <div class="text-center">
     <ul class="pagination">"""
-    for i in range(1,page):
+    if page <= 11:
+        start = 1
+        end = pages+1
+    else:
+        start = page - 5
+        if pages < page + 5:
+            end = pages + 1
+        else:
+            end = page + 6
+    for i in range(start,page):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
     page_details += '<li class="active"><a href="?%spage=%s">%s</a></li>\n' % (origin,page,page)
-    for i in range(page+1,pages+1):
+    for i in range(page+1,end):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
     page_details += """</ul>
     </div>
     </nav>
     """
     return page_details
-    return """<nav>
-              <div class="text-center">
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-              </div>
-            </nav>"""
-    
 
 def landing_page():
     print """<div class="jumbotron">
