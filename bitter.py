@@ -138,6 +138,8 @@ def new_user():
         pass
 
 def new_user_page(parameters):
+    if parameters.getfirst('username') in os.listdir(users_dir):
+        pass # username taken
     print """<div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -149,6 +151,7 @@ def new_user_page(parameters):
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
+                    <span id="name-help" class="help-block"></span>
                 </div>
                 <!-- <div class="form-group">
                     <label>Profile Picture</label>
@@ -158,11 +161,12 @@ def new_user_page(parameters):
                 <div class="form-group">
                     <label>Email address</label>
                     <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
+                    <span id="email-help" class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
-                    <span class="help-block"></span>
+                    <span id="username-help" class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
@@ -1191,20 +1195,26 @@ def page_trailer(parameters):
             if ($('input',this).attr("name") == 'email'){
                 if (/^[^@]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
                     $(this).removeClass('has-error');
+                    $('#email-help').text('');
                 } else {
                     $(this).addClass('has-error');
+                    $('#email-help').text('Invalid email address.');
                 }
             } else if ($('input',this).attr("name") == 'full-name'){
                 if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="full-name"]',this).val())){
                     $(this).removeClass('has-error');
+                    $('#name-help').text('');
                 } else {
                     $(this).addClass('has-error');
+                    $('#name-help').text('Invalid name.');
                 }
             } else if ($('input',this).attr("name") == 'new-username'){
                 if (/^\w+$/.test($('input[name="new-username"]',this).val())){
                     $(this).removeClass('has-error');
+                    $('#username-help').text('');
                 } else {
                     $(this).addClass('has-error');
+                    $('#username-help').text('Invalid username.');
                 }
             }
         });
