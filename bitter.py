@@ -156,12 +156,12 @@ def new_user_page(parameters):
                     <p class="help-block">Profile picture.</p>
                 </div> -->
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="new-username" class="form-control" placeholder="Username">
-                </div>
-                <div class="form-group">
                     <label>Email address</label>
                     <input type="email" name="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="new-username" class="form-control" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
@@ -1187,6 +1187,18 @@ def page_trailer(parameters):
                 $(this).removeClass('has-error');
             }
         });
+    });
+    
+    // limit names to alphabet
+    $('input[name="full-name"]').on('input', function () {
+        var area = $("textarea",this);
+        $(this).val($(this).val().replace(/[^A-Za-z ]/g,''));
+    });
+    
+    // limit usernames to word chars
+    $('input[name="new-username"]').on('input', function () {
+        var area = $("textarea",this);
+        $(this).val($(this).val().replace(/\W/g,''));
     });
 
     $('[login]').on('input', function () {
