@@ -84,8 +84,6 @@ def main():
             active_user = parameters.getvalue('username')
         else:
             failed_login = True
-    elif {'new-username','email','new-password','new-password-confirm'}.issubset(parameters):
-        new_user(parameters)
     print # end header
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
@@ -96,7 +94,7 @@ def main():
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     # print os.getenv('QUERY_STRING')
-    if 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
+    if False: #'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
     elif parameters.getvalue('listen') != None:
@@ -110,7 +108,7 @@ def main():
     if failed_login:
         print "Incorrect username/password."
     elif 'new-user' in parameters:
-        new_user_page()
+        new_user_page(parameters)
     elif parameters.getvalue('user') != None:
         if parameters.getvalue('user') in os.listdir(users_dir):
             user_page(parameters)
@@ -136,9 +134,10 @@ def main():
     print page_trailer(parameters)
 
 def new_user():
-    pass
+    # with open(os.path.join(users_dir,user,"details.txt"),'w') as f:
+        pass
 
-def new_user_page():
+def new_user_page(parameters):
     print """<div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -146,15 +145,16 @@ def new_user_page():
         <div class="col-md-6 col-md-12">
             <h1>New Profile</h1>
             <form method="POST">
+                <div id="new-user-required">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="full-name" class="form-control" placeholder="Full Name">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Profile Picture</label>
                     <input type="file">
                     <p class="help-block">Profile picture.</p>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="new-username" class="form-control" placeholder="Username">
@@ -171,7 +171,9 @@ def new_user_page():
                     <label>Confirm Password</label>
                     <input type="password" name="new-password-confirm" class="form-control" placeholder="Confirm Password">
                 </div>
-                <h2>Home Details</h2>
+                </div><!-- Compulsory -->
+                <div class="collapse" id="new-user-optional"><!-- Maybe just add home details in edit profile page? -->
+                <h2>Home Details <small>(Optional)</small></h2>
                 <div class="form-group">
                     <label>Suburb</label>
                     <input type="text" name="suburb" class="form-control" placeholder="Suburb">
@@ -184,7 +186,8 @@ def new_user_page():
                     <label>Longitude</label>
                     <input type="text" name="longitude" class="form-control" placeholder="Longitude">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         <div class="col-md-3">
@@ -1176,6 +1179,15 @@ def page_trailer(parameters):
         }
     })
 
+    $('#new-user-submit').click(function() {
+        $('div.form-group',$('#new-user-required')).each(function(i){
+            if ($('input',this).val().length == 0){
+                $(this).addClass('has-error');
+            } else {
+                $(this).removeClass('has-error');
+            }
+        });
+    });
 
     $('[login]').on('input', function () {
         var username = $("input[type=text]",this).val().length;
