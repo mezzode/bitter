@@ -1206,6 +1206,10 @@ def page_trailer(parameters):
                 }
             }
         });
+        if ($('input[name="new-password"]').val() != $('input[name="new-password-confirm"]').val()){
+            $('input[name="new-password"]').parent().addClass('has-error');
+            $('input[name="new-password-confirm"]').parent().addClass('has-error');
+        }
         var all_valid = 1;
         $('div.form-group',$('#new-user-required')).each(function(i){
             if ($(this).hasClass("has-error")){
