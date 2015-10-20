@@ -1206,6 +1206,15 @@ def page_trailer(parameters):
                 }
             }
         });
+        var all_valid = 1;
+        $('div.form-group',$('#new-user-required')).each(function(i){
+            if ($(this).hasClass("has-error")){
+                all_valid = 0;
+            }
+        });
+        if (all_valid){
+            alert('submit');
+        }
     });
     
     /* // limit names to alphabet
