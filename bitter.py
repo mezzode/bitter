@@ -138,8 +138,35 @@ def new_user():
         pass
 
 def new_user_page(parameters):
-    if parameters.getfirst('username') in os.listdir(users_dir):
-        pass # username taken
+    valid = True
+    if parameters.getfirst('new-username') in os.listdir(users_dir):
+        valid = False # username taken
+        username_msg = 'Username already taken.'
+    elif not re.match(r'^\w+$',parameters.getfirst('new-username')): # if matches regex
+        valid = False # username taken
+        username_msg = 'Invalid username.'
+    else:
+        username_msg = ''
+    if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name')): # if matches regex
+        valid = False # username taken
+        name_msg = 'Full name required.'
+    else:
+        name_msg = ''
+    if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email')): # if matches regex
+        valid = False # username taken
+        email_msg = 'Invalid email address.'
+    else:
+        email_msg = ''
+    if parameters.getfirst('new-password') != parameters.getfirst('new-password-confirm'):
+        valid = False
+        password_msg = 'Passwords do not match.'
+    else:
+        password_msg = ''
+    
+    if valid = True:
+        new_user()
+        # and print page saying email confirmation has been sent
+
     print """<div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -1206,7 +1233,7 @@ def page_trailer(parameters):
                     $('#name-help').text('');
                 } else {
                     $(this).addClass('has-error');
-                    $('#name-help').text('Invalid name.');
+                    $('#name-help').text('Full name required.');
                 }
             } else if ($('input',this).attr("name") == 'new-username'){
                 if (/^\w+$/.test($('input[name="new-username"]',this).val())){
@@ -1221,7 +1248,7 @@ def page_trailer(parameters):
         if ($('input[name="new-password"]').val() != $('input[name="new-password-confirm"]').val()){
             $('input[name="new-password"]').parent().addClass('has-error');
             $('input[name="new-password-confirm"]').parent().addClass('has-error');
-            $('#password-help').text('Passwords do not match');
+            $('#password-help').text('Passwords do not match.');
             // $("span.help-block",this).text(count+'/142');
         } else {
             $('#password-help').text('');
