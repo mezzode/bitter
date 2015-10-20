@@ -1193,7 +1193,13 @@ def page_trailer(parameters):
                     $(this).addClass('has-error');
                 }
             } else if ($('input',this).attr("name") == 'full-name'){
-                if (/^[A-Za-z\-]+( [A-Za-z\-]+)+$/.test($('input[name="full-name"]',this).val())){
+                if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="full-name"]',this).val())){
+                    $(this).removeClass('has-error');
+                } else {
+                    $(this).addClass('has-error');
+                }
+            } else if ($('input',this).attr("name") == 'new-username'){
+                if (/^\w+$/.test($('input[name="new-username"]',this).val())){
                     $(this).removeClass('has-error');
                 } else {
                     $(this).addClass('has-error');
