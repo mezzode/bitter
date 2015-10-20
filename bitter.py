@@ -1186,10 +1186,17 @@ def page_trailer(parameters):
             } else {
                 $(this).removeClass('has-error');
             }
+            if (/^[\w.]+@[\w]+(.[\w]+)+$/.test($('input[name="email"]',this).val())){
+                // alert('moo');
+                $(this).removeClass('has-error');
+            } else {
+                // alert('test');
+                $(this).addClass('has-error');
+            }
         });
     });
     
-    // limit names to alphabet
+    /* // limit names to alphabet
     $('input[name="full-name"]').on('input', function () {
         var area = $("textarea",this);
         $(this).val($(this).val().replace(/[^A-Za-z ]/g,''));
@@ -1199,7 +1206,7 @@ def page_trailer(parameters):
     $('input[name="new-username"]').on('input', function () {
         var area = $("textarea",this);
         $(this).val($(this).val().replace(/\W/g,''));
-    });
+    }); */
 
     $('[login]').on('input', function () {
         var username = $("input[type=text]",this).val().length;
