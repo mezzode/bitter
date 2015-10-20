@@ -148,7 +148,7 @@ def new_user_page(parameters):
                 <div id="new-user-required">
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" name="full-name" class="form-control" placeholder="Full Name">
+                    <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
                 </div>
                 <!-- <div class="form-group">
                     <label>Profile Picture</label>
@@ -157,22 +157,24 @@ def new_user_page(parameters):
                 </div> -->
                 <div class="form-group">
                     <label>Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="new-username" class="form-control" placeholder="Username">
+                    <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
+                    <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="new-password" class="form-control" placeholder="Password">
+                    <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" name="new-password-confirm" class="form-control" placeholder="Confirm Password">
+                    <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
+                    <span id="password-help" class="help-block"></span>
                 </div>
                 </div><!-- Compulsory -->
-                <div class="collapse" id="new-user-optional"><!-- Maybe just add home details in edit profile page? -->
+                <!-- <div class="collapse" id="new-user-optional">
                 <h2>Home Details <small>(Optional)</small></h2>
                 <div class="form-group">
                     <label>Suburb</label>
@@ -186,7 +188,7 @@ def new_user_page(parameters):
                     <label>Longitude</label>
                     <input type="text" name="longitude" class="form-control" placeholder="Longitude">
                 </div>
-                </div>
+                </div> -->
                 <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -194,7 +196,7 @@ def new_user_page(parameters):
         </div>
     </div>
 </div>
-"""
+""" % (parameters.getfirst('full-name',''),parameters.getfirst('email',''), parameters.getfirst('new-username',''),parameters.getfirst('new-password',''),parameters.getfirst('new-password-confirm',''))
 
 def bleat_page(parameters):
     bleat_details = bleat_panel(parameters.getvalue('bleat'))
@@ -1209,6 +1211,10 @@ def page_trailer(parameters):
         if ($('input[name="new-password"]').val() != $('input[name="new-password-confirm"]').val()){
             $('input[name="new-password"]').parent().addClass('has-error');
             $('input[name="new-password-confirm"]').parent().addClass('has-error');
+            $('#password-help').text('Passwords do not match');
+            // $("span.help-block",this).text(count+'/142');
+        } else {
+            $('#password-help').text('');
         }
         var all_valid = 1;
         $('div.form-group',$('#new-user-required')).each(function(i){
@@ -1225,6 +1231,11 @@ def page_trailer(parameters):
     $('div.form-group input').on('input', function () {
         // alert('af');
         $(this).parent().removeClass('has-error');
+        if ($(this).attr('name') == 'new-password'){
+            $('input[name="new-password-confirm"]').parent().removeClass('has-error');
+        } else if ($(this).attr('name') == 'new-password-confirm'){
+            $('input[name="new-password"]').parent().removeClass('has-error');
+        }
     });
 
     /* // limit names to alphabet
