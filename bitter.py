@@ -1217,6 +1217,12 @@ def page_trailer(parameters):
         }
     });
     
+    // remove error styling once edited
+    $('div.form-group input').on('input', function () {
+        // alert('af');
+        $(this).parent().removeClass('has-error');
+    });
+
     /* // limit names to alphabet
     $('input[name="full-name"]').on('input', function () {
         var area = $("textarea",this);
