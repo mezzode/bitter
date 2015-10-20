@@ -1186,12 +1186,18 @@ def page_trailer(parameters):
             } else {
                 $(this).removeClass('has-error');
             }
-            if (/^[\w.]+@[\w]+(.[\w]+)+$/.test($('input[name="email"]',this).val())){
-                // alert('moo');
-                $(this).removeClass('has-error');
-            } else {
-                // alert('test');
-                $(this).addClass('has-error');
+            if ($('input',this).attr("name") == 'email'){
+                if (/^[^@]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
+                    $(this).removeClass('has-error');
+                } else {
+                    $(this).addClass('has-error');
+                }
+            } else if ($('input',this).attr("name") == 'full-name'){
+                if (/^[A-Za-z\-]+( [A-Za-z\-]+)+$/.test($('input[name="full-name"]',this).val())){
+                    $(this).removeClass('has-error');
+                } else {
+                    $(this).addClass('has-error');
+                }
             }
         });
     });
