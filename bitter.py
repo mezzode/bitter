@@ -1193,7 +1193,7 @@ def page_trailer(parameters):
                 $(this).removeClass('has-error');
             }
             if ($('input',this).attr("name") == 'email'){
-                if (/^[^@]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
+                if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
                     $(this).removeClass('has-error');
                     $('#email-help').text('');
                 } else {
