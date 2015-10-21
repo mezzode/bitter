@@ -142,31 +142,88 @@ def new_user_page(parameters):
     if parameters.getfirst('new-username') in os.listdir(users_dir):
         valid = False # username taken
         username_msg = 'Username already taken.'
-    elif not re.match(r'^\w+$',parameters.getfirst('new-username')): # if matches regex
+        username_class = ' has-error' # for if interpolating class, may be better?
+    elif not re.match(r'^\w+$',parameters.getfirst('new-username','')): # if matches regex
         valid = False # username taken
         username_msg = 'Invalid username.'
+        username_class = ' has-error' # for if interpolating class, may be better?
     else:
         username_msg = ''
-    if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name')): # if matches regex
+        username_class = '' # for if interpolating class, may be better?
+    if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name','')): # if matches regex
         valid = False # username taken
         name_msg = 'Full name required.'
     else:
         name_msg = ''
-    if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email')): # if matches regex
+    if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email','')): # if matches regex
         valid = False # username taken
         email_msg = 'Invalid email address.'
     else:
         email_msg = ''
-    if parameters.getfirst('new-password') != parameters.getfirst('new-password-confirm'):
+    if parameters.getfirst('new-password','') != parameters.getfirst('new-password-confirm',''):
         valid = False
         password_msg = 'Passwords do not match.'
+    elif not parameters.getfirst('new-password') or not parameters.getfirst('new-password-confirm'):
+        valid = False
+        password_msg = 'Password is required'
     else:
         password_msg = ''
     
-    if valid = True:
+    if valid == True:
         new_user()
         # and print page saying email confirmation has been sent
-
+    else:
+        print """<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 col-md-12">
+            <h1>New Profile</h1>
+            <form method="POST">
+                <div id="new-user-required">
+"""
+        if name_msg:
+            print '<div class="form-group has-error">\n'
+        else:
+            print '<div class="form-group">\n'
+        print """<label>Full Name</label>
+                    <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
+                    <span id="name-help" class="help-block">%s</span>
+                </div>""" % (parameters.getfirst('full-name',''),name_msg)
+        if email_msg:
+            print '<div class="form-group has-error">\n'
+        else:
+            print '<div class="form-group">\n'
+        print """<label>Email Address</label>
+                    <input type="text" name="email" value="%s" class="form-control" placeholder="Email">
+                    <span id="email-help" class="help-block">%s</span>
+                </div>""" % (parameters.getfirst('email',''),email_msg)
+        #if username_msg:
+        #    print '<div class="form-group has-error">\n'
+        #else:
+        #    print '<div class="form-group">\n'
+        print """<div class="form-group%s">
+        <label>Username</label>
+                    <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
+                    <span id="username-help" class="help-block">%s</span>
+                </div>""" % (username_class,parameters.getfirst('new-username',''),username_msg)
+        if password_msg:
+            print '<div class="form-group has-error">\n'
+        else:
+            print '<div class="form-group">\n'
+        print """<label>Password</label>
+                    <input type="text" name="new-password" value="%s" class="form-control" placeholder="Password">
+                </div>""" % (parameters.getfirst('new-password',''))
+        if password_msg:
+            print '<div class="form-group has-error">\n'
+        else:
+            print '<div class="form-group">\n'
+        print """<label>Confirm Password</label>
+                    <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
+                    <span id="username-help" class="help-block">%s</span>
+                </div>""" % (parameters.getfirst('new-password-confirm',''),password_msg)
+    
+    return
     print """<div class="container">
     <div class="row">
         <div class="col-md-3">
