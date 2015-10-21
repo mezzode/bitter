@@ -165,7 +165,7 @@ def new_user_page(parameters):
         password_msg = 'Passwords do not match.'
     elif not parameters.getfirst('new-password') or not parameters.getfirst('new-password-confirm'):
         valid = False
-        password_msg = 'Password is required'
+        password_msg = 'Password is required.'
     else:
         password_msg = ''
     
@@ -195,7 +195,7 @@ def new_user_page(parameters):
         else:
             print '<div class="form-group">\n'
         print """<label>Email Address</label>
-                    <input type="text" name="email" value="%s" class="form-control" placeholder="Email">
+                    <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
                     <span id="email-help" class="help-block">%s</span>
                 </div>""" % (parameters.getfirst('email',''),email_msg)
         #if username_msg:
@@ -212,17 +212,25 @@ def new_user_page(parameters):
         else:
             print '<div class="form-group">\n'
         print """<label>Password</label>
-                    <input type="text" name="new-password" value="%s" class="form-control" placeholder="Password">
+                    <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
                 </div>""" % (parameters.getfirst('new-password',''))
         if password_msg:
             print '<div class="form-group has-error">\n'
         else:
             print '<div class="form-group">\n'
         print """<label>Confirm Password</label>
-                    <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
-                    <span id="username-help" class="help-block">%s</span>
+                    <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
+                    <span id="password-help" class="help-block">%s</span>
                 </div>""" % (parameters.getfirst('new-password-confirm',''),password_msg)
     
+        print """<button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>"""
     return
     print """<div class="container">
     <div class="row">
@@ -1273,6 +1281,7 @@ def page_trailer(parameters):
         $('div.form-group',$('#new-user-required')).each(function(i){
             if ($('input',this).val().length == 0){
                 $(this).addClass('has-error');
+                $('.help-block',this).text('Required.');
             } else {
                 $(this).removeClass('has-error');
             }
