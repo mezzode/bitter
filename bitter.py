@@ -152,6 +152,8 @@ def new_user(parameters):
         f.write('password: '+password+'\n')
         f.write('full_name: '+name+'\n')
         f.write('email: '+email+'\n')
+    with open(os.path.join('pending',username,'bleats.txt'),'w') as f:
+        f.write('\n')
     email_confirm(email,user_id)
 
 def email_confirm(to_address,user_id):
