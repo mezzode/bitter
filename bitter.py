@@ -68,7 +68,7 @@ def main():
                 lines = f.readlines()
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
-    if parameters.getvalue('logout') and active_user:
+    if active_user and 'logout' in parameters: # parameters.getvalue('logout') and active_user:
         with open('sessions.txt') as f:
             sessions = f.readlines()
         session = active_user + ' ' + session_id + '\n'
@@ -78,11 +78,11 @@ def main():
             f.writelines(sessions)
         # disable cookie?
         active_user = None
-    elif parameters.getvalue('password') != None and parameters.getvalue('username') != None:
+    elif parameters.getfirst('password') != None and parameters.getfirst('username') != None:
         # need a page if incorrect username/password
         if authenticate(parameters):
             issue_token(parameters)
-            active_user = parameters.getvalue('username')
+            active_user = parameters.getfirst('username')
         else:
             failed_login = True
     print # end header
@@ -96,28 +96,28 @@ def main():
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     # print os.getenv('QUERY_STRING')
     # print os.environ
-    if False: #'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
+    if 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
-    elif parameters.getvalue('listen') != None:
-        if parameters.getvalue('listen') in os.listdir(users_dir):
+    elif 'listen' in parameters: # parameters.getvalue('listen') != None:
+        if parameters.getfirst('listen') in os.listdir(users_dir):
             add_listen(parameters)
-    elif parameters.getvalue('delete-bleat') != None:
-        if parameters.getvalue('delete-bleat') in os.listdir(bleats_dir):
-            delete_bleat(parameters.getvalue('delete-bleat'))
+    elif 'delete-bleat' in parameters: # parameters.getvalue('delete-bleat') != None:
+        if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
+            delete_bleat(parameters.getfirst('delete-bleat'))
     global page
     page = int(parameters.getfirst('page','1'))
     if failed_login:
         print "Incorrect username/password."
     elif 'new-user' in parameters:
         new_user_page(parameters)
-    elif parameters.getvalue('user') != None:
-        if parameters.getvalue('user') in os.listdir(users_dir):
+    elif 'user' in parameters: # parameters.getvalue('user') != None:
+        if parameters.getfirst('user') in os.listdir(users_dir):
             user_page(parameters)
         else:
-            user_missing(parameters.getvalue('user'))
-    elif parameters.getvalue('bleat') != None:
-        if parameters.getvalue('bleat') in os.listdir(bleats_dir):
+            user_missing(parameters.getfirst('user'))
+    elif 'bleat' in parameters: # parameters.getvalue('bleat') != None:
+        if parameters.getfirst('bleat') in os.listdir(bleats_dir):
             bleat_page(parameters)
         else:
             bleat_missing()
@@ -341,7 +341,7 @@ def new_user_page(parameters):
 """ % (parameters.getfirst('full-name',''),parameters.getfirst('email',''), parameters.getfirst('new-username',''),parameters.getfirst('new-password',''),parameters.getfirst('new-password-confirm',''))
 
 def bleat_page(parameters):
-    bleat_details = bleat_panel(parameters.getvalue('bleat'))
+    bleat_details = bleat_panel(parameters.getfirst('bleat'))
     print """<div class="container">
 <div class="row">
     <div class="col-md-3">
@@ -448,8 +448,8 @@ def landing_page():
 
 def authenticate(parameters):
     # validate; if username and pass do not match the records, divert to incorrect pass screen
-    username = parameters.getvalue('username')
-    password = parameters.getvalue('password')
+    username = parameters.getfirst('username')
+    password = parameters.getfirst('password')
     # with open(os.path.join(users_dir,username,'details.txt') as f:
     if username not in os.listdir(users_dir):
         return False
@@ -458,27 +458,14 @@ def authenticate(parameters):
         return True
     else:
         return False
-        cookie = Cookie.SimpleCookie()
-        # session_id = random.getrandbits(128)
-        session_id = uuid.uuid4()
-        session = username + " " + str(session_id)
-        cookie['session'] = session
-        if parameters.getvalue('remember-me'): # for 30 days
-            # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-            # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
-            cookie['session']['max-age'] = 60 * 60 * 24 * 30
-        with open('sessions.txt','a') as f:
-            f.write(session+"\n")
-        print cookie.output()
 
 def issue_token(parameters):
     cookie = Cookie.SimpleCookie()
-    username = parameters.getvalue('username')
-    # session_id = random.getrandbits(128)
+    username = parameters.getfirst('username')
     session_id = uuid.uuid4()
     session = username + " " + str(session_id)
     cookie['session'] = session
-    if parameters.getvalue('remember-me'): # for 30 days
+    if parameters.getfirst('remember-me'): # for 30 days
         # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
         # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
         cookie['session']['max-age'] = 60 * 60 * 24 * 30
@@ -487,9 +474,9 @@ def issue_token(parameters):
     print cookie.output()
 
 def new_bleat(parameters):
-    text = cgi.escape(parameters.getvalue('new-bleat'))
-    user = parameters.getvalue('new-bleat-user')
-    reply = parameters.getvalue('new-bleat-reply',None)
+    text = cgi.escape(parameters.getfirst('new-bleat'))
+    user = parameters.getfirst('new-bleat-user')
+    reply = parameters.getfirst('new-bleat-reply',None)
     # text = cgi.escape(parameters['new-bleat'].value)
     # user = cgi.escape(parameters['new-bleat-user'].value)
     # reply = cgi.escape(parameters['new-bleat-reply'].value)
@@ -544,7 +531,7 @@ def main_form():
 </form>"""
 
 def add_listen(parameters):
-    user = parameters.getvalue('listen')
+    user = parameters.getfirst('listen')
     lines = []
     field = ""
     message = ""
@@ -775,7 +762,7 @@ def user_missing(username):
 
 def user_page(parameters):
     # n = int(parameters.getvalue('n', 0))
-    username = parameters.getvalue('user')
+    username = parameters.getfirst('user')
     # if user_to_show != '':
     #     user_to_show = os.path.join(users_dir,user_to_show)
     # else:
