@@ -133,7 +133,7 @@ def main():
             landing_page()
     print page_trailer(parameters)
 
-def new_user():
+def new_user(parameters):
     # with open(os.path.join(users_dir,user,"details.txt"),'w') as f:
         pass
 
@@ -170,14 +170,24 @@ def new_user_page(parameters):
         password_msg = ''
     
     if valid == True:
-        new_user()
+        new_user(parameters)
+        print """<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-sm-12">
+            <h1>New Profile</h1>
+            <p>A confirmation email has been sent to %s. Thanks for signing up!</p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>""" % parameters.getfirst("email")
         # and print page saying email confirmation has been sent
     else:
         print """<div class="container">
     <div class="row">
         <div class="col-md-3">
         </div>
-        <div class="col-md-6 col-md-12">
+        <div class="col-md-6 col-sm-12">
             <h1>New Profile</h1>
             <form method="POST" id="new-user-required">
                 <!--<div id="new-user-required">-->
