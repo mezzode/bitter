@@ -185,6 +185,12 @@ def new_user_page(parameters):
     else:
         password_msg = ''
     
+    if (parameters.getfirst('new-user') == 'First'):
+        username_msg = ''
+        name_msg = ''
+        email_msg = ''
+        password_msg = ''
+
     if valid == True:
         new_user(parameters)
         print """<div class="container">
@@ -204,7 +210,7 @@ def new_user_page(parameters):
         </div>
         <div class="col-md-6 col-sm-12">
             <h1>New Profile</h1>
-            <form method="POST" id="new-user-required">
+            <form method="POST" action="?new-user=True" id="new-user-required">
                 <!--<div id="new-user-required">-->
 """
         if name_msg:
