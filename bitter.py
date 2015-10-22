@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid, smtplib
+import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid, smtplib, shutil
 from email.mime.text import MIMEText
 
 dataset_size = "medium" 
@@ -108,7 +108,9 @@ def main():
             delete_bleat(parameters.getfirst('delete-bleat'))
     global page
     page = int(parameters.getfirst('page','1'))
-    if failed_login:
+    if 'confirm' in parameters:
+        confirm_user(parameters.getfirst('confirm'))
+    elif failed_login:
         print "Incorrect username/password."
     elif 'new-user' in parameters:
         new_user_page(parameters)
@@ -135,6 +137,21 @@ def main():
         else:
             landing_page()
     print page_trailer(parameters)
+
+def confirm_user(user_id):
+    user = ''
+    with open('pending/pending.txt') as f:
+        lines = f.readlines()
+    for line in lines:
+        line_id, user = line.split()
+        if line_id == user_id:
+            lines.remove(line)
+            break
+    if not user:
+        return
+    with open('pending/pending.txt','w') as f:
+        f.writelines(lines)
+    shutil.move(os.path.join('pending',user),users_dir)
 
 def new_user(parameters):
     user_id = str(uuid.uuid4())
