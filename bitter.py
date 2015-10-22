@@ -179,8 +179,8 @@ def new_user_page(parameters):
         </div>
         <div class="col-md-6 col-md-12">
             <h1>New Profile</h1>
-            <form method="POST">
-                <div id="new-user-required">
+            <form method="POST" id="new-user-required">
+                <!--<div id="new-user-required">-->
 """
         if name_msg:
             print '<div class="form-group has-error">\n'
@@ -224,7 +224,7 @@ def new_user_page(parameters):
                 </div>""" % (parameters.getfirst('new-password-confirm',''),password_msg)
     
         print """<button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
-        </div>
+        <!--</div>-->
         </form>
         </div>
         <div class="col-md-3">
@@ -1332,7 +1332,9 @@ def page_trailer(parameters):
             }
         });
         if (all_valid){
-            alert('submit');
+            // alert('submit');
+            // $('#new-user-required').submit();
+            document.getElementById("new-user-required").submit();
         }
     });
     
