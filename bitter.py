@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid, smtplib, shutil
+import cgi, cgitb, glob, os, datetime, time, re, Cookie, uuid, smtplib, shutil
 from email.mime.text import MIMEText
 
 dataset_size = "medium" 
