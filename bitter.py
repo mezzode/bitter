@@ -134,8 +134,22 @@ def main():
     print page_trailer(parameters)
 
 def new_user(parameters):
+    user_id = str(uuid.uuid4())
+    username = parameters.getfirst('new-username')
+    password = parameters.getfirst('new-password')
+    name = parameters.getfirst('full-name')
+    email = parameters.getfirst('email')
     # with open(os.path.join(users_dir,user,"details.txt"),'w') as f:
-        pass
+    if not os.path.exists('pending'):
+        os.mkdir('pending')
+    with open('pending/pending.txt','a') as f:
+        f.write(user_id+' '+username+'\n')
+    os.mkdir(os.path.join('pending',username))
+    with open(os.path.join('pending',username,'details.txt'),'w') as f:
+        f.write('username: '+username+'\n')
+        f.write('password: '+password+'\n')
+        f.write('full_name: '+name+'\n')
+        f.write('email: '+email+'\n')
 
 def new_user_page(parameters):
     valid = True
