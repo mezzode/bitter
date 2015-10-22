@@ -4,7 +4,8 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid
+import cgi, cgitb, glob, os, datetime, time, re, Cookie, random, uuid, smtplib
+from email.mime.text import MIMEText
 
 dataset_size = "medium" 
 users_dir = "dataset-%s/users"% dataset_size
@@ -94,6 +95,7 @@ def main():
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     # print os.getenv('QUERY_STRING')
+    # print os.environ
     if False: #'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
@@ -150,6 +152,19 @@ def new_user(parameters):
         f.write('password: '+password+'\n')
         f.write('full_name: '+name+'\n')
         f.write('email: '+email+'\n')
+    email_confirm(email,user_id)
+
+def email_confirm(to_address,user_id):
+    from_address = 'z5024967@student.unsw.edu.au'
+    url = os.environ['SCRIPT_URI'] + '?confirm=' + user_id
+    message = 'Welcome to Bitter!\n\nGo to %s to validate your email address and start using Bitter!' % url
+    msg = MIMEText(message)
+    msg['Subject'] = 'Welcome to Bitter!'
+    msg['From'] = from_address
+    msg['To'] = to_address
+    s = smtplib.SMTP('smtp.unsw.edu.au')
+    s.sendmail(from_address, [to_address], msg.as_string())
+    s.quit()
 
 def new_user_page(parameters):
     valid = True
@@ -1303,6 +1318,12 @@ def page_trailer(parameters):
     })
 
     $('[bleat]').keypress(function(e) {
+        if (e.which == 13) { // enter key
+            this.submit()
+        }
+    })
+
+    $('#new-user-required').keypress(function(e) {
         if (e.which == 13) { // enter key
             this.submit()
         }
