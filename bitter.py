@@ -156,14 +156,14 @@ def new_user_page(parameters):
     if parameters.getfirst('new-username') in os.listdir(users_dir):
         valid = False # username taken
         username_msg = 'Username already taken.'
-        username_class = ' has-error' # for if interpolating class, may be better?
+        # username_class = ' has-error' # for if interpolating class, may be better?
     elif not re.match(r'^\w+$',parameters.getfirst('new-username','')): # if matches regex
         valid = False # username taken
         username_msg = 'Invalid username.'
-        username_class = ' has-error' # for if interpolating class, may be better?
+        # username_class = ' has-error' # for if interpolating class, may be better?
     else:
         username_msg = ''
-        username_class = '' # for if interpolating class, may be better?
+        # username_class = '' # for if interpolating class, may be better?
     if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name','')): # if matches regex
         valid = False # username taken
         name_msg = 'Full name required.'
@@ -195,7 +195,6 @@ def new_user_page(parameters):
         <div class="col-md-3"></div>
     </div>
 </div>""" % parameters.getfirst("email")
-        # and print page saying email confirmation has been sent
     else:
         print """<div class="container">
     <div class="row">
@@ -222,15 +221,15 @@ def new_user_page(parameters):
                     <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
                     <span id="email-help" class="help-block">%s</span>
                 </div>""" % (parameters.getfirst('email',''),email_msg)
-        #if username_msg:
-        #    print '<div class="form-group has-error">\n'
-        #else:
-        #    print '<div class="form-group">\n'
-        print """<div class="form-group%s">
-        <label>Username</label>
+        if username_msg:
+            print '<div class="form-group has-error">\n'
+        else:
+            print '<div class="form-group">\n'
+        # print """<div class="form-group%s">
+        print """<label>Username</label>
                     <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
                     <span id="username-help" class="help-block">%s</span>
-                </div>""" % (username_class,parameters.getfirst('new-username',''),username_msg)
+                </div>""" % (parameters.getfirst('new-username',''),username_msg)
         if password_msg:
             print '<div class="form-group has-error">\n'
         else:
