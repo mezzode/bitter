@@ -153,7 +153,9 @@ def new_user(parameters):
 
 def new_user_page(parameters):
     valid = True
-    if parameters.getfirst('new-username') in os.listdir(users_dir):
+    if not os.path.exists('pending'):
+        os.mkdir('pending')
+    if parameters.getfirst('new-username') in (os.listdir(users_dir) + os.listdir('pending')):
         valid = False # username taken
         username_msg = 'Username already taken.'
         # username_class = ' has-error' # for if interpolating class, may be better?
