@@ -1281,7 +1281,6 @@ def page_trailer(parameters):
         $('div.form-group',$('#new-user-required')).each(function(i){
             if ($('input',this).val().length == 0){
                 $(this).addClass('has-error');
-                $('.help-block',this).text('Required.');
             } else {
                 $(this).removeClass('has-error');
             }
@@ -1315,9 +1314,16 @@ def page_trailer(parameters):
             $('input[name="new-password"]').parent().addClass('has-error');
             $('input[name="new-password-confirm"]').parent().addClass('has-error');
             $('#password-help').text('Passwords do not match.');
+            // alert('moo');
             // $("span.help-block",this).text(count+'/142');
+        } else if ($('input[name="new-password"]').val() == '' && $('input[name="new-password-confirm"]').val() == ''){
+            $('input[name="new-password"]').parent().addClass('has-error');
+            $('input[name="new-password-confirm"]').parent().addClass('has-error');
+            $('#password-help').text('Password is required.');
+            // alert('oom');
         } else {
             $('#password-help').text('');
+            // alert('foo');
         }
         var all_valid = 1;
         $('div.form-group',$('#new-user-required')).each(function(i){
