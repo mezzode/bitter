@@ -78,7 +78,8 @@ def main():
             f.writelines(sessions)
         # disable cookie?
         active_user = None
-    elif parameters.getfirst('password') != None and parameters.getfirst('username') != None:
+    # elif parameters.getfirst('password') != None and parameters.getfirst('username') != None:
+    elif 'password' in parameters and 'username' in parameters:
         # need a page if incorrect username/password
         if authenticate(parameters):
             issue_token(parameters)
