@@ -664,7 +664,7 @@ def bleat_panel(bleat_id):
 """ % (active_user,bleat_id)
     else:
         bleat_details += """<li class="list-group-item">
-        <p class="list-group-item-text"><a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
+        <p class="list-group-item-text"><a href="?new-user=First">Sign Up</a> or <a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
 </li>
 </ul>
 """
