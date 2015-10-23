@@ -1255,6 +1255,7 @@ def navbar():
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
 </ul> -->
 <button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
+<a class="btn btn-link navbar-btn navbar-right" href="?new-user=First">Sign Up</a>
 </div>
             </div>
         </nav>
