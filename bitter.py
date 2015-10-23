@@ -108,7 +108,9 @@ def main():
             delete_bleat(parameters.getfirst('delete-bleat'))
     global page
     page = int(parameters.getfirst('page','1'))
-    if 'confirm' in parameters:
+    if 'edit' in parameters and active_user:
+        edit_details()
+    elif 'confirm' in parameters:
         confirm_user(parameters.getfirst('confirm'))
     elif failed_login:
         print "Incorrect username/password."
@@ -137,6 +139,63 @@ def main():
         else:
             landing_page()
     print page_trailer(parameters)
+
+def edit_details():
+    curr_user = user(active_user)
+    if 'home_suburb' in curr_user.details:
+        pass
+    print """<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 col-md-12">
+            <h1>Edit Details</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
+                    <span id="name-help" class="help-block"></span>
+                </div>
+                <!-- <div class="form-group">
+                    <label>Profile Picture</label>
+                    <input type="file">
+                    <p class="help-block">Profile picture.</p>
+                </div> -->
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
+                    <span id="email-help" class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
+                    <span id="password-help" class="help-block"></span>
+                </div>
+                <h2>Home Details <small>(Optional)</small></h2>
+                <div class="form-group">
+                    <label>Suburb</label>
+                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
+                </div>
+                <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
+                </div>
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
+                </div>
+                <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+""" % (curr_user.details['full_name'],curr_user.details['email'],'','')
 
 def confirm_user(user_id):
     curr_user = ''
