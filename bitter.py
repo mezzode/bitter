@@ -1286,11 +1286,6 @@ def navbar():
                 </div>
             </div>
         </div>
-        <div class="fab-fixed" data-toggle="tooltip" data-placement="left" title="Login to bleat">
-            <button disabled="disabled" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                <i class="material-icons">create</i>
-            </button>
-        </div>
 """
     return
 
