@@ -146,10 +146,10 @@ def edit_details():
         pass
     print """<div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
         </div>
-        <div class="col-md-6 col-md-12">
-
+        <div class="col-md-8 col-md-12">
+<h1>Edit Details</h1>
 <div class="panel-group" id="edit">
 <div class="panel panel-default">
 <div class="list-group">
@@ -161,12 +161,23 @@ def edit_details():
 <div class="collapse panel-collapse" id="details">
     <ul class="list-group">
     <li class="list-group-item">
-        <form method="POST" bleat>
-        <div class="form-group">
-        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
-        <span id="helpBlock" class="help-block pull-right">0/142</span>
-        </div>
-        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+        <form method="POST">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
+                <span id="name-help" class="help-block"></span>
+            </div>
+            <!-- <div class="form-group">
+                <label>Profile Picture</label>
+                <input type="file">
+                <p class="help-block">Profile picture.</p>
+            </div> -->
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
+                <span id="email-help" class="help-block"></span>
+            </div>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -183,12 +194,17 @@ def edit_details():
 <div class="collapse panel-collapse" id="password">
     <ul class="list-group">
     <li class="list-group-item">
-        <form method="POST" bleat>
-        <div class="form-group">
-        <textarea name="new-bleat" placeholder="Your reply" class="form-control" rows="3" maxlength="142"></textarea>
-        <span id="helpBlock" class="help-block pull-right">0/142</span>
-        </div>
-        <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+        <form method="POST">
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
+                <span id="password-help" class="help-block"></span>
+            </div>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -258,32 +274,7 @@ def edit_details():
     </div>
   </div>
 </div>-->
-            <h1>Edit Details</h1>
-            <form method="POST">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
-                    <span id="name-help" class="help-block"></span>
-                </div>
-                <!-- <div class="form-group">
-                    <label>Profile Picture</label>
-                    <input type="file">
-                    <p class="help-block">Profile picture.</p>
-                </div> -->
-                <div class="form-group">
-                    <label>Email address</label>
-                    <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
-                    <span id="email-help" class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
-                    <span id="password-help" class="help-block"></span>
-                </div>
+            
                 <h2>Home Details <small>(Optional)</small></h2>
                 <div class="form-group">
                     <label>Suburb</label>
@@ -300,7 +291,7 @@ def edit_details():
                 <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
         </div>
     </div>
 </div>
