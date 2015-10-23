@@ -148,10 +148,12 @@ def confirm_user(user_id):
             lines.remove(line)
             break
     if not curr_user:
+        print 'Error: User may have already been confirmed.'
         return
     with open('pending/pending.txt','w') as f:
         f.writelines(lines)
     shutil.move(os.path.join('pending',curr_user),users_dir)
+    print 'Success! You can now login and start using Bitter!'
 
 def new_user(parameters):
     user_id = str(uuid.uuid4())
