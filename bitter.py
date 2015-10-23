@@ -139,19 +139,19 @@ def main():
     print page_trailer(parameters)
 
 def confirm_user(user_id):
-    user = ''
+    curr_user = ''
     with open('pending/pending.txt') as f:
         lines = f.readlines()
     for line in lines:
-        line_id, user = line.split()
+        line_id, curr_user = line.split()
         if line_id == user_id:
             lines.remove(line)
             break
-    if not user:
+    if not curr_user:
         return
     with open('pending/pending.txt','w') as f:
         f.writelines(lines)
-    shutil.move(os.path.join('pending',user),users_dir)
+    shutil.move(os.path.join('pending',curr_user),users_dir)
 
 def new_user(parameters):
     user_id = str(uuid.uuid4())
@@ -495,7 +495,7 @@ def issue_token(parameters):
 
 def new_bleat(parameters):
     text = cgi.escape(parameters.getfirst('new-bleat'))
-    user = parameters.getfirst('new-bleat-user')
+    # user = parameters.getfirst('new-bleat-user')
     reply = parameters.getfirst('new-bleat-reply',None)
     # text = cgi.escape(parameters['new-bleat'].value)
     # user = cgi.escape(parameters['new-bleat-user'].value)
@@ -504,12 +504,12 @@ def new_bleat(parameters):
     # print text,"by",user,"at",curr_time,"to",reply
     bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
     bleat_type = "Bleat"
-    with open(os.path.join(users_dir,user,"bleats.txt"),"a") as f:
+    with open(os.path.join(users_dir,active_user,"bleats.txt"),"a") as f:
         f.write(bleat_id+"\n")
     with open(os.path.join(bleats_dir,bleat_id),"w") as f:
         f.write("time: %s\n" % curr_time)
         f.write("bleat: %s\n" % text)
-        f.write("username: %s\n" % user)
+        f.write("username: %s\n" % active_user)
         if reply != None:
             f.write("in_reply_to: %s\n" % reply)
             bleat_type = "Reply"
@@ -551,7 +551,7 @@ def main_form():
 </form>"""
 
 def add_listen(parameters):
-    user = parameters.getfirst('listen')
+    curr_user = parameters.getfirst('listen')
     lines = []
     field = ""
     message = ""
@@ -581,7 +581,7 @@ def add_listen(parameters):
 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
 %s <strong>%s</strong>.
 </div>
-    """ % (message,user)
+    """ % (message,curr_user)
     return
 
 def bleat_panels(bleats):
