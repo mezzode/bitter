@@ -211,6 +211,38 @@ def edit_details():
 </div>
 </div>
 
+<div class="panel panel-default">
+<div class="list-group">
+<div class="list-group-item">
+<a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Home Details</h4></a>
+<!--<p class="lead">It's snowing again</p>-->
+</div>
+</div>
+<div class="collapse panel-collapse" id="home">
+    <ul class="list-group">
+    <li class="list-group-item">
+        <form method="POST">
+                <div class="form-group">
+                    <label>Suburb</label>
+                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
+                </div>
+                <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
+                </div>
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
+                </div>
+                <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </li>
+    </ul>
+</div>
+</div>
+
+
+
 </div><!--panel group-->
 
 <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -275,21 +307,7 @@ def edit_details():
   </div>
 </div>-->
             
-                <h2>Home Details <small>(Optional)</small></h2>
-                <div class="form-group">
-                    <label>Suburb</label>
-                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
-                </div>
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
-                </div>
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
-                </div>
-                <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
-            </form>
+            
         </div>
         <div class="col-md-2">
         </div>
