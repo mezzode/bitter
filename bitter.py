@@ -150,12 +150,11 @@ def edit_details():
         </div>
         <div class="col-md-8 col-md-12">
 <h1>Edit Details</h1>
-<div class="panel-group" id="edit">
-<div class="panel panel-default">
+<div class="panel-group" id="edit">"""
+    print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#details" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">User Details</h4></a>
-<!--<p class="lead">It's snowing again</p>-->
 </div>
 </div>
 <div class="collapse panel-collapse" id="details">
@@ -182,9 +181,8 @@ def edit_details():
     </li>
     </ul>
 </div>
-</div>
-
-<div class="panel panel-default">
+</div>""" % (curr_user.details['full_name'],curr_user.details['email'])
+    print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#password" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Password</h4></a>
@@ -213,9 +211,8 @@ def edit_details():
     </li>
     </ul>
 </div>
-</div>
-
-<div class="panel panel-default">
+</div>"""
+    print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Home Details</h4></a>
@@ -226,30 +223,27 @@ def edit_details():
     <ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
-                <div class="form-group">
-                    <label>Suburb</label>
-                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
-                </div>
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
-                </div>
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
-                </div>
-                <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <div class="form-group">
+                <label>Suburb</label>
+                <input type="text" name="suburb" value="%s" class="form-control" placeholder="Suburb">
+            </div>
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" name="latitude" value="%s" class="form-control" placeholder="Latitude">
+            </div>
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" name="longitude" value="%s" class="form-control" placeholder="Longitude">
+            </div>
+            <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
+        </form>
     </li>
     </ul>
 </div>
-</div>
+</div>""" % (curr_user.details.get('suburb',''),curr_user.details.get('latitude',''),curr_user.details.get('longitude',''))
+    print """</div><!--panel group-->"""
 
-
-
-</div><!--panel group-->
-
-<!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    """<!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <div class="panel panel-default">
     <div class="list-group">
     <div class="list-group-item">
@@ -309,15 +303,13 @@ def edit_details():
       </ul>
     </div>
   </div>
-</div>-->
-            
-            
-        </div>
+</div>-->"""
+    print """</div>
         <div class="col-md-2">
         </div>
     </div>
 </div>
-""" % (curr_user.details['full_name'],curr_user.details['email'])
+"""
 
 def confirm_user(user_id):
     curr_user = ''
