@@ -147,13 +147,18 @@ def confirm_user(user_id):
         if line_id == user_id:
             lines.remove(line)
             break
+    print """<div class="container">"""
     if not curr_user:
-        print 'Error: User may have already been confirmed.'
-        return
-    with open('pending/pending.txt','w') as f:
-        f.writelines(lines)
-    shutil.move(os.path.join('pending',curr_user),users_dir)
-    print 'Success! You can now login and start using Bitter!'
+        print """<h1>Error</h1><p>User may have already been confirmed.</p>"""
+    else:
+        with open('pending/pending.txt','w') as f:
+            f.writelines(lines)
+        shutil.move(os.path.join('pending',curr_user),users_dir)
+    # print 'Success! You can now login and start using Bitter!'
+        print """<h1>Success!</h1>
+    <p>Congratulations on successfully confirming your email address!</p>
+    <p>You can now login and start using Bitter!"""
+    print "</div>"
 
 def new_user(parameters):
     user_id = str(uuid.uuid4())
