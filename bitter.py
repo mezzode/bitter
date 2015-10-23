@@ -240,7 +240,7 @@ def edit_details():
     </li>
     </ul>
 </div>
-</div>""" % (curr_user.details.get('suburb',''),curr_user.details.get('latitude',''),curr_user.details.get('longitude',''))
+</div>""" % (curr_user.details.get('home_suburb',''),curr_user.details.get('home_latitude',''),curr_user.details.get('home_longitude',''))
     print """</div><!--panel group-->"""
 
     """<!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
