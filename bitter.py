@@ -154,7 +154,7 @@ def edit_details():
 <div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#details" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Details</h4></a>
+<a style="color: inherit;" class="list-group-item-heading" href="#details" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">User Details</h4></a>
 <!--<p class="lead">It's snowing again</p>-->
 </div>
 </div>
@@ -187,7 +187,7 @@ def edit_details():
 <div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#password" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Password</h4></a>
+<a style="color: inherit;" class="list-group-item-heading" href="#password" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Password</h4></a>
 <!--<p class="lead">It's snowing again</p>-->
 </div>
 </div>
@@ -196,12 +196,16 @@ def edit_details():
     <li class="list-group-item">
         <form method="POST">
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="new-password" value="%s" class="form-control" placeholder="Password">
+                <label>Old Password</label>
+                <input type="password" name="old-password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" name="new-password" class="form-control" placeholder="Password">
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password" name="new-password-confirm" value="%s" class="form-control" placeholder="Confirm Password">
+                <input type="password" name="new-password-confirm" class="form-control" placeholder="Confirm Password">
                 <span id="password-help" class="help-block"></span>
             </div>
             <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
@@ -313,7 +317,7 @@ def edit_details():
         </div>
     </div>
 </div>
-""" % (curr_user.details['full_name'],curr_user.details['email'],'','')
+""" % (curr_user.details['full_name'],curr_user.details['email'])
 
 def confirm_user(user_id):
     curr_user = ''
