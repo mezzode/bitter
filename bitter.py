@@ -1266,7 +1266,7 @@ def navbar():
                         <h4 class="modal-title">Log In</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" login>
+                        <form method="POST" action="?" login>
                         <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
