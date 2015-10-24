@@ -172,6 +172,30 @@ def edit_details():
                 <p class="help-block">Profile picture.</p>
             </div> -->
             <div class="form-group">
+                <label>Profile Text</label>
+                <textarea name="profile" value="%s" class="form-control" placeholder="Profile Text"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+        </form>
+    </li>
+    </ul>
+</div>
+</div>""" % (curr_user.details.get('full_name',''),curr_user.details.get('profile',''))
+    print """<div class="panel panel-default">
+<div class="list-group">
+<div class="list-group-item">
+<a style="color: inherit;" class="list-group-item-heading" href="#email" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Email</h4></a>
+</div>
+</div>
+<div class="collapse panel-collapse" id="email">
+    <ul class="list-group">
+    <li class="list-group-item">
+        <form method="POST">
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="email-password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
                 <label>Email address</label>
                 <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
                 <span id="email-help" class="help-block"></span>
@@ -181,7 +205,7 @@ def edit_details():
     </li>
     </ul>
 </div>
-</div>""" % (curr_user.details['full_name'],curr_user.details['email'])
+</div>""" % curr_user.details['email']
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
@@ -235,7 +259,7 @@ def edit_details():
                 <label>Longitude</label>
                 <input type="text" name="longitude" value="%s" class="form-control" placeholder="Longitude">
             </div>
-            <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
