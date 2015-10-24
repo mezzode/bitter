@@ -292,7 +292,7 @@ def edit_details_page(parameters):
                 <input type="password" name="change-password-confirm" class="form-control" placeholder="Confirm Password">
                 <span id="password-help" class="help-block"></span>
             </div>
-            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            <button id="change-password-submit" type="button" class="btn btn-default">Submit</button>
         </form>
     </li>
     </ul>
@@ -1562,6 +1562,21 @@ def page_trailer(parameters):
         } else {
             $('input[name="change-email"]',emailform).parent().addClass('has-error');
             $('span[class="help-block"]',emailform).text('Invalid email address.');
+        }
+    })
+    
+    $('#change-password-submit').click(function(){
+        if ($('input[name="change-password"]').val() != $('input[name="change-password-confirm"]').val()){
+            $('input[name="change-password"]').parent().addClass('has-error');
+            $('input[name="change-password-confirm"]').parent().addClass('has-error');
+            $('#password-help').text('Passwords do not match.');
+        } else if ($('input[name="change-password"]').val() == '' && $('input[name="change-password-confirm"]').val() == ''){
+            $('input[name="change-password"]').parent().addClass('has-error');
+            $('input[name="change-password-confirm"]').parent().addClass('has-error');
+            $('#password-help').text('Password is required.');
+        } else {
+            $('#password-help').text('');
+            $(this).parent().submit();
         }
     })
 
