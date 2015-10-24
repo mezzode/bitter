@@ -145,7 +145,20 @@ def main():
 
 def edit_details(parameters):
     if parameters.getfirst('edit-type') == 'home':
-        message = 'Home Details successfully edited.'
+        with open(os.path.join(users_dir,active_user,'details.txt')) as f:
+            lines = f.readlines()
+        for line in list(lines):
+            if line.startswith("home"):
+                lines.remove(line)
+        if 'edit-longitude' in parameters:
+            lines.append('home_longitude: '+parameters.getfirst('edit-longitude')+'\n')
+        if 'edit-latitude' in parameters:
+            lines.append('home_latitude: '+parameters.getfirst('edit-latitude')+'\n')
+        if 'edit-suburb' in parameters:
+            lines.append('home_suburb: '+parameters.getfirst('edit-suburb')+'\n')
+        with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
+            f.writelines(lines)
+        message = 'Home Details successfully updated.'
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
     %s
