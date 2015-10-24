@@ -144,7 +144,18 @@ def main():
     print page_trailer(parameters)
 
 def edit_details(parameters):
-    if parameters.getfirst('edit-type') == 'home':
+    if parameters.getfirst('edit-type') == 'email':
+        with open(os.path.join(users_dir,active_user,'details.txt')) as f:
+            lines = f.readlines()
+        for line in list(lines):
+            if line.startswith("email"):
+                lines.remove(line)
+                break
+        lines.append('email: '+parameters.getfirst('change-email')+'\n')
+        with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
+            f.writelines(lines)
+        message = 'Email successfully changed.'
+    elif parameters.getfirst('edit-type') == 'home':
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
         for line in list(lines):
@@ -215,11 +226,15 @@ def edit_details_page(parameters):
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#email" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Email</h4></a>
 </div>
-</div>
-<div class="collapse panel-collapse" id="email">
-    <ul class="list-group">
+</div>"""
+    if parameters.getfirst('edit-type','') == 'email':
+        print '<div class="collapse panel-collapse in" id="email">'
+    else:
+        print '<div class="collapse panel-collapse" id="email">'
+    print """<ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
+            <input type="hidden" name="edit-type" value="email">
             <div class="form-group">
                 <label>Email address</label>
                 <input type="email" name="change-email" value="%s" class="form-control" placeholder="Email">
