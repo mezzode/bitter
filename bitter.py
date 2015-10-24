@@ -112,7 +112,7 @@ def main():
     global page
     page = int(parameters.getfirst('page','1'))
     if 'edit' in parameters and active_user:
-        edit_details_page()
+        edit_details_page(parameters)
     elif 'confirm' in parameters:
         confirm_user(parameters.getfirst('confirm'))
     elif failed_login:
@@ -164,10 +164,10 @@ def edit_details(parameters):
     %s
 </div>""" % message
 
-def edit_details_page():
+def edit_details_page(parameters):
     curr_user = user(active_user)
-    if 'home_suburb' in curr_user.details:
-        pass
+    # if 'edit-type' in parameters:
+    #     if 
     print """<div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -175,14 +175,18 @@ def edit_details_page():
         <div class="col-md-8 col-md-12">
 <h1>Edit Details</h1>
 <div class="panel-group" id="edit">"""
+
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#details" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">User Details</h4></a>
+<a style="color: inherit;" class="list-group-item-heading" href="#profile" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">User Details</h4></a>
 </div>
-</div>
-<div class="collapse panel-collapse" id="details">
-    <ul class="list-group">
+</div>"""
+    if parameters.getfirst('edit-type','') == 'profile':
+        print '<div class="collapse panel-collapse in" id="profile">'
+    else:
+        print '<div class="collapse panel-collapse" id="profile">'
+    print """<ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
             <div class="form-group">
@@ -205,6 +209,7 @@ def edit_details_page():
     </ul>
 </div>
 </div>""" % (curr_user.details.get('full_name',''),curr_user.details.get('profile',''))
+
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
@@ -226,6 +231,7 @@ def edit_details_page():
     </ul>
 </div>
 </div>""" % curr_user.details['email']
+
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
@@ -251,14 +257,18 @@ def edit_details_page():
     </ul>
 </div>
 </div>"""
+
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Home Details</h4></a>
 </div>
-</div>
-<div class="collapse panel-collapse" id="home">
-    <ul class="list-group">
+</div>"""
+    if parameters.getfirst('edit-type','') == 'home':
+        print '<div class="collapse panel-collapse in" id="home">'
+    else:
+        print '<div class="collapse panel-collapse" id="home">'
+    print"""<ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
             <input type="hidden" name="edit-type" value="home">
