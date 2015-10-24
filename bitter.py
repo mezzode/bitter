@@ -1650,6 +1650,11 @@ def page_trailer(parameters):
         } else if ($(this).attr('name') == 'new-password-confirm'){
             $('input[name="new-password"]').parent().removeClass('has-error');
         }
+        if ($(this).attr('name') == 'change-password'){
+            $('input[name="change-password-confirm"]').parent().removeClass('has-error');
+        } else if ($(this).attr('name') == 'change-password-confirm'){
+            $('input[name="change-password"]').parent().removeClass('has-error');
+        }
     });
 
     /* // limit names to alphabet
