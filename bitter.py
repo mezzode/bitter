@@ -87,6 +87,7 @@ def main():
         else:
             failed_login = True
     print # end header
+
     if active_user != None: # someone is logged in
         pass # so render pages to reflect their personal details
     page_header()
@@ -97,7 +98,9 @@ def main():
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     # print os.getenv('QUERY_STRING')
     # print os.environ
-    if 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
+    if 'edit-type' in parameters:
+        edit_details(parameters)
+    elif 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
         new_bleat(parameters)
     elif 'listen' in parameters: # parameters.getvalue('listen') != None:
@@ -109,7 +112,7 @@ def main():
     global page
     page = int(parameters.getfirst('page','1'))
     if 'edit' in parameters and active_user:
-        edit_details()
+        edit_details_page()
     elif 'confirm' in parameters:
         confirm_user(parameters.getfirst('confirm'))
     elif failed_login:
@@ -140,7 +143,15 @@ def main():
             landing_page()
     print page_trailer(parameters)
 
-def edit_details():
+def edit_details(parameters):
+    if parameters.getfirst('edit-type') == 'home':
+        message = 'Home Details successfully edited.'
+    print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    %s
+</div>""" % message
+
+def edit_details_page():
     curr_user = user(active_user)
     if 'home_suburb' in curr_user.details:
         pass
@@ -237,6 +248,7 @@ def edit_details():
     <ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
+            <input type="hidden" name="edit-type" value="home">
             <div class="form-group">
                 <label>Suburb</label>
                 <input type="text" name="edit-suburb" value="%s" class="form-control" placeholder="Suburb">
@@ -249,7 +261,7 @@ def edit_details():
                 <label>Longitude</label>
                 <input type="text" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
             </div>
-            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </li>
     </ul>
