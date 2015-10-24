@@ -115,6 +115,8 @@ def main():
         edit_details_page(parameters)
     elif 'confirm' in parameters:
         confirm_user(parameters.getfirst('confirm'))
+    elif 'change' in parameters:
+        change_email(parameters.getfirst('change'))
     elif failed_login:
         print "Incorrect username/password."
     elif 'new-user' in parameters:
@@ -143,18 +145,42 @@ def main():
             landing_page()
     print page_trailer(parameters)
 
-def edit_details(parameters):
-    if parameters.getfirst('edit-type') == 'email':
-        with open(os.path.join(users_dir,active_user,'details.txt')) as f:
+def change_email(user_id):
+    curr_user = ''
+    email = ''
+    with open('pending-emails.txt') as f:
+        lines = f.readlines()    
+    for line in lines:
+        line_id, curr_user, email = line.split()
+        if line_id == user_id:
+            lines.remove(line)
+            break
+    print """<div class="container">"""
+    if not curr_user:
+        print """<h1>Error</h1><p>Email change may have already been confirmed.</p>"""
+    else:
+        with open('pending-emails.txt','w') as f:
+            f.writelines(lines)
+        with open(os.path.join(users_dir,curr_user,'details.txt')) as f:
             lines = f.readlines()
         for line in list(lines):
             if line.startswith("email"):
                 lines.remove(line)
                 break
-        lines.append('email: '+parameters.getfirst('change-email')+'\n')
-        with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
+        lines.append('email: '+email+'\n')
+        with open(os.path.join(users_dir,curr_user,'details.txt'),'w') as f:
             f.writelines(lines)
-        message = 'Email successfully changed.'
+        print """<h1>Success!</h1>
+    <p>Your email has successfully been changed."""
+    print "</div>"
+
+def edit_details(parameters):
+    if parameters.getfirst('edit-type') == 'email':
+        user_id = str(uuid.uuid4())
+        with open('pending-emails.txt','a') as f:
+            f.write(user_id+' '+active_user+' '+parameters.getfirst('change-email')+'\n')
+        email_change(parameters.getfirst('change-email'),user_id)
+        message = 'A confirmation email has been sent to your new address.'
     elif parameters.getfirst('edit-type') == 'home':
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
@@ -362,6 +388,18 @@ def email_confirm(to_address,user_id):
     message = 'Welcome to Bitter!\n\nGo to %s to validate your email address and start using Bitter!' % url
     msg = MIMEText(message)
     msg['Subject'] = 'Welcome to Bitter!'
+    msg['From'] = from_address
+    msg['To'] = to_address
+    s = smtplib.SMTP('smtp.unsw.edu.au')
+    s.sendmail(from_address, [to_address], msg.as_string())
+    s.quit()
+
+def email_change(to_address,user_id):
+    from_address = 'z5024967@student.unsw.edu.au'
+    url = os.environ['SCRIPT_URI'] + '?change=' + user_id
+    message = 'Go to %s to validate and change to your new email address.' % url
+    msg = MIMEText(message)
+    msg['Subject'] = 'Bitter Email Change'
     msg['From'] = from_address
     msg['To'] = to_address
     s = smtplib.SMTP('smtp.unsw.edu.au')
