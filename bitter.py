@@ -163,7 +163,7 @@ def edit_details():
         <form method="POST">
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" name="full-name" value="%s" class="form-control" placeholder="Full Name">
+                <input type="text" name="edit-name" value="%s" class="form-control" placeholder="Full Name">
                 <span id="name-help" class="help-block"></span>
             </div>
             <!-- <div class="form-group">
@@ -173,7 +173,7 @@ def edit_details():
             </div> -->
             <div class="form-group">
                 <label>Profile Text</label>
-                <textarea name="profile" value="%s" class="form-control" placeholder="Profile Text"></textarea>
+                <textarea name="edit-profile" value="%s" class="form-control" placeholder="Profile Text"></textarea>
             </div>
             <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
@@ -192,12 +192,8 @@ def edit_details():
     <li class="list-group-item">
         <form method="POST">
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="email-password" class="form-control" placeholder="Password">
-            </div>
-            <div class="form-group">
                 <label>Email address</label>
-                <input type="email" name="email" value="%s" class="form-control" placeholder="Email">
+                <input type="email" name="change-email" value="%s" class="form-control" placeholder="Email">
                 <span id="email-help" class="help-block"></span>
             </div>
             <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
@@ -210,7 +206,6 @@ def edit_details():
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#password" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Password</h4></a>
-<!--<p class="lead">It's snowing again</p>-->
 </div>
 </div>
 <div class="collapse panel-collapse" id="password">
@@ -218,16 +213,12 @@ def edit_details():
     <li class="list-group-item">
         <form method="POST">
             <div class="form-group">
-                <label>Old Password</label>
-                <input type="password" name="old-password" class="form-control" placeholder="Password">
-            </div>
-            <div class="form-group">
                 <label>New Password</label>
-                <input type="password" name="new-password" class="form-control" placeholder="Password">
+                <input type="password" name="change-password" class="form-control" placeholder="Password">
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password" name="new-password-confirm" class="form-control" placeholder="Confirm Password">
+                <input type="password" name="change-password-confirm" class="form-control" placeholder="Confirm Password">
                 <span id="password-help" class="help-block"></span>
             </div>
             <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
@@ -240,7 +231,6 @@ def edit_details():
 <div class="list-group">
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Home Details</h4></a>
-<!--<p class="lead">It's snowing again</p>-->
 </div>
 </div>
 <div class="collapse panel-collapse" id="home">
@@ -249,15 +239,15 @@ def edit_details():
         <form method="POST">
             <div class="form-group">
                 <label>Suburb</label>
-                <input type="text" name="suburb" value="%s" class="form-control" placeholder="Suburb">
+                <input type="text" name="edit-suburb" value="%s" class="form-control" placeholder="Suburb">
             </div>
             <div class="form-group">
                 <label>Latitude</label>
-                <input type="text" name="latitude" value="%s" class="form-control" placeholder="Latitude">
+                <input type="text" name="edit-latitude" value="%s" class="form-control" placeholder="Latitude">
             </div>
             <div class="form-group">
                 <label>Longitude</label>
-                <input type="text" name="longitude" value="%s" class="form-control" placeholder="Longitude">
+                <input type="text" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
             </div>
             <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
