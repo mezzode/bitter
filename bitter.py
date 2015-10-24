@@ -1505,6 +1505,7 @@ def page_trailer(parameters):
         if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="change-email"]',emailform).val())){
             $('input[name="change-email"]',emailform).parent().removeClass('has-error');
             $('span[class="help-block"]',emailform).text('');
+            emailform.submit();
         } else {
             $('input[name="change-email"]',emailform).parent().addClass('has-error');
             $('span[class="help-block"]',emailform).text('Invalid email address.');
