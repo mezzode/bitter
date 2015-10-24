@@ -196,6 +196,8 @@ def edit_details(parameters):
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
             f.writelines(lines)
         message = 'Home Details successfully updated.'
+    elif parameters.getfirst('edit-type') == 'password':
+        message = '(TODO) Password successfully changed.'
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
     %s
@@ -278,11 +280,15 @@ def edit_details_page(parameters):
 <div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#password" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Password</h4></a>
 </div>
-</div>
-<div class="collapse panel-collapse" id="password">
-    <ul class="list-group">
+</div>"""
+    if parameters.getfirst('edit-type','') == 'password':
+        print '<div class="collapse panel-collapse in" id="password">'
+    else:
+        print '<div class="collapse panel-collapse" id="password">'
+    print """<ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
+            <input type="hidden" name="edit-type" value="password">
             <div class="form-group">
                 <label>New Password</label>
                 <input type="password" name="change-password" class="form-control" placeholder="Password">
