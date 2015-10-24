@@ -225,7 +225,7 @@ def edit_details_page(parameters):
                 <input type="email" name="change-email" value="%s" class="form-control" placeholder="Email">
                 <span id="email-help" class="help-block"></span>
             </div>
-            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            <button id="change-email-submit" type="button" class="btn btn-default">Submit</button>
         </form>
     </li>
     </ul>
@@ -1496,6 +1496,18 @@ def page_trailer(parameters):
     $('#new-user-required').keypress(function(e) {
         if (e.which == 13) { // enter key
             this.submit()
+        }
+    })
+
+    $('#change-email-submit').click(function(){
+        var emailform = $(this).parent();
+        $('input[name="change-email"]',emailform).val()
+        if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="change-email"]',emailform).val())){
+            $('input[name="change-email"]',emailform).parent().removeClass('has-error');
+            $('span[class="help-block"]',emailform).text('');
+        } else {
+            $('input[name="change-email"]',emailform).parent().addClass('has-error');
+            $('span[class="help-block"]',emailform).text('Invalid email address.');
         }
     })
 
