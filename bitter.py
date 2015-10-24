@@ -197,7 +197,16 @@ def edit_details(parameters):
             f.writelines(lines)
         message = 'Home Details successfully updated.'
     elif parameters.getfirst('edit-type') == 'password':
-        message = '(TODO) Password successfully changed.'
+        with open(os.path.join(users_dir,active_user,'details.txt')) as f:
+            lines = f.readlines()
+        for line in list(lines):
+            if line.startswith("password"):
+                lines.remove(line)
+                break
+        lines.append('password: '+parameters.getfirst('change-password')+'\n')
+        with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
+            f.writelines(lines)
+        message = 'Password successfully changed.'
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
     %s
