@@ -70,7 +70,7 @@ def main():
                 lines = f.readlines()
                 if (session + "\n") in lines:
                     active_user, session_id = session.split()
-    if active_user and 'logout' in parameters: # parameters.getvalue('logout') and active_user:
+    if active_user and 'logout' in parameters:
         with open('sessions.txt') as f:
             sessions = f.readlines()
         session = active_user + ' ' + session_id + '\n'
@@ -105,13 +105,13 @@ def main():
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     if 'edit-type' in parameters and active_user:
         edit_details(parameters)
-    elif 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
+    elif 'new-bleat' in parameters:
         # new bleat
         new_bleat(parameters)
-    elif 'listen' in parameters: # parameters.getvalue('listen') != None:
+    elif 'listen' in parameters:
         if parameters.getfirst('listen') in os.listdir(users_dir):
             add_listen(parameters)
-    elif 'delete-bleat' in parameters: # parameters.getvalue('delete-bleat') != None:
+    elif 'delete-bleat' in parameters:
         if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
             delete_bleat(parameters.getfirst('delete-bleat'))
     navbar()
@@ -127,17 +127,17 @@ def main():
         login_failure()
     elif 'new-user' in parameters:
         new_user_page(parameters)
-    elif 'user' in parameters: # parameters.getvalue('user') != None:
+    elif 'user' in parameters:
         if parameters.getfirst('user') in os.listdir(users_dir):
             user_page(parameters)
         else:
             user_missing(parameters.getfirst('user'))
-    elif 'bleat' in parameters: # parameters.getvalue('bleat') != None:
+    elif 'bleat' in parameters:
         if parameters.getfirst('bleat') in os.listdir(bleats_dir):
             bleat_page(parameters)
         else:
             bleat_missing()
-    elif 'search' in parameters: # parameters.getvalue('search') != None:
+    elif 'search' in parameters:
         # print search_page(parameters)
         # bleat_search(parameters)
         if parameters.getfirst('type') == 'bleat':
@@ -1044,7 +1044,6 @@ def user_missing(username):
     print '<h1 class="text-center">User not found<br><small>No user named "%s"</h1>' % username
 
 def user_page(parameters):
-    # n = int(parameters.getvalue('n', 0))
     username = parameters.getfirst('user')
     # if user_to_show != '':
     #     user_to_show = os.path.join(users_dir,user_to_show)
