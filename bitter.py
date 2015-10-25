@@ -148,6 +148,7 @@ def main():
 def change_email(user_id):
     curr_user = ''
     email = ''
+    lines = []
     with open('pending-emails.txt') as f:
         lines = f.readlines()    
     for line in lines:
@@ -669,26 +670,32 @@ def dashboard():
     <div class="col-md-3">
     </div>""" % (bleat_details,page_details)
 
-def paginator(origin,pages): # TODO Need parameters so goes to same url
+def paginator(origin,pages):
     if origin:
         origin += '&'
     page_details = """<nav>
     <div class="text-center">
     <ul class="pagination">"""
-    if page <= 11:
+    start = page - 5
+    if start < 1:
         start = 1
-        end = pages+1
+    if pages < page + 5:
+        end = pages + 1
     else:
-        start = page - 5
-        if pages < page + 5:
-            end = pages + 1
-        else:
-            end = page + 6
+        end = page + 6
+    if page == 1:
+        page_details += '<li class="disabled"><a href="?%spage=1">&laquo;</a></li>\n' % origin
+    else:
+        page_details += '<li><a href="?%spage=1">&laquo;</a></li>\n' % origin
     for i in range(start,page):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
     page_details += '<li class="active"><a href="?%spage=%s">%s</a></li>\n' % (origin,page,page)
     for i in range(page+1,end):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
+    if page == pages:
+        page_details += '<li class="disabled"><a href="?%spage=%s">&raquo;</a></li>\n' % (origin,pages)
+    else:
+        page_details += '<li><a href="?%spage=%s">&raquo;</a></li>\n' % (origin,pages)
     page_details += """</ul>
     </div>
     </nav>
