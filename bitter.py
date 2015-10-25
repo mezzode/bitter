@@ -19,6 +19,8 @@ class user(object):
         # self.arg = arg
         self.details = {}
         self.pic = os.path.join(users_dir,user,"profile.jpg")
+        if not os.path.isfile(self.pic):
+            self.pic = 'placeholder.png'
         with open(os.path.join(users_dir,user,"details.txt")) as f:
             # details = f.read()
             for line in f:
