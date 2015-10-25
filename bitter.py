@@ -174,6 +174,10 @@ def change_email(user_id):
     <p>Your email has successfully been changed."""
     print "</div>"
 
+def sanitise(string):
+    string = cgi.escape(string)
+    return string
+
 def edit_details(parameters):
     if parameters.getfirst('edit-type') == 'email':
         user_id = str(uuid.uuid4())
@@ -191,7 +195,7 @@ def edit_details(parameters):
                 lines.remove(line)
         lines.append('full_name: '+parameters.getfirst('edit-name')+'\n')
         if 'edit-info' in parameters:
-            lines.append('info: '+parameters.getfirst('edit-info')+'\n')
+            lines.append('info: '+sanitise(parameters.getfirst('edit-info'))+'\n')
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
             f.writelines(lines)
         message = 'User Details successfully updated.'
