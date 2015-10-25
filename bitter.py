@@ -710,11 +710,10 @@ def paginator(origin,pages):
     return page_details
 
 def landing_page():
-    print """<div class="jumbotron">
-    <div class="container">
+    print """<div class="container">
 <div class="row">
     <div class="col-md-12">
-    <!-- <div class="jumbotron"> -->
+    <div class="jumbotron">
     <h1>Welcome to Bitter</h1>
     <p>The latest and greatest thing since sliced bread!</p>
     <p><a class="btn btn-primary btn-lg" href="?new-user=First" role="button">Join Now</a></p>
