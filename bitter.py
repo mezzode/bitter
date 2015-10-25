@@ -684,16 +684,16 @@ def paginator(origin,pages):
     else:
         end = page + 6
     if page == 1:
-        page_details += '<li class="disabled"><a href="?%spage=1">&laquo;</a></li>\n' % origin
+        page_details += '<li class="disabled"><a>&laquo;</a></li>\n'
     else:
         page_details += '<li><a href="?%spage=1">&laquo;</a></li>\n' % origin
     for i in range(start,page):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
-    page_details += '<li class="active"><a href="?%spage=%s">%s</a></li>\n' % (origin,page,page)
+    page_details += '<li class="active"><a>%s</a></li>\n' % page
     for i in range(page+1,end):
         page_details += '<li><a href="?%spage=%s">%s</a></li>\n' % (origin,i,i)
     if page == pages:
-        page_details += '<li class="disabled"><a href="?%spage=%s">&raquo;</a></li>\n' % (origin,pages)
+        page_details += '<li class="disabled"><a>&raquo;</a></li>\n'
     else:
         page_details += '<li><a href="?%spage=%s">&raquo;</a></li>\n' % (origin,pages)
     page_details += """</ul>
