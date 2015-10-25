@@ -278,11 +278,11 @@ def edit_details_page(parameters):
             </div>
             <div class="form-group">
                 <label>Latitude</label>
-                <input type="text" name="edit-latitude" value="%s" class="form-control" placeholder="Latitude">
+                <input type="text" pattern="[\+\-]?\d{2}(\.\d+)?" name="edit-latitude" value="%s" class="form-control" placeholder="Latitude">
             </div>
             <div class="form-group">
                 <label>Longitude</label>
-                <input type="text" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
+                <input type="text" pattern="[\+\-]?1?\d{2}(\.\d+)?" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
