@@ -30,6 +30,10 @@ class user(object):
             self.bleats.sort(reverse=True)
 
 def main():
+    if not os.path.isfile('sessions.txt'):
+        os.mknod('sessions.txt')
+    if not os.path.isfile('pending-emails.txt'):
+        os.mknod('pending-emails.txt')
     global active_user
     print "Content-Type: text/html"
     cgitb.enable()
