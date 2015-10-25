@@ -1183,20 +1183,25 @@ def user_page(parameters):
 def user_search(parameters):
     search_term = parameters.getfirst('search')
     matches = []
-    for curr_user in os.listdir(users_dir):
-        if search_term.lower() in curr_user.lower():
-            matches.append(curr_user)
-            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
-        else:
-            with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
-                for line in f:
-                    field, _, value = line.rstrip().partition(": ")
-                    if field == "full_name":
-                        if search_term.lower() in value.lower():
-                            matches.append(curr_user)
-                            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
-                        else:
-                            break
+    if search_term.startswith('@'):
+        for curr_user in os.listdir(users_dir):
+            if search_term[1:].lower() == curr_user.lower():
+                matches.append(curr_user)
+    else:
+        for curr_user in os.listdir(users_dir):
+            if search_term.lower() in curr_user.lower():
+                matches.append(curr_user)
+                # matches += '<li class="list-group-item">%s</li>\n' % curr_user
+            else:
+                with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
+                    for line in f:
+                        field, _, value = line.rstrip().partition(": ")
+                        if field == "full_name":
+                            if search_term.lower() in value.lower():
+                                matches.append(curr_user)
+                                # matches += '<li class="list-group-item">%s</li>\n' % curr_user
+                            else:
+                                break
     user_panels = '<div class="panel panel-default">'
     for match in matches[(16*(page-1)):(16*page)]:
         curr_user = user(match)
