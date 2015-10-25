@@ -1063,11 +1063,15 @@ def user_page(parameters):
     details += curr_user.details.get('info','')
     # details += '<ul class="list-group">\n'
     # details += '<li class="list-group-item">\n'
-    home_details = '<h3 class="list-group-item-heading">Home Details</h3>\n<dl>\n'
+    display = False
+    home_details = '<li class="list-group-item">\n<h3 class="list-group-item-heading">Home Details</h3>\n<dl>\n'
     for field,_ in sorted(curr_user.details.items()):
         if field.startswith("home_"):
+            display = True
             home_details += '<dt>%s</dt><dd>%s</dd>\n' % (field.replace("home_","",1).title(),curr_user.details[field])
-    home_details += '</dl>\n'
+    home_details += '</dl>\n</li>\n'
+    if not display:
+        home_details = ''
     # details += '</li>\n'
     # details += '</ul>\n'
     listen_details = '<h3 class="list-group-item-heading">Listens</h3>\n'
@@ -1104,9 +1108,7 @@ def user_page(parameters):
                     <li class="list-group-item">
                         %s
                     </li>
-                    <li class="list-group-item">
-                        %s
-                    </li>    
+                    %s  
                 </ul>
             </div>
             """ % (curr_user.pic, details, listen_details,home_details) 
