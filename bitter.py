@@ -15,45 +15,19 @@ active_user = None
 class user(object):
     """Bitter user"""
     def __init__(self, user):
-        # super(user, self).__init__()
-        # self.arg = arg
         self.details = {}
         self.pic = os.path.join(users_dir,user,"profile.jpg")
         if not os.path.isfile(self.pic):
             self.pic = 'placeholder.png'
         with open(os.path.join(users_dir,user,"details.txt")) as f:
-            # details = f.read()
             for line in f:
                 field, _, value = line.rstrip().partition(": ")
-                # if field == "listens":
-                    # list?
                 self.details[field] = value
             if "listens" not in self.details:
                 self.details['listens'] = ''
         with open(os.path.join(users_dir,user,"bleats.txt")) as f:
-            # self.bleats = f.readlines() # has newlines
             self.bleats = f.read().split()
             self.bleats.sort(reverse=True)
-
-    def details_basic(self):
-        details_formatted = ""
-        # for field in vars(self):
-        #     details += field + ": " + self.details[field]
-        for field,_ in sorted(self.details.items()): # sorted
-        # for field in self.details: # unsorted
-            # details_formatted += field + ": " + self.details[field]
-            if field not in ["email","password","username","full_name"]:
-                details_formatted += "<p>%s: %s</p>\n" % (field,self.details[field])
-        # return details # sorted(vars(self))
-        return details_formatted
-
-class bleat(object):
-    'A bleat'
-    def __init__(self,bleat_id):
-        with open(os.path.join(bleats_dir,bleat_id)) as f:
-            for line in f:
-                field, _, value = line.rstrip().partition(": ")
-                self.details[field] = value
 
 def main():
     global active_user
