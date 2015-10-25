@@ -120,7 +120,7 @@ def main():
     elif 'change' in parameters:
         change_email(parameters.getfirst('change'))
     elif failed_login:
-        print "Incorrect username/password."
+        login_failure()
     elif 'new-user' in parameters:
         new_user_page(parameters)
     elif 'user' in parameters: # parameters.getvalue('user') != None:
@@ -146,6 +146,11 @@ def main():
         else:
             landing_page()
     print page_trailer(parameters)
+
+def login_failure():
+    print """<div class="container"><h1>Error</h1>
+    <p>Incorrect username/password.</p>
+    </div>"""
 
 def change_email(user_id):
     curr_user = ''
