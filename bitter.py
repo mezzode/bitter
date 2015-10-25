@@ -227,9 +227,17 @@ def edit_details(parameters):
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
         for line in list(lines):
-            if line.startswith("password"):
-                lines.remove(line)
-                break
+            field, _, value = line.rstrip().partition(": ")
+            if field == "password":
+                if value == parameters.getfirst('old-password'):
+                    lines.remove(line)
+                    break
+                else:
+                    print """<div class="alert alert-danger alert-dismissible toast fade in" id="bleat-alert" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    Incorrect password.
+</div>"""
+                    return
         lines.append('password: '+parameters.getfirst('change-password')+'\n')
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
             f.writelines(lines)
@@ -360,8 +368,12 @@ def edit_details_page(parameters):
         <form method="POST">
             <input type="hidden" name="edit-type" value="password">
             <div class="form-group">
+                <label>Old Password</label>
+                <input type="password" name="old-password" class="form-control" placeholder="Old Password">
+            </div>
+            <div class="form-group">
                 <label>New Password</label>
-                <input type="password" name="change-password" class="form-control" placeholder="Password">
+                <input type="password" name="change-password" class="form-control" placeholder="New Password">
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
