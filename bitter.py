@@ -227,7 +227,7 @@ def edit_details_page(parameters):
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#profile" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">User Details</h4></a>
+<a style="color: inherit;" class="list-group-item-heading" href="#profile" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Edit User Details</h4></a>
 </div>
 </div>"""
     if parameters.getfirst('edit-type','') == 'profile':
@@ -317,7 +317,7 @@ def edit_details_page(parameters):
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Home Details</h4></a>
+<a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Edit Home Details</h4></a>
 </div>
 </div>"""
     if parameters.getfirst('edit-type','') == 'home':
