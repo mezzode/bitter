@@ -682,8 +682,8 @@ def dashboard():
     </div>""" % (bleat_details,page_details)
 
 def paginator(origin,pages):
-    if pages < 1:
-        pages = 1
+    if pages <= 1:
+        return ''
     if origin:
         origin += '&'
     page_details = """<nav>
