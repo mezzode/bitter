@@ -641,11 +641,23 @@ def bleat_page(parameters):
 def dashboard():
     curr_user = user(active_user)
     listens = curr_user.details['listens'].split()
-    listens.append(active_user) # or manually listen to self?
+    listens.append(active_user)
     bleats = []
     for listen in listens:
         curr_user = user(listen)
         bleats += curr_user.bleats
+    for curr_bleat in os.listdir(bleats_dir):
+        with open(os.path.join(bleats_dir,curr_bleat)) as f:
+            lines = f.readlines()
+            if 'deleted\n' in lines:
+                continue
+            for line in lines:
+                field, _, value = line.rstrip().partition(": ")
+                if field == "bleat":
+                    if ('@'+active_user) in value:
+                        bleats.append(curr_bleat)
+                    else:
+                        break
     bleat_details = bleat_panels(sorted(bleats,reverse=True))
     page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """<div class="container">
@@ -855,9 +867,7 @@ def toggle_listen(parameters):
     return
 
 def add_links(bleat):
-    mention = re.compile('\b(@\w+)\b')
-    hashtag = re.compile('\b(#\S+)\b')
-    bleat_chunks = re.split('(@\w+|#\S+)',bleat)
+    bleat_chunks = re.split(r'(@\w+|#\S+)',bleat)
     for index, chunk in enumerate(bleat_chunks):
         if chunk.startswith('#'):
             bleat_chunks[index] = '<a style="color: inherit;" href="?search=%s">%s</a>' % (urllib.quote(chunk),chunk)
@@ -1234,12 +1244,19 @@ def bleat_search(parameters):
             for line in lines:
                 field, _, value = line.rstrip().partition(": ")
                 if field == "bleat":
-                    if search_term.lower() in value.lower():
-                        matches.append(curr_bleat)
+                    if search_term.startswith('#'):
+                        if re.search(re.escape(search_term)+r'\b',value,re.IGNORECASE):
+                            matches.append(curr_bleat)
+                        else:
+                            break
                     else:
-                        break
+                        if search_term.lower() in value.lower():
+                            matches.append(curr_bleat)
+                        else:
+                            break
     # bleat_panels(matches)
     # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
+    matches.sort(reverse=True)
     print """
 <div class="container">
     <div class="row">
