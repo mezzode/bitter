@@ -261,6 +261,39 @@ def edit_details_page(parameters):
     print """<div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
+<a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Edit Home Details</h4></a>
+</div>
+</div>"""
+    if parameters.getfirst('edit-type','') == 'home':
+        print '<div class="collapse panel-collapse in" id="home">'
+    else:
+        print '<div class="collapse panel-collapse" id="home">'
+    print"""<ul class="list-group">
+    <li class="list-group-item">
+        <form method="POST">
+            <input type="hidden" name="edit-type" value="home">
+            <div class="form-group">
+                <label>Suburb</label>
+                <input type="text" name="edit-suburb" value="%s" class="form-control" placeholder="Suburb">
+            </div>
+            <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" name="edit-latitude" value="%s" class="form-control" placeholder="Latitude">
+            </div>
+            <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </li>
+    </ul>
+</div>
+</div>""" % (curr_user.details.get('home_suburb',''),curr_user.details.get('home_latitude',''),curr_user.details.get('home_longitude',''))
+
+    print """<div class="panel panel-default">
+<div class="list-group">
+<div class="list-group-item">
 <a style="color: inherit;" class="list-group-item-heading" href="#email" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Email</h4></a>
 </div>
 </div>"""
@@ -314,38 +347,6 @@ def edit_details_page(parameters):
 </div>
 </div>"""
 
-    print """<div class="panel panel-default">
-<div class="list-group">
-<div class="list-group-item">
-<a style="color: inherit;" class="list-group-item-heading" href="#home" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Edit Home Details</h4></a>
-</div>
-</div>"""
-    if parameters.getfirst('edit-type','') == 'home':
-        print '<div class="collapse panel-collapse in" id="home">'
-    else:
-        print '<div class="collapse panel-collapse" id="home">'
-    print"""<ul class="list-group">
-    <li class="list-group-item">
-        <form method="POST">
-            <input type="hidden" name="edit-type" value="home">
-            <div class="form-group">
-                <label>Suburb</label>
-                <input type="text" name="edit-suburb" value="%s" class="form-control" placeholder="Suburb">
-            </div>
-            <div class="form-group">
-                <label>Latitude</label>
-                <input type="text" name="edit-latitude" value="%s" class="form-control" placeholder="Latitude">
-            </div>
-            <div class="form-group">
-                <label>Longitude</label>
-                <input type="text" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-    </li>
-    </ul>
-</div>
-</div>""" % (curr_user.details.get('home_suburb',''),curr_user.details.get('home_latitude',''),curr_user.details.get('home_longitude',''))
     print '</div><!--panel group-->'
     print """</div>
         <div class="col-md-2">
