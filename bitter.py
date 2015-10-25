@@ -217,6 +217,16 @@ def edit_details(parameters):
             if line.startswith("full_name"):
                 lines.remove(line)
         lines.append('full_name: '+parameters.getfirst('edit-name')+'\n')
+        if 'edit-pic' in parameters:
+            pic = parameters['edit-pic']
+            if pic.file:
+                if os.path.exists(os.path.join(users_dir,active_user,'profile.jpg')):
+                    os.remove(os.path.join(users_dir,active_user,'profile.jpg'))
+                with open(os.path.join(users_dir,active_user,'profile.jpg'),'wb') as f:
+                    while 1:
+                        chunk = pic.file.read(100000)
+                        if not chunk: break
+                        f.write(chunk)
         if 'edit-info' in parameters:
             lines.append('info: '+sanitise(parameters.getfirst('edit-info'))+'\n')
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
@@ -285,18 +295,18 @@ def edit_details_page(parameters):
         print '<div class="collapse panel-collapse" id="profile">'
     print """<ul class="list-group">
     <li class="list-group-item">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="edit-type" value="profile">
             <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" name="edit-name" value="%s" class="form-control" placeholder="Full Name">
                 <span id="name-help" class="help-block"></span>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label>Profile Picture</label>
-                <input type="file">
-                <p class="help-block">Profile picture.</p>
-            </div> -->
+                <input name="edit-pic" type="file" accept="image/jpeg, image/png">
+                <span id="pic-help" class="help-block"></span>
+            </div>
             <div class="form-group">
                 <label>Profile Text</label>
                 <textarea name="edit-info" class="form-control" placeholder="Profile Text">%s</textarea>
