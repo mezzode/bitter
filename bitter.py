@@ -279,7 +279,7 @@ def edit_details_page(parameters):
                 <label>Profile Text</label>
                 <textarea name="edit-info" class="form-control" placeholder="Profile Text">%s</textarea>
             </div>
-            <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
+            <button id="edit-user-submit" type="button" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -312,7 +312,7 @@ def edit_details_page(parameters):
                 <label>Longitude</label>
                 <input type="text" pattern="[\+\-]?1?\d{2}(\.\d+)?" name="edit-longitude" value="%s" class="form-control" placeholder="Longitude">
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -338,7 +338,7 @@ def edit_details_page(parameters):
                 <input type="email" name="change-email" value="%s" class="form-control" placeholder="Email">
                 <span id="email-help" class="help-block"></span>
             </div>
-            <button id="change-email-submit" type="button" class="btn btn-default">Submit</button>
+            <button id="change-email-submit" type="button" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -368,7 +368,7 @@ def edit_details_page(parameters):
                 <input type="password" name="change-password-confirm" class="form-control" placeholder="Confirm Password">
                 <span id="password-help" class="help-block"></span>
             </div>
-            <button id="change-password-submit" type="button" class="btn btn-default">Submit</button>
+            <button id="change-password-submit" type="button" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -1590,6 +1590,10 @@ def page_trailer(parameters):
             this.submit()
         }
     })
+
+    $('form','div.panel-group').on('input', function () {
+        $("button",this).attr("disabled",false);
+    });
 
     // Prevent newlines in all textareas
     $('textarea').on('input', function () {
