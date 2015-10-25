@@ -1074,7 +1074,7 @@ def user_page(parameters):
         home_details = ''
     # details += '</li>\n'
     # details += '</ul>\n'
-    listen_details = '<h3 class="list-group-item-heading">Listens</h3>\n'
+    listen_details = '<li class="list-group-item">\n<h3 class="list-group-item-heading">Listens</h3>\n'
     listen_details += '<div class="list-group">\n'
     listens = curr_user.details["listens"]
     for listen in listens.split():
@@ -1089,7 +1089,9 @@ def user_page(parameters):
         listen_details += '    </div>\n'
         listen_details += '</div>\n'
         listen_details += '</a>\n'
-    listen_details += '</div>\n'
+    listen_details += '</div>\n</li>\n'
+    if not listens:
+        listen_details = ''
     if active_user:
         if curr_user.details['username'] in user(active_user).details["listens"].split():
             listen_button = '<span class="glyphicon glyphicon-heart"></span>  Stop Listening'
@@ -1105,9 +1107,7 @@ def user_page(parameters):
                     %s
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        %s
-                    </li>
+                    %s
                     %s  
                 </ul>
             </div>
