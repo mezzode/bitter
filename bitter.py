@@ -703,16 +703,6 @@ def landing_page():
     </div>
     </div>
     </div>
-    <div class="container">
-<div class="row">
-    <div class="col-md-6 col-sm-6">
-    <h2>Featured</h2>
-    </div>
-    <div class="col-md-6 col-sm-6">
-    <h2>Most Recent</h2>
-    </div>
-    </div>
-    </div>
     """
 
 
