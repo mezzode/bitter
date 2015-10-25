@@ -137,7 +137,7 @@ def main():
     elif 'search' in parameters:
         # print search_page(parameters)
         # bleat_search(parameters)
-        if parameters.getfirst('type') == 'bleat':
+        if parameters.getfirst('type') == 'bleat' or parameters.getfirst('search').startswith('#'):
             bleat_search(parameters)
         else:
             user_search(parameters)
