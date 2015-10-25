@@ -1054,7 +1054,7 @@ def user_page(parameters):
     #    user_to_show  = users[n % len(users)]
     curr_user = user(username)
     if "full_name" in curr_user.details:
-        details = "<h1>%s<br><small>%s</small></h1>\n" % (curr_user.details["full_name"],curr_user.details["username"])
+        details = "<h2>%s<br><small>%s</small></h2>\n" % (curr_user.details["full_name"],curr_user.details["username"])
         # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
