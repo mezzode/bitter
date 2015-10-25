@@ -311,7 +311,7 @@ def edit_details_page(parameters):
                 <label>Profile Text</label>
                 <textarea name="edit-info" class="form-control" placeholder="Profile Text">%s</textarea>
             </div>
-            <button id="edit-user-submit" type="button" class="btn btn-default" disabled="disabled">Submit</button>
+            <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
         </form>
     </li>
     </ul>
