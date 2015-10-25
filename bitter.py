@@ -860,9 +860,9 @@ def add_links(bleat):
     bleat_chunks = re.split('(@\w+|#\S+)',bleat)
     for index, chunk in enumerate(bleat_chunks):
         if chunk.startswith('#'):
-            bleat_chunks[index] = '<a href="?search=%s">%s</a>' % (urllib.quote(chunk),chunk)
+            bleat_chunks[index] = '<a style="color: inherit;" href="?search=%s">%s</a>' % (urllib.quote(chunk),chunk)
         elif chunk.startswith('@'):
-            bleat_chunks[index] = '<a href="?user=%s">%s</a>' % (urllib.quote(chunk[1:]),chunk)
+            bleat_chunks[index] = '<a style="color: inherit;" href="?user=%s">%s</a>' % (urllib.quote(chunk[1:]),chunk)
     return ''.join(bleat_chunks)
 
 def bleat_panels(bleats):
