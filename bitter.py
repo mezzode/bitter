@@ -930,7 +930,7 @@ def bleat_panel(bleat_id):
 </li>
 </ul>
 """
-    bleat_details += "</ul>\n</div>\n"
+    bleat_details += "</div>\n"
     # previous bleats in conversation:
     if precursors:
         bleat_details += """<div class="collapse panel-collapse" id="%s-conversations">
