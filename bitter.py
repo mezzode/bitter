@@ -249,7 +249,7 @@ def edit_details_page(parameters):
             </div> -->
             <div class="form-group">
                 <label>Profile Text</label>
-                <textarea name="edit-profile" value="%s" class="form-control" placeholder="Profile Text"></textarea>
+                <textarea name="edit-info" value="%s" class="form-control" placeholder="Profile Text"></textarea>
             </div>
             <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
         </form>
@@ -1572,6 +1572,17 @@ def page_trailer(parameters):
     // Prevent newlines in all textareas
     $('textarea').on('input', function () {
         $(this).val($(this).val().replace(/\\n/g,''));
+    })
+
+    $('#edit-user-submit').click(function(){
+        if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="edit-name"]').val())){
+            $('input[name="edit-name"]').parent().removeClass('has-error');
+            $('#name-help').text('');
+            $(this).parent().submit()
+        } else {
+            $('input[name="edit-name"]').parent().addClass('has-error');
+            $('#name-help').text('Full name required.');
+        }
     })
 
     $('#change-email-submit').click(function(){
