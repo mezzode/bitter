@@ -94,11 +94,8 @@ def main():
         pass # so render pages to reflect their personal details
     page_header()
     print "<!-- active_user: %s -->" % active_user
-    print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
-    # print os.getenv('QUERY_STRING')
-    # print os.environ
     if 'edit-type' in parameters and active_user:
         edit_details(parameters)
     elif 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
@@ -815,10 +812,6 @@ Bleat deleted.
 </div>
     """
 
-def main_form():
-    return """<form method="POST" action="" id="main">
-</form>"""
-
 def add_listen(parameters):
     curr_user = parameters.getfirst('listen')
     lines = []
@@ -1036,12 +1029,6 @@ def bleat_child(bleat_id):
     bleat_details += "</ul>\n"
     bleat_details += '</li>\n'
     return bleat_details
-    return """
-    <button type="submit" form="main" name="user" value="%s" class="list-group-item">
-    <h4 class="list-group-item-heading">%s</h4>
-    <p>%s</p> <!--this:%s in-reply-to:%s-->
-    </button>
-""" % (curr_bleat["username"], curr_bleat["username"],curr_bleat["bleat"],bleat_id, curr_bleat["in_reply_to"])
 
 def bleat_missing():
     print '<h1 class="text-center">Bleat not found</h1>'
@@ -1298,13 +1285,6 @@ def search_page(parameters):
                         matches.append(curr_bleat)
                     else:
                         break
-    # bleat_results = ""
-    # for match in matches:
-        # # put bleat parsing here or use function
-        # bleat_results += """<button type="submit" form="main" name="user" value=%s class="list-group-item">
-# <p>%s</p>
-# </button>            
-# """ % (match,match)
     return """
 <div class="container">
     <div class="row">
