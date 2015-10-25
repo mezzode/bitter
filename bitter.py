@@ -1140,7 +1140,7 @@ def user_page(parameters):
         listen_details += '<a href="?user=%s" class="list-group-item">\n'% listen
         listen_details += '<div class="media">\n'
         listen_details += '    <div class="media-left">\n'
-        listen_details += '        <img class="media-object" src="%s" height="64" width="64">\n' % curr_listen.pic
+        listen_details += '        <img style="max-width:64px; max-height:64px;" class="media-object" src="%s">\n' % curr_listen.pic
         listen_details += '    </div>\n'
         listen_details += '    <div class="media-body">\n'
         listen_details += '        <h4 class="media-heading">%s<br><small>%s</small></h4>\n' % (curr_listen.details["full_name"],listen)
@@ -1244,7 +1244,7 @@ def user_search(parameters):
         user_panels += """<a href="?user=%s" class="list-group-item">
 <div class="media">
     <div class="media-left">
-        <img class="media-object" src="%s" height="100" width="100">
+        <img style="max-width:100px; max-height:100px;" class="media-object" src="%s">
     </div>
     <div class="media-body">
         <h3 class="media-heading">%s<br><small>%s</small></h3>
@@ -1339,7 +1339,7 @@ def search_page(parameters):
         user_results += """<a href="?user=%s" class="list-group-item">
 <div class="media">
     <div class="media-left">
-        <img class="media-object" src="%s" height="100" width="100">
+        <img style="max-width:100px; max-height:100px;" class="media-object" src="%s">
     </div>
     <div class="media-body">
         <h3 class="media-heading">%s<br><small>%s</small></h3>
