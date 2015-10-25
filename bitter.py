@@ -221,7 +221,7 @@ def edit_details_page(parameters):
         <div class="col-md-2">
         </div>
         <div class="col-md-8 col-md-12">
-<h1>Edit Details</h1>
+<h1>Settings</h1>
 <div class="panel-group" id="edit">"""
 
     print """<div class="panel panel-default">
