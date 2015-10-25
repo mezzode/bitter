@@ -457,41 +457,42 @@ def new_user_page(parameters):
     valid = True
     if not os.path.exists('pending'):
         os.mkdir('pending')
-    if parameters.getfirst('new-username') in (os.listdir(users_dir) + os.listdir('pending')):
-        valid = False # username taken
-        username_msg = 'Username already taken.'
-        # username_class = ' has-error' # for if interpolating class, may be better?
-    elif not re.match(r'^\w+$',parameters.getfirst('new-username','')): # if matches regex
-        valid = False # username taken
-        username_msg = 'Invalid username.'
-        # username_class = ' has-error' # for if interpolating class, may be better?
+    if 'new-validate' in parameters:
+        if parameters.getfirst('new-username') in (os.listdir(users_dir) + os.listdir('pending')):
+            valid = False # username taken
+            username_msg = 'Username already taken.'
+            # username_class = ' has-error' # for if interpolating class, may be better?
+        elif not re.match(r'^\w+$',parameters.getfirst('new-username','')): # if matches regex
+            valid = False # username taken
+            username_msg = 'Invalid username.'
+            # username_class = ' has-error' # for if interpolating class, may be better?
+        else:
+            username_msg = ''
+            # username_class = '' # for if interpolating class, may be better?
+        if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name','')): # if matches regex
+            valid = False # username taken
+            name_msg = 'Full name required.'
+        else:
+            name_msg = ''
+        if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email','')): # if matches regex
+            valid = False # username taken
+            email_msg = 'Invalid email address.'
+        else:
+            email_msg = ''
+        if parameters.getfirst('new-password','') != parameters.getfirst('new-password-confirm',''):
+            valid = False
+            password_msg = 'Passwords do not match.'
+        elif not parameters.getfirst('new-password') or not parameters.getfirst('new-password-confirm'):
+            valid = False
+            password_msg = 'Password is required.'
+        else:
+            password_msg = ''
     else:
         username_msg = ''
-        # username_class = '' # for if interpolating class, may be better?
-    if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name','')): # if matches regex
-        valid = False # username taken
-        name_msg = 'Full name required.'
-    else:
-        name_msg = ''
-    if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email','')): # if matches regex
-        valid = False # username taken
-        email_msg = 'Invalid email address.'
-    else:
-        email_msg = ''
-    if parameters.getfirst('new-password','') != parameters.getfirst('new-password-confirm',''):
-        valid = False
-        password_msg = 'Passwords do not match.'
-    elif not parameters.getfirst('new-password') or not parameters.getfirst('new-password-confirm'):
-        valid = False
-        password_msg = 'Password is required.'
-    else:
-        password_msg = ''
-    
-    if (parameters.getfirst('new-user') == 'First'):
-        username_msg = ''
         name_msg = ''
         email_msg = ''
         password_msg = ''
+        valid = False
 
     if valid == True:
         new_user(parameters)
@@ -513,6 +514,7 @@ def new_user_page(parameters):
         <div class="col-md-6 col-sm-12">
             <h1>New Profile</h1>
             <form method="POST" action="?new-user=True" id="new-user-required">
+                <input type="hidden" name="new-validate" value="True">
                 <!--<div id="new-user-required">-->
 """
         if name_msg:
@@ -723,7 +725,7 @@ def landing_page():
     <h1>Welcome to Bitter</h1>
     <p>The latest and greatest thing since sliced bread!</p>
     <br>
-    <p><a class="btn btn-primary btn-lg" href="?new-user=First" role="button">Join Now</a></p>
+    <p><a class="btn btn-primary btn-lg" href="?new-user=True" role="button">Join Now</a></p>
     </div>
     </div>
     </div>
@@ -930,7 +932,7 @@ def bleat_panel(bleat_id):
 """ % (active_user,bleat_id)
     else:
         bleat_details += """<li class="list-group-item">
-        <p class="list-group-item-text"><a href="?new-user=First">Sign Up</a> or <a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
+        <p class="list-group-item-text"><a href="?new-user=True">Sign Up</a> or <a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
 </li>
 </ul>
 """
@@ -1508,7 +1510,7 @@ def navbar():
     <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
 </ul> -->
 <button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
-<a class="btn btn-link navbar-btn navbar-right" href="?new-user=First">Sign Up</a>
+<a class="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
 </div>
             </div>
         </nav>
