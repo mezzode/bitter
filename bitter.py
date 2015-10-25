@@ -92,13 +92,12 @@ def main():
         pass # so render pages to reflect their personal details
     page_header()
     print "<!-- active_user: %s -->" % active_user
-    navbar()
     print main_form()
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
     # print os.getenv('QUERY_STRING')
     # print os.environ
-    if 'edit-type' in parameters:
+    if 'edit-type' in parameters and active_user:
         edit_details(parameters)
     elif 'new-bleat' in parameters: # parameters.getvalue('new-bleat') != None:
         # new bleat
@@ -109,6 +108,7 @@ def main():
     elif 'delete-bleat' in parameters: # parameters.getvalue('delete-bleat') != None:
         if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
             delete_bleat(parameters.getfirst('delete-bleat'))
+    navbar()
     global page
     page = int(parameters.getfirst('page','1'))
     if 'edit' in parameters and active_user:
