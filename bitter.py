@@ -1185,7 +1185,7 @@ def user_search(parameters):
                             # matches += '<li class="list-group-item">%s</li>\n' % curr_user
                         else:
                             break
-    user_panels = ""
+    user_panels = '<div class="panel panel-default">'
     for match in matches[(16*(page-1)):(16*page)]:
         curr_user = user(match)
         user_panels += """<a href="?user=%s" class="list-group-item">
@@ -1199,6 +1199,9 @@ def user_search(parameters):
 </div>
 </a>
 """ % (match,curr_user.pic,curr_user.details["full_name"],match)
+    user_panels += "</div>"
+    if not matches:
+        user_panels = '<h1 class="text-center"><small>No Users</small></h1>'
     # bleat_panels(matches)
     # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """
@@ -1211,9 +1214,7 @@ def user_search(parameters):
                 <li role="presentation"><a href="?search=%s&type=bleat">Bleats</a></li>
             </ul>
             <br>
-            <div class="panel panel-default">
             %s
-            </div>
             %s
         </div>
     </div>
