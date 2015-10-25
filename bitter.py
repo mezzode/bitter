@@ -110,7 +110,7 @@ def main():
         new_bleat(parameters)
     elif 'listen' in parameters:
         if parameters.getfirst('listen') in os.listdir(users_dir):
-            add_listen(parameters)
+            toggle_listen(parameters)
     elif 'delete-bleat' in parameters:
         if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
             delete_bleat(parameters.getfirst('delete-bleat'))
@@ -819,7 +819,7 @@ Bleat deleted.
 </div>
     """
 
-def add_listen(parameters):
+def toggle_listen(parameters):
     curr_user = parameters.getfirst('listen')
     lines = []
     field = ""
