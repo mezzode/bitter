@@ -251,12 +251,12 @@ def edit_details_page(parameters):
                 <label>Profile Text</label>
                 <textarea name="edit-profile" value="%s" class="form-control" placeholder="Profile Text"></textarea>
             </div>
-            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
+            <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
         </form>
     </li>
     </ul>
 </div>
-</div>""" % (curr_user.details.get('full_name',''),curr_user.details.get('profile',''))
+</div>""" % (curr_user.details.get('full_name',''),curr_user.details.get('info',''))
 
     print """<div class="panel panel-default">
 <div class="list-group">
@@ -1567,6 +1567,11 @@ def page_trailer(parameters):
         if (e.which == 13) { // enter key
             this.submit()
         }
+    })
+
+    // Prevent newlines in all textareas
+    $('textarea').on('input', function () {
+        $(this).val($(this).val().replace(/\\n/g,''));
     })
 
     $('#change-email-submit').click(function(){
