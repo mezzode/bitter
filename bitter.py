@@ -185,12 +185,15 @@ def change_email(user_id):
 
 def sanitise(string):
     chunks = re.split(r'(<.*?>.*?<.*?>)',string)
-    print chunks
     for index, chunk in enumerate(chunks):
         if re.match(r'(<.*?>.*?<.*?>)',chunk):
             if re.match(r'(<strong>.*?</strong>)',chunk):
                 pass
             elif re.match(r'(<em>.*?</em>)',chunk):
+                pass
+            elif re.match(r'(<code>.*?</code>)',chunk):
+                pass
+            elif re.match(r'(<del>.*?</del>)',chunk):
                 pass
             else:
                 chunks[index] = ''
