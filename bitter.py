@@ -78,11 +78,8 @@ def main():
             sessions.remove(session)
         with open('sessions.txt','w') as f:
             f.writelines(sessions)
-        # disable cookie?
         active_user = None
-    # elif parameters.getfirst('password') != None and parameters.getfirst('username') != None:
     elif 'password' in parameters and 'username' in parameters:
-        # need a page if incorrect username/password
         if authenticate(parameters):
             issue_token(parameters)
             active_user = parameters.getfirst('username')
@@ -100,20 +97,20 @@ def main():
         title = 'Bitter'
     page_header(title)
 
-    print "<!-- active_user: %s -->" % active_user
-    if active_user != None: # someone is logged in
+    # user actions
+    if active_user: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
-    if 'edit-type' in parameters and active_user:
-        edit_details(parameters)
-    elif 'new-bleat' in parameters:
-        # new bleat
-        new_bleat(parameters)
-    elif 'listen' in parameters:
-        if parameters.getfirst('listen') in os.listdir(users_dir):
-            toggle_listen(parameters)
-    elif 'delete-bleat' in parameters:
-        if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
-            delete_bleat(parameters.getfirst('delete-bleat'))
+        if 'edit-type' in parameters:
+            edit_details(parameters)
+        elif 'new-bleat' in parameters:
+            new_bleat(parameters)
+        elif 'listen' in parameters:
+            if parameters.getfirst('listen') in os.listdir(users_dir):
+                toggle_listen(parameters)
+        elif 'delete-bleat' in parameters:
+            if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
+                delete_bleat(parameters.getfirst('delete-bleat'))
+                
     navbar()
     global page
     page = int(parameters.getfirst('page','1'))
