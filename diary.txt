@@ -1,0 +1,330 @@
+Mon Oct 26 05:35:41 2015    Add files.tar
+Mon Oct 26 05:32:45 2015    Change css/custom.css to bitter.css
+Mon Oct 26 05:25:18 2015    Add storage files
+Mon Oct 26 05:24:54 2015    Clean up landing page
+Mon Oct 26 05:15:42 2015    Remove bitter.css
+Mon Oct 26 05:14:34 2015    Remove perl bitters
+Mon Oct 26 05:12:45 2015    Remove html comments
+Mon Oct 26 05:01:01 2015    Cleanup old commented code
+Mon Oct 26 04:56:53 2015    Cleanup old search_page function
+Mon Oct 26 04:55:09 2015    Begin cleanup
+Mon Oct 26 04:45:53 2015    Enable submission when changing pic
+Mon Oct 26 04:42:26 2015    Fix styling of non square profile images
+Mon Oct 26 04:24:39 2015    Enable profile pic uploading
+Mon Oct 26 03:54:26 2015    Add more tags to profile whitelist
+Mon Oct 26 03:48:50 2015    Enable use of strong and em tags in profile text
+Mon Oct 26 03:26:42 2015    Add old password requirement for changing password
+Mon Oct 26 03:10:47 2015    Add explicit username search to bleat searching
+Mon Oct 26 03:08:11 2015    Add explicit username search
+Mon Oct 26 02:58:55 2015    Fix toggle_listen typo
+Mon Oct 26 02:53:54 2015    Show mentions on dashboard and tweak hashtag searching
+Mon Oct 26 02:06:32 2015    Style mention and hashtag links
+Mon Oct 26 02:04:10 2015    Enable user mention links
+Mon Oct 26 02:00:43 2015    Enable hashtag links
+Mon Oct 26 01:54:52 2015    Default to bleat searching when searching a hashtag
+Mon Oct 26 01:52:56 2015    Add message if no user results in search
+Mon Oct 26 01:48:26 2015    Encode search term in search links
+Mon Oct 26 00:50:55 2015    Change layout of user page
+Mon Oct 26 00:38:51 2015    Hide listen section if no listens
+Mon Oct 26 00:34:19 2015    Hide home details section if empty
+Mon Oct 26 00:23:45 2015    Only enable edit submission if values have been edited
+Mon Oct 26 00:07:21 2015    Small cleanup
+Mon Oct 26 00:04:51 2015    Require an active user to do user actions
+Sun Oct 25 23:57:35 2015    Change new user validation to use hidden field not query string
+Sun Oct 25 23:44:51 2015    Hide paginator if only one page
+Sun Oct 25 23:42:33 2015    Fix paginator bug which allowed zero pages
+Sun Oct 25 23:39:18 2015    Handle display of no bleats
+Sun Oct 25 23:32:05 2015    Clean up MDL files
+Sun Oct 25 23:19:16 2015    Change add_listen to toggle_listen to better reflect function
+Sun Oct 25 23:15:10 2015    Start comment cleanup
+Sun Oct 25 23:12:44 2015    Add page titles
+Sun Oct 25 23:02:59 2015    Remove obsolete main form
+Sun Oct 25 22:57:54 2015    Fix rogue ul tag
+Sun Oct 25 22:48:32 2015    Tweak spacing on landing page
+Sun Oct 25 22:47:12 2015    Tweak landing page
+Sun Oct 25 22:42:28 2015    Add formatting to failed login page
+Sun Oct 25 22:12:56 2015    Tweak typography of names on user pages
+Sun Oct 25 22:08:59 2015    Add image placeholders
+Sun Oct 25 21:32:56 2015    Prevent clicking of disabled page links
+Sun Oct 25 20:15:28 2015    Improve paginator
+Sun Oct 25 19:16:19 2015    Sanitise profile info
+Sun Oct 25 19:05:55 2015    Fix navbar rendering with old name when name is edited
+Sun Oct 25 18:51:36 2015    Enable backend editing of profile details
+Sun Oct 25 18:26:49 2015    Add name editing validation
+Sun Oct 25 18:10:21 2015    Add pattern requirement to latitude/longitude fields
+Sun Oct 25 17:54:03 2015    Prevent newlines in all textareas
+Sun Oct 25 16:31:37 2015    Change order of settings page
+Sun Oct 25 16:29:41 2015    Tweak edit headings
+Sun Oct 25 16:28:47 2015    Change heading to settings
+Sun Oct 25 16:27:17 2015    Add settings button to navbar
+Sun Oct 25 03:32:53 2015    Enable backend password changing
+Sun Oct 25 03:26:48 2015    Add password change success toast
+Sun Oct 25 03:23:12 2015    Remove error styling on both password fields on edit
+Sun Oct 25 03:19:17 2015    Add password change validation
+Sun Oct 25 03:03:22 2015    Add email confirmation to email changing
+Sun Oct 25 02:25:11 2015    Enable backend changing of email
+Sun Oct 25 02:08:54 2015    Enable email editing submission
+Sun Oct 25 02:04:06 2015    Add validation to email editing
+Sun Oct 25 00:01:04 2015    Remove unused html
+Sat Oct 24 23:59:00 2015    Keep open panel which was being edited
+Sat Oct 24 23:20:41 2015    Add backend functionality for home detail editing
+Sat Oct 24 20:46:43 2015    Start work on backend of detail editing
+Sat Oct 24 20:07:57 2015    Edit edit page
+Sat Oct 24 19:59:47 2015    Separate email change
+Sat Oct 24 02:05:57 2015    Fix home detail fetching on edit page
+Sat Oct 24 02:00:17 2015    Tweak edit page again
+Sat Oct 24 01:44:39 2015    Tweak edit page
+Sat Oct 24 01:32:52 2015    Add home details to edit page
+Sat Oct 24 01:18:13 2015    Begin moving forms into edit accordion
+Sat Oct 24 01:09:38 2015    Add accordion to edit page
+Fri Oct 23 23:25:38 2015    Begin work on detail editing
+Fri Oct 23 19:32:05 2015    Add sign up link to bleat reply prompt
+Fri Oct 23 19:29:20 2015    Hide rather than disable new bleat button if not logged in
+Fri Oct 23 19:26:43 2015    Add functionality to join now button on landing page
+Fri Oct 23 19:25:48 2015    Add sign up button to navbar
+Fri Oct 23 19:20:43 2015    Go to dashboard on login
+Fri Oct 23 19:07:12 2015    Format confirmation messages
+Fri Oct 23 19:01:59 2015    Add basic confirmation messages
+Fri Oct 23 18:54:16 2015    Change user variable to avoid confusion with user class
+Fri Oct 23 00:16:37 2015    Remove unused random module
+Fri Oct 23 00:13:34 2015    Enable new user confirmation
+Thu Oct 22 23:32:40 2015    Change more style
+Thu Oct 22 23:25:33 2015    Make empty bleats file for new users
+Thu Oct 22 23:21:40 2015    Change some style
+Thu Oct 22 22:52:10 2015    Add confirmation email sending and submission on enter
+Thu Oct 22 20:55:53 2015    Prevent showing invalid inputs on first visit to new user page
+Thu Oct 22 20:37:56 2015    Check pending usernames when checking if username is taken
+Thu Oct 22 20:31:57 2015    Change back to determining class bassed on error message
+Thu Oct 22 20:20:09 2015    Add pending user creation
+Thu Oct 22 19:19:21 2015    Add form submission success page
+Thu Oct 22 18:58:20 2015    Enable new user form submission if valid info
+Thu Oct 22 18:34:09 2015    Add javascript handling of empty passwords
+Wed Oct 21 16:04:36 2015    Tweak new user page
+Wed Oct 21 12:45:01 2015    Work on serverside validation
+Wed Oct 21 00:09:52 2015    Begin adding server-side validation
+Tue Oct 20 20:12:37 2015    Fix spaces being valid in email addresses
+Tue Oct 20 20:11:07 2015    Add help text to form
+Tue Oct 20 19:51:19 2015    Work on new user form
+Tue Oct 20 19:20:49 2015    Ensure password and confirm password match
+Tue Oct 20 19:00:08 2015    Remove error style once field is edited
+Tue Oct 20 18:48:46 2015    Check if all fields valid before submitting
+Tue Oct 20 18:39:41 2015    Add username validation
+Tue Oct 20 18:34:59 2015    Fix form validation classes
+Tue Oct 20 18:15:57 2015    Add email validation
+Tue Oct 20 17:58:26 2015    Limit type of characters in username and name fields
+Tue Oct 20 17:38:21 2015    Start work on new user validation
+Mon Oct 19 23:56:39 2015    Add new user backend placeholder
+Mon Oct 19 23:03:20 2015    Add profile pic upload placeholder
+Mon Oct 19 22:41:05 2015    Display name instead of username in search results
+Mon Oct 19 22:36:06 2015    Add new user page placeholder
+Mon Oct 19 20:52:27 2015    Limit amount of pages shown on paginator
+Mon Oct 19 19:55:31 2015    Enable pagination on user search page
+Mon Oct 19 19:34:01 2015    Switch to medium dataset
+Mon Oct 19 19:03:26 2015    Update search page with pagination and search type selection
+Mon Oct 19 18:43:47 2015    Update user search
+Mon Oct 19 18:28:48 2015    Change search page implementation and add pagination
+Mon Oct 19 17:23:17 2015    Hide deleted bleats from search
+Mon Oct 19 16:46:30 2015    Add pagination to user pages
+Sun Oct 18 23:02:59 2015    Use getfirst to prevent failure for multiple search values
+Sun Oct 18 22:54:23 2015    Add working paginator to dashboard
+Sun Oct 18 22:19:13 2015    Limit bleats per page
+Sun Oct 18 02:29:21 2015    Deal with deleted child bleats
+Sun Oct 18 01:48:24 2015    Add bleat deletion to children
+Sun Oct 18 01:36:46 2015    Add bleat deletion toast
+Sun Oct 18 01:31:46 2015    Add bleat deletion
+Sun Oct 18 00:46:11 2015    Escape new bleats to prevent html usage
+Sun Oct 18 00:44:23 2015    Prevent newlines in bleats and enable submit on enter
+Sun Oct 18 00:03:05 2015    Add listen icons to main listen buttons
+Sat Oct 17 23:57:42 2015    Switch listen/unlisten icons
+Sat Oct 17 23:55:21 2015    Add permalinks to child bleats
+Sat Oct 17 23:51:05 2015    Add permalink to bleats
+Sat Oct 17 23:33:10 2015    Add listen button to bleat children
+Sat Oct 17 23:27:45 2015    Add functionality to listen buttons in bleats
+Sat Oct 17 23:05:37 2015    Hide bleat listen button on own bleats
+Sat Oct 17 23:03:46 2015    Add listen buttons to each bleat
+Sat Oct 17 22:38:39 2015    Hide listen button on own page
+Sat Oct 17 22:19:33 2015    Add bleats to dashboard
+Sat Oct 17 21:25:21 2015    Format landing page
+Sat Oct 17 21:09:39 2015    Add jumbotron
+Sat Oct 17 21:00:29 2015    Add dashboard and landing page placeholders
+Sat Oct 17 20:50:59 2015    Format missing user page
+Sat Oct 17 20:40:59 2015    Add user not found page
+Sat Oct 17 20:33:09 2015    Enable full logged in features
+Sat Oct 17 20:22:37 2015    Clean up page header
+Sat Oct 17 20:13:50 2015    Add login link to bleat reply section if not logged in
+Sat Oct 17 20:01:44 2015    Disable replying if not logged in
+Sat Oct 17 19:44:53 2015    Make active_user global and hide listen button if not logged in
+Sat Oct 17 18:35:57 2015    Fix search page
+Sat Oct 17 18:20:50 2015    Fix login cookie behaviour after adding invalid username/password
+Sat Oct 17 18:07:15 2015    Add checking of invalid username/password
+Sat Oct 17 17:50:22 2015    Fix logging out
+Sat Oct 17 17:27:27 2015    Fix login cookie stuff
+Sat Oct 17 16:34:43 2015    Work on implementing logout
+Sat Oct 17 16:14:16 2015    Disable new bleat button if not logged in
+Sat Oct 17 16:02:54 2015    Add disabled bleat
+Sat Oct 17 15:37:40 2015    Prevent login if missing either a username or password
+Sat Oct 17 15:29:52 2015    Fix new bleat field submission rejection
+Fri Oct 16 20:28:48 2015    Add log in dialog
+Fri Oct 16 19:14:48 2015    Add conditional navbar
+Fri Oct 16 18:38:52 2015    Correct navbar link behaviour
+Fri Oct 16 18:28:23 2015    Separate navbar in preparation for user login
+Fri Oct 16 18:22:57 2015    Work on session cookies
+Fri Oct 16 18:10:19 2015    Separate html and header
+Fri Oct 16 18:01:21 2015    Begin Implementing Cookies
+Fri Oct 16 16:21:25 2015    Change user class to use username
+Fri Oct 16 16:12:14 2015    Continue changing scope
+Fri Oct 16 12:03:13 2015    Temporary fix for failed search if no full name
+Fri Oct 16 12:01:43 2015    Begin making directories global vars
+Fri Oct 16 11:41:41 2015    Center paginator
+Fri Oct 16 02:31:43 2015    Fix lack of message when listening to first user
+Fri Oct 16 02:29:26 2015    Fix failure when trying to stop listening to last user
+Fri Oct 16 02:20:50 2015    Add stop listening functionality
+Fri Oct 16 02:11:11 2015    Change button text to stop listening if already listening
+Fri Oct 16 02:01:26 2015    Prevent duplicate listening
+Fri Oct 16 01:56:58 2015    Add successful listen toast
+Fri Oct 16 01:53:24 2015    Fix duplication of details when adding a new listen
+Fri Oct 16 01:48:49 2015    Add listen functionality
+Fri Oct 16 00:03:01 2015    Fix buggy listen links by switching to links instead of forms
+Thu Oct 15 23:57:32 2015    Add successful reply toast
+Thu Oct 15 23:55:16 2015    Add bleat success aftermath
+Thu Oct 15 23:47:50 2015    Add alert close functionality
+Thu Oct 15 23:36:58 2015    Rename class from alerter to toaster
+Thu Oct 15 23:34:08 2015    Add toasts
+Thu Oct 15 22:31:18 2015    Add bleat reply functionality
+Thu Oct 15 22:19:24 2015    Add new bleat functionality
+Thu Oct 15 21:53:13 2015    Add new bleat placeholder
+Thu Oct 15 21:29:40 2015    Fix failure if user has no bleats
+Thu Oct 15 20:25:54 2015    Add new bleat POST
+Thu Oct 15 17:49:46 2015    Change FAB icon
+Thu Oct 15 16:52:17 2015    Add new bleat dialog
+Thu Oct 15 12:33:13 2015    Keep FAB on top
+Thu Oct 15 12:18:45 2015    Add new bleat modal
+Thu Oct 15 01:16:37 2015    Enable MDL and add Floating Action Button
+Thu Oct 15 00:42:17 2015    Add Material Design Lite
+Wed Oct 14 22:42:26 2015    Change bleat reply box default to 3 rows
+Wed Oct 14 22:40:26 2015    Add hard 142 char limit on bleat replies
+Wed Oct 14 22:38:17 2015    Add bleat reply character usage display
+Wed Oct 14 22:29:55 2015    Disable bleat reply submission if no text
+Wed Oct 14 21:51:25 2015    Add bleat reply submit button tooltip
+Wed Oct 14 21:43:13 2015    Prevent textareas from being resized sideways
+Wed Oct 14 21:39:02 2015    Add bleat reply placeholder
+Wed Oct 14 20:35:56 2015    Add username link to parent bleats
+Wed Oct 14 20:34:16 2015    Tweak user link hover color
+Wed Oct 14 20:30:43 2015    Fix behaviour of user links in bleat heads
+Wed Oct 14 19:58:34 2015    Add username links from bleat heads
+Wed Oct 14 19:35:01 2015    Fix missing username interpolation
+Wed Oct 14 19:32:14 2015    Change formatting of bleat children
+Wed Oct 14 19:18:22 2015    Only make collapse if there are bleat children
+Wed Oct 14 19:05:13 2015    Hide button if no children
+Wed Oct 14 18:50:13 2015    Enable bleat children
+Wed Oct 14 15:23:33 2015    Merge branch 'lab-11'
+Wed Oct 14 15:16:24 2015    Add comments to reduce
+Wed Oct 14 15:12:26 2015    Working reduce
+Wed Oct 14 15:08:17 2015    Partially working reduce
+Wed Oct 14 14:54:13 2015    Start Lab 11 Task 3 (reduce.pl)
+Wed Oct 14 14:49:24 2015    Tweak Task 2
+Wed Oct 14 14:26:50 2015    Do Lab 11 Task 2 (Guessing Game Player)
+Wed Oct 14 14:05:09 2015    Do Lab 11 Task 1
+Wed Oct 14 13:25:23 2015    Start bleat child functions (replies and conversations)
+Wed Oct 14 01:11:28 2015    Remove unnecessary attributes from buttons
+Wed Oct 14 01:08:51 2015    Change to checking collapses to set button state
+Wed Oct 14 00:23:16 2015    Fix rogue string interpolation
+Wed Oct 14 00:19:57 2015    Fix merge conflicts
+Wed Oct 14 00:17:50 2015    Toggle buttons separately per bleat
+Tue Oct 13 23:20:12 2015    Remove unecessary selector id
+Tue Oct 13 23:15:17 2015    Fix Buttons
+Tue Oct 13 22:27:02 2015    Further Button Toggling Changes
+Tue Oct 13 22:19:32 2015    Experimental Button Toggling
+Tue Oct 13 22:04:24 2015    Enable custom css
+Tue Oct 13 21:09:21 2015    Add WIP custom css
+Tue Oct 13 19:20:01 2015    Change style of bleat child buttons
+Tue Oct 13 19:14:07 2015    Change bleat link styling to buttons
+Tue Oct 13 19:05:16 2015    Add third bleat reply placeholder to check resizing behaviour
+Tue Oct 13 19:01:10 2015    Use accordion to only one of conversation or replies open at once
+Tue Oct 13 12:55:23 2015    Add separate replies and conversations for bleats
+Mon Oct 12 23:59:31 2015    Change search page to use bleat panels
+Mon Oct 12 23:55:54 2015    Change search page to use panels
+Mon Oct 12 23:51:42 2015    Print bleat location only if provided
+Mon Oct 12 23:40:30 2015    Add bleat panel functions
+Mon Oct 12 23:07:51 2015    Add bleat searching functionality
+Mon Oct 12 22:55:11 2015    Tweak search page sizes
+Mon Oct 12 22:49:15 2015    Add better bleat search placeholder
+Mon Oct 12 22:43:43 2015    Add bleat tab functionality to search page
+Mon Oct 12 22:34:27 2015    Tweak search page formatting
+Mon Oct 12 22:08:12 2015    Change style of search button
+Mon Oct 12 19:31:28 2015    Change bleat reply formatting to match bleats
+Mon Oct 12 19:29:16 2015    Tweak bleat formatting to add separator for replies
+Mon Oct 12 19:26:36 2015    Move bitter reply list inside panel
+Mon Oct 12 13:52:53 2015    Remove search dropdown
+Mon Oct 12 13:49:49 2015    Change bleat formatting to use panels
+Mon Oct 12 13:08:39 2015    Readd panel around bleats and change top padding
+Mon Oct 12 13:04:50 2015    Switch to paper theme
+Sun Oct 11 23:58:40 2015    Change metadata formatting for bleats
+Sun Oct 11 23:46:19 2015    Format bleats heading
+Sun Oct 11 23:39:54 2015    Add panel around bleats heading
+Sun Oct 11 23:37:22 2015    Change bleat formatting for better readability of replies
+Sun Oct 11 22:35:26 2015    Added second bleat to reply as placeholder
+Sun Oct 11 22:27:42 2015    Format bleat replies
+Sun Oct 11 22:15:16 2015    Add collapsing bleat sections
+Sun Oct 11 21:59:17 2015    Add formatting to bleats
+Sun Oct 11 20:05:34 2015    Sort bleats in reverse chronological order
+Sun Oct 11 19:30:26 2015    Add tabs to search page
+Sun Oct 11 19:25:48 2015    Tweak home details format and fix bleats and search headings
+Sun Oct 11 18:46:32 2015    Enable linking to user page from search page
+Sun Oct 11 18:30:20 2015    Add formatting to search page
+Sun Oct 11 18:03:29 2015    Add search by name
+Sun Oct 11 17:45:03 2015    Enable direct linking to user pages by username
+Sun Oct 11 17:21:26 2015    Change listens to list buttons
+Sun Oct 11 17:02:30 2015    Add info to user panel
+Sun Oct 11 16:50:22 2015    Add headings for listens and home details
+Sun Oct 11 16:41:25 2015    Add listens and home sections to user panel
+Sun Oct 11 15:29:22 2015    Change navbar links to form buttons
+Sun Oct 11 14:53:41 2015    Change search page formatting
+Sun Oct 11 14:18:19 2015    Add WIP search functionality
+Sun Oct 11 14:11:06 2015    Add search page html
+Sun Oct 11 14:02:05 2015    Add WIP search page
+Sun Oct 11 13:33:11 2015    Minor interfaces tweaks
+Sun Oct 11 01:50:51 2015    Convert indentation to spaces
+Sun Oct 11 01:49:46 2015    Add dropdown selector for search
+Sun Oct 11 01:43:23 2015    Add page selector for bleats
+Sun Oct 11 01:42:23 2015    Add indenting for HTML
+Sun Oct 11 01:00:41 2015    Change time formatting
+Sun Oct 11 00:56:45 2015    Add time formatting
+Sat Oct 10 23:48:16 2015    Add bleats
+Sat Oct 10 23:08:29 2015    Hide certain fields from profile panel
+Sat Oct 10 23:00:11 2015    Add name and username to profile panel
+Sat Oct 10 22:33:07 2015    Fix missing quotation marks and tweak search bar
+Sat Oct 10 22:10:49 2015    Add profile picture and page formatting
+Sat Oct 10 21:42:39 2015    Add padding for navbar and fix right side formatting
+Sat Oct 10 21:25:43 2015    Add logged in user
+Sat Oct 10 19:00:08 2015    WIP Page Formatting
+Sat Oct 10 17:38:57 2015    Add Experimental Bootstrap
+Sat Oct 10 17:25:09 2015    Merge branch 'bitter' of github.com:numuon/COMP2041-cgi into bitter
+Sat Oct 10 17:24:48 2015    Bootstrap
+Sat Oct 10 17:18:20 2015    Change details to be ordered alphabetically
+Sat Oct 10 17:13:28 2015    Fix formatting
+Sat Oct 10 17:07:48 2015    More details fixes
+Sat Oct 10 17:06:13 2015    Fix details naming
+Sat Oct 10 16:58:19 2015    Experimental user class
+Sat Oct 10 15:37:26 2015    Change to .py file extension for syntax highlighting
+Fri Oct 9 18:59:34 2015    Andrew's code
+Thu Oct 8 20:18:43 2015    Add testing_plan.txt
+Thu Oct 8 19:52:45 2015    Fix small button spacing problem
+Wed Oct 7 16:52:37 2015    Fix Formatting and Reset Button
+Wed Oct 7 16:43:49 2015    Add removal of non-digits
+Wed Oct 7 16:41:52 2015    Add Success and Failure Pages
+Wed Oct 7 16:21:33 2015    Change from h2 tags to h2 Function
+Wed Oct 7 16:20:03 2015    Move form outside if statement
+Wed Oct 7 16:13:12 2015    Edit Close Dialog
+Wed Oct 7 16:10:09 2015    Add Basic Close Functionality
+Wed Oct 7 15:45:34 2015    Add Welcome Page
+Wed Oct 7 15:26:25 2015    Add Basic Printing
+Wed Oct 7 15:14:46 2015    Begin creditcard.cgi
+Wed Oct 7 15:12:05 2015    Finish creditcard.pl
+Tue Sep 29 19:49:52 2015    Fix incorrect title for browser.cgi
+Tue Sep 29 19:46:49 2015    Add password check and saving of previously entered data
+Tue Sep 29 19:27:30 2015    Add rudimentary username/password check
+Tue Sep 29 19:08:23 2015    Add prompt when missing username or password
+Tue Sep 29 18:50:34 2015    Finish browser.cgi Remove old lines and fix trailing period
+Tue Sep 29 18:46:51 2015    Add required info to browser.cgi and fixed incorrect host parsing
+Fri Sep 18 21:12:27 2015    initial files
