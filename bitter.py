@@ -109,8 +109,6 @@ def main():
         else:
             bleat_missing()
     elif 'search' in parameters:
-        # print search_page(parameters)
-        # bleat_search(parameters)
         if parameters.getfirst('type') == 'bleat' or parameters.getfirst('search').startswith('#'):
             bleat_search(parameters)
         else:
@@ -1288,120 +1286,6 @@ def bleat_search(parameters):
     </div>
 </div>
 """ % (search_term,urllib.quote(search_term),bleat_panels(matches),paginator('search='+urllib.quote(search_term)+'&type=bleat',len(matches) / 16 + (len(matches) % 16 > 0)))
-
-def search_page(parameters):
-    search_term = parameters.getfirst('search')
-    matches = []
-    # matches = ""
-    for curr_user in os.listdir(users_dir):
-        if search_term.lower() in curr_user.lower():
-            matches.append(curr_user)
-            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
-        else:
-            with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
-                for line in f:
-                    field, _, value = line.rstrip().partition(": ")
-                    if field == "full_name":
-                        if search_term.lower() in value.lower():
-                            matches.append(curr_user)
-                            # matches += '<li class="list-group-item">%s</li>\n' % curr_user
-                        else:
-                            break
-    user_results = ""
-    for match in matches:
-        curr_user = user(match)
-        user_results += """<a href="?user=%s" class="list-group-item">
-<div class="media">
-    <div class="media-left">
-        <img style="max-width:100px; max-height:100px;" class="media-object" src="%s">
-    </div>
-    <div class="media-body">
-        <h3 class="media-heading">%s<br><small>%s</small></h3>
-    </div>
-</div>
-</a>
-""" % (match,curr_user.pic,curr_user.details["username"],match)
-    matches = []
-    for curr_bleat in os.listdir(bleats_dir):
-        with open(os.path.join(bleats_dir,curr_bleat)) as f:
-            lines = f.readlines()
-            if 'deleted\n' in lines:
-                continue
-            for line in lines:
-                field, _, value = line.rstrip().partition(": ")
-                if field == "bleat":
-                    if search_term.lower() in value.lower():
-                        matches.append(curr_bleat)
-                    else:
-                        break
-    return """
-<div class="container">
-    <div class="row">
-        <!-- <div class="col-sm-5 col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <img src="" class="img-responsive" alt="Profile Picture">
-                    
-                </div>
-            </div>
-            <p>
-            <form method="POST" action="">
-                <input type="hidden" name="n" value="">
-                <input type="submit" value="Next user" class="btn btn-default">
-            </form>
-        </div> -->
-        <div class="col-md-12 col-sm-12">
-            <!-- div class="panel panel-primary">
-                <div class="panel-body">
-                    <h2 class="list-group-item-heading">Search Results: <small></small></h2>
-                </div>
-            </div> -->
-            <h2> Search Results: <small>%s</small></h2>
-            <ul class="nav nav-pills">
-                <li role="presentation" class="active"><a href="#users" data-toggle="pill">Users</a></li>
-                <li role="presentation"><a href="#bleats" data-toggle="pill">Bleats</a></li>
-                <!-- <li role="presentation"><a href="#">All</a></li> -->
-            </ul>
-            <br>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="users">
-                    %s
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="bleats">
-                    <!-- <li class="list-group-item"><h3>No results</h3></li> -->
-                    %s
-                </div>
-            </div>
-            <nav>
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-        </div>
-        <!-- <div class="col-md-3 col-sm-5">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <p>Bleh</p>
-                </div>
-            </div>
-        </div> -->
-    </div>
-</div>
-""" % (search_term,user_results,bleat_panels(matches))
 
 #
 # HTML placed at the top of every page
