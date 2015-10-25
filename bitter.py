@@ -184,8 +184,19 @@ def change_email(user_id):
     print "</div>"
 
 def sanitise(string):
-    string = cgi.escape(string)
-    return string
+    chunks = re.split(r'(<.*?>.*?<.*?>)',string)
+    print chunks
+    for index, chunk in enumerate(chunks):
+        if re.match(r'(<.*?>.*?<.*?>)',chunk):
+            if re.match(r'(<strong>.*?</strong>)',chunk):
+                pass
+            elif re.match(r'(<em>.*?</em>)',chunk):
+                pass
+            else:
+                chunks[index] = ''
+        else:
+            chunks[index] = cgi.escape(chunks[index])
+    return ''.join(chunks)
 
 def edit_details(parameters):
     if parameters.getfirst('edit-type') == 'email':
