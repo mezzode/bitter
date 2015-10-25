@@ -1,3 +1,6 @@
+Mon Oct 26 05:49:52 2015    Create necessary files if they do not exist
+Mon Oct 26 05:39:44 2015    Change to bitter.cgi
+Mon Oct 26 05:38:35 2015    Add diary
 Mon Oct 26 05:35:41 2015    Add files.tar
 Mon Oct 26 05:32:45 2015    Change css/custom.css to bitter.css
 Mon Oct 26 05:25:18 2015    Add storage files
