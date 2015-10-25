@@ -1420,6 +1420,7 @@ def navbar():
             name = active_user
         print """<ul class="nav navbar-nav navbar-right">
     <li><p class="navbar-text">Signed in as <a href="?user=%s" class="navbar-link">%s</a></p></li>
+    <li><form><button class="btn btn-link navbar-btn" type="submit" name="edit" value="True">Settings</button></form></li>
     <li><form method="POST"><button class="btn btn-link navbar-btn" type="submit" name="logout" value="True">Log Out</button></form></li>
 </ul>
 </div>
