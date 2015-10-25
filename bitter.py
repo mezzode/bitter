@@ -515,7 +515,6 @@ def new_user_page(parameters):
             <h1>New Profile</h1>
             <form method="POST" action="?new-user=True" id="new-user-required">
                 <input type="hidden" name="new-validate" value="True">
-                <!--<div id="new-user-required">-->
 """
         if name_msg:
             print '<div class="form-group has-error">\n'
@@ -558,7 +557,6 @@ def new_user_page(parameters):
                 </div>""" % (parameters.getfirst('new-password-confirm',''),password_msg)
     
         print """<button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
-        <!--</div>-->
         </form>
         </div>
         <div class="col-md-3">
@@ -604,21 +602,6 @@ def new_user_page(parameters):
                     <span id="password-help" class="help-block"></span>
                 </div>
                 </div><!-- Compulsory -->
-                <!-- <div class="collapse" id="new-user-optional">
-                <h2>Home Details <small>(Optional)</small></h2>
-                <div class="form-group">
-                    <label>Suburb</label>
-                    <input type="text" name="suburb" class="form-control" placeholder="Suburb">
-                </div>
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="text" name="latitude" class="form-control" placeholder="Latitude">
-                </div>
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="text" name="longitude" class="form-control" placeholder="Longitude">
-                </div>
-                </div> -->
                 <button id="new-user-submit" type="button" name="new-user" value="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -669,27 +652,6 @@ def dashboard():
     <div class="col-md-6 col-sm-12">
     %s
     %s
-            <!-- <nav>
-              <div class="text-center">
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-              </div>
-              </nav> -->
     </div>
     <div class="col-md-3">
     </div>""" % (bleat_details,page_details)
@@ -1110,45 +1072,13 @@ def user_page(parameters):
             </div>
             """ % (curr_user.pic, details, listen_details,home_details) 
     if active_user and active_user != curr_user.details['username']:
-        print """<form method="POST"><!-- id="main"> -->
+        print """<form method="POST">
                 <button type="submit" name="listen" value="%s" class="btn btn-default toaster">%s</button>
             </form>""" % (curr_user.details['username'],listen_button)
     print "</div>"
     page_details = paginator('user='+curr_user.details['username'],len(curr_user.bleats) / 16 + (len(curr_user.bleats) % 16 > 0))
     print  """ <div class="col-md-9 col-sm-7">
-            <!-- <div class="panel panel-primary">
-                <div class="panel-body">
-                    <h1 class="list-group-item-heading">Bleats</h1>
-                </div>
-            </div> -->
-                <!-- <ul class="list-group"> -->
-                    <!-- <li class="list-group-item panel-primary">
-                        <h1 class="list-group-item-heading">Bleats</h1>
-                    </li> -->
                     %s
-                <!-- </ul> -->
-            <!-- </div> -->
-            <!-- <nav>
-              <div class="text-center">
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-              </div>
-            </nav> -->
             %s
         </div>
     </div>
@@ -1288,29 +1218,11 @@ def navbar():
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="?">Bitter</a>
-                    <!-- <input type="reset" class="navbar-brand" value="Bitter"> -->
                 </div>
 
                 <div id="navbar" class="collapse navbar-collapse">
-                    <!-- <ul class="nav navbar-nav">
-                        <li class="active"><input type="reset" value="Home" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">New Bleat</a></li>
-                        <li class="active"><input type="submit" value="New Bleat" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
-                    </ul> -->
                     <form class="navbar-form navbar-left" action="?" id="search" role="search">
-                    <!-- <input type="submit" value="Home" class="btn btn-link" name=".defaults">
-                    <input type="submit" value="Bleats" class="btn btn-link"> -->
                     <div class="input-group">
-                        <!-- <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Users</a></li>
-                                <li><a href="#">Username</a></li>
-                                <li><a href="#">Name</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Bleats</a></li>
-                            </ul>
-                        </div> --><!-- /btn-group -->
                         <input type="text" name="search" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-link">
@@ -1368,15 +1280,6 @@ def navbar():
         <div class="modal-body">
             <p>Are you sure you want to delete this bleat?</p>
         </div>
-            <!-- <form method="POST" bleat>
-            <input type="hidden" name="new-bleat-user" value="%s">
-            <div class="form-group">
-                <textarea name="new-bleat" placeholder="Your bleat" class="form-control" rows="3" maxlength="142"></textarea>
-                <span id="helpBlock" class="help-block pull-right">0/142</span>
-            </div>
-            <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
-            </form>
-        </div> -->
         <div class="modal-footer">
             <form method="POST">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -1386,12 +1289,9 @@ def navbar():
     </div>
 </div>
 </div><!-- New Bleat Modal -->
-""" % active_user
+"""
     else: # just print disabled button
-        print """<!-- <ul class="nav navbar-nav navbar-right">
-    <li><button class="btn btn-link navbar-btn" data-toggle="modal" data-target="">Log In</button></li>
-</ul> -->
-<button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
+        print """<button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
 <a class="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
 </div>
             </div>
