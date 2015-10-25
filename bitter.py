@@ -181,6 +181,20 @@ def edit_details(parameters):
             f.write(user_id+' '+active_user+' '+parameters.getfirst('change-email')+'\n')
         email_change(parameters.getfirst('change-email'),user_id)
         message = 'A confirmation email has been sent to your new address.'
+    elif parameters.getfirst('edit-type') == 'profile':
+        with open(os.path.join(users_dir,active_user,'details.txt')) as f:
+            lines = f.readlines()
+        for line in list(lines):
+            if line.startswith("info"):
+                lines.remove(line)
+            if line.startswith("full_name"):
+                lines.remove(line)
+        lines.append('full_name: '+parameters.getfirst('edit-name')+'\n')
+        if 'edit-info' in parameters:
+            lines.append('info: '+parameters.getfirst('edit-info')+'\n')
+        with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
+            f.writelines(lines)
+        message = 'User Details successfully updated.'
     elif parameters.getfirst('edit-type') == 'home':
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
@@ -237,6 +251,7 @@ def edit_details_page(parameters):
     print """<ul class="list-group">
     <li class="list-group-item">
         <form method="POST">
+            <input type="hidden" name="edit-type" value="profile">
             <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" name="edit-name" value="%s" class="form-control" placeholder="Full Name">
@@ -249,7 +264,7 @@ def edit_details_page(parameters):
             </div> -->
             <div class="form-group">
                 <label>Profile Text</label>
-                <textarea name="edit-info" value="%s" class="form-control" placeholder="Profile Text"></textarea>
+                <textarea name="edit-info" class="form-control" placeholder="Profile Text">%s</textarea>
             </div>
             <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
         </form>
