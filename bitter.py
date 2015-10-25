@@ -716,6 +716,7 @@ def landing_page():
     <div class="jumbotron">
     <h1>Welcome to Bitter</h1>
     <p>The latest and greatest thing since sliced bread!</p>
+    <br>
     <p><a class="btn btn-primary btn-lg" href="?new-user=First" role="button">Join Now</a></p>
     </div>
     </div>
