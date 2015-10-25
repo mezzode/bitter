@@ -856,7 +856,9 @@ def toggle_listen(parameters):
 def bleat_panels(bleats):
     bleat_details = ""
     for bleat_id in bleats[(16*(page-1)):(16*page)]:
-            bleat_details += bleat_panel(bleat_id.rstrip())
+        bleat_details += bleat_panel(bleat_id.rstrip())
+    if bleat_details == "":
+        bleat_details = '<h1 class="text-center"><small>No Bleats</small></h1>'
     return bleat_details
 
 def bleat_panel(bleat_id):
