@@ -4,7 +4,7 @@
 # as a starting point for COMP2041/9041 assignment 2
 # http://cgi.cse.unsw.edu.au/~cs2041/assignments/bitter/
 
-import cgi, cgitb, glob, os, datetime, time, re, Cookie, uuid, smtplib, shutil
+import cgi, cgitb, glob, os, datetime, time, re, Cookie, uuid, smtplib, shutil, urllib
 from email.mime.text import MIMEText
 
 dataset_size = "medium" 
@@ -854,6 +854,15 @@ def toggle_listen(parameters):
     """ % (message,curr_user)
     return
 
+def add_links(bleat):
+    mention = re.compile('\b(@\w+)\b')
+    hashtag = re.compile('\b(#\S+)\b')
+    bleat_chunks = re.split('(@\w+|#\S+)',bleat)
+    for index, chunk in enumerate(bleat_chunks):
+        if chunk.startswith('#'):
+            bleat_chunks[index] = '<a href='
+    return bleat
+
 def bleat_panels(bleats):
     bleat_details = ""
     for bleat_id in bleats[(16*(page-1)):(16*page)]:
@@ -872,6 +881,7 @@ def bleat_panel(bleat_id):
         for line in lines:
             field, _, value = line.rstrip().partition(": ")
             curr_bleat[field] = value
+    curr_bleat['bleat'] = add_links(curr_bleat['bleat'])
     # bleat_details += '<li class="list-group-item">\n'
     # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
     bleat_details += '<div id="%s">' % bleat_id
@@ -1208,7 +1218,7 @@ def user_search(parameters):
         </div>
     </div>
 </div>
-""" % (search_term,search_term,user_panels,paginator('search='+search_term,len(matches) / 16 + (len(matches) % 16 > 0)))
+""" % (search_term,urllib.quote(search_term),user_panels,paginator('search='+urllib.quote(search_term),len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def bleat_search(parameters):
     search_term = parameters.getfirst('search')
@@ -1242,7 +1252,7 @@ def bleat_search(parameters):
         </div>
     </div>
 </div>
-""" % (search_term,search_term,bleat_panels(matches),paginator('search='+search_term+'&type=bleat',len(matches) / 16 + (len(matches) % 16 > 0)))
+""" % (search_term,urllib.quote(search_term),bleat_panels(matches),paginator('search='+urllib.quote(search_term)+'&type=bleat',len(matches) / 16 + (len(matches) % 16 > 0)))
 
 def search_page(parameters):
     search_term = parameters.getfirst('search')
@@ -1407,7 +1417,7 @@ def navbar():
                         <li><a href="#">New Bleat</a></li>
                         <li class="active"><input type="submit" value="New Bleat" class="btn btn-link navbar-btn"><span class="sr-only">(current)</span></a></li>
                     </ul> -->
-                    <form class="navbar-form navbar-left" id="search" role="search">
+                    <form class="navbar-form navbar-left" action="?" id="search" role="search">
                     <!-- <input type="submit" value="Home" class="btn btn-link" name=".defaults">
                     <input type="submit" value="Bleats" class="btn btn-link"> -->
                     <div class="input-group">
