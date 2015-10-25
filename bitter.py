@@ -407,7 +407,6 @@ def confirm_user(user_id):
         with open('pending/pending.txt','w') as f:
             f.writelines(lines)
         shutil.move(os.path.join('pending',curr_user),users_dir)
-    # print 'Success! You can now login and start using Bitter!'
         print """<h1>Success!</h1>
     <p>Congratulations on successfully confirming your email address!</p>
     <p>You can now login and start using Bitter!"""
@@ -419,7 +418,6 @@ def new_user(parameters):
     password = parameters.getfirst('new-password')
     name = parameters.getfirst('full-name')
     email = parameters.getfirst('email')
-    # with open(os.path.join(users_dir,user,"details.txt"),'w') as f:
     if not os.path.exists('pending'):
         os.mkdir('pending')
     with open('pending/pending.txt','a') as f:
@@ -464,23 +462,20 @@ def new_user_page(parameters):
         os.mkdir('pending')
     if 'new-validate' in parameters:
         if parameters.getfirst('new-username') in (os.listdir(users_dir) + os.listdir('pending')):
-            valid = False # username taken
+            valid = False
             username_msg = 'Username already taken.'
-            # username_class = ' has-error' # for if interpolating class, may be better?
         elif not re.match(r'^\w+$',parameters.getfirst('new-username','')): # if matches regex
-            valid = False # username taken
+            valid = False
             username_msg = 'Invalid username.'
-            # username_class = ' has-error' # for if interpolating class, may be better?
         else:
             username_msg = ''
-            # username_class = '' # for if interpolating class, may be better?
         if not re.match(r'^[A-Za-z\-]+( [A-Za-z\-]+)*$',parameters.getfirst('full-name','')): # if matches regex
-            valid = False # username taken
+            valid = False
             name_msg = 'Full name required.'
         else:
             name_msg = ''
         if not re.match(r'^[^@\s]+@[\w\-]+(\.[\w\-]+)+$',parameters.getfirst('email','')): # if matches regex
-            valid = False # username taken
+            valid = False
             email_msg = 'Invalid email address.'
         else:
             email_msg = ''
@@ -542,7 +537,6 @@ def new_user_page(parameters):
             print '<div class="form-group has-error">\n'
         else:
             print '<div class="form-group">\n'
-        # print """<div class="form-group%s">
         print """<label>Username</label>
                     <input type="text" name="new-username" value="%s" class="form-control" placeholder="Username">
                     <span id="username-help" class="help-block">%s</span>
@@ -761,10 +755,8 @@ def landing_page():
 
 
 def authenticate(parameters):
-    # validate; if username and pass do not match the records, divert to incorrect pass screen
     username = parameters.getfirst('username')
     password = parameters.getfirst('password')
-    # with open(os.path.join(users_dir,username,'details.txt') as f:
     if username not in os.listdir(users_dir):
         return False
     curr_user = user(username)
@@ -780,8 +772,6 @@ def issue_token(parameters):
     session = username + " " + str(session_id)
     cookie['session'] = session
     if parameters.getfirst('remember-me'): # for 30 days
-        # expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-        # cookie['session']['expires'] = expiration.bleh  # Sun, 15 Jul 2012 00:00:01 GMT
         cookie['session']['max-age'] = 60 * 60 * 24 * 30
     with open('sessions.txt','a') as f:
         f.write(session+"\n")
@@ -789,13 +779,8 @@ def issue_token(parameters):
 
 def new_bleat(parameters):
     text = cgi.escape(parameters.getfirst('new-bleat'))
-    # user = parameters.getfirst('new-bleat-user')
     reply = parameters.getfirst('new-bleat-reply',None)
-    # text = cgi.escape(parameters['new-bleat'].value)
-    # user = cgi.escape(parameters['new-bleat-user'].value)
-    # reply = cgi.escape(parameters['new-bleat-reply'].value)
     curr_time = int(time.time())
-    # print text,"by",user,"at",curr_time,"to",reply
     bleat_id = str(max([int(i) for i in os.listdir(bleats_dir)]) + 1)
     bleat_type = "Bleat"
     with open(os.path.join(users_dir,active_user,"bleats.txt"),"a") as f:
@@ -833,7 +818,6 @@ def delete_bleat(bleat_id):
         bleats.remove(bleat_id+"\n")
     with open(os.path.join(users_dir,username,'bleats.txt'),'w') as f:
         f.writelines(bleats)
-    # os.remove(os.path.join(bleats_dir,bleat_id)) # maybe just keep "deleted" bleats
     print """<div class="alert alert-info alert-dismissible toast fade in" id="bleat-alert" role="alert">
 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
 Bleat deleted.
@@ -902,13 +886,10 @@ def bleat_panel(bleat_id):
             field, _, value = line.rstrip().partition(": ")
             curr_bleat[field] = value
     curr_bleat['bleat'] = add_links(curr_bleat['bleat'])
-    # bleat_details += '<li class="list-group-item">\n'
-    # bleat_details += '<button class="panel panel-default" type="button" data-toggle="collapse" data-target="#%s" aria-expanded="false" aria-controls="%s">' % (bleat_id,bleat_id)
     bleat_details += '<div id="%s">' % bleat_id
     bleat_details += '<div class="panel panel-default">\n'
     bleat_details += '<div class="list-group">\n'
     bleat_details += '<div class="list-group-item">\n'
-    # bleat_details += '<h4 class="list-group-item-heading">%s</h4>\n' % curr_bleat['username'] # user
     if active_user:
         if curr_bleat['username'] != active_user:
             if curr_bleat['username'] in user(active_user).details["listens"].split():
@@ -935,11 +916,8 @@ def bleat_panel(bleat_id):
     if replies:
         bleat_details +='<a class="btn btn-link" data-toggle="collapse" data-parent="#%s" href="#%s-replies"><small>View replies</small></a>\n' % (bleat_id,bleat_id)
     bleat_details += '</div>\n'
-    # bleat_details += "</li>\n"
     bleat_details += "</div>\n" # list-group-item
     bleat_details += "</div>\n" # list-group
-    # bleat_details += "</button>\n"
-    # bleat_details += "</div>"
     bleat_details += """<div class="collapse panel-collapse" id="%s-reply">
     <ul class="list-group">
 """ % (bleat_id)
@@ -1078,21 +1056,12 @@ def user_missing(username):
 
 def user_page(parameters):
     username = parameters.getfirst('user')
-    # if user_to_show != '':
-    #     user_to_show = os.path.join(users_dir,user_to_show)
-    # else:
-    #    users = sorted(glob.glob(os.path.join(users_dir, "*")))
-    #    user_to_show  = users[n % len(users)]
     curr_user = user(username)
     if "full_name" in curr_user.details:
         details = "<h2>%s<br><small>%s</small></h2>\n" % (curr_user.details["full_name"],curr_user.details["username"])
-        # details += '<h1><small>%s</small></h1>\n' % curr_user.details["username"]
     else:
         details = "<h1>%s</h1>\n" % curr_user.details["username"]
-    # details += curr_user.details_basic()
     details += curr_user.details.get('info','')
-    # details += '<ul class="list-group">\n'
-    # details += '<li class="list-group-item">\n'
     display = False
     home_details = '<li class="list-group-item">\n<h3 class="list-group-item-heading">Home Details</h3>\n<dl>\n'
     for field,_ in sorted(curr_user.details.items()):
@@ -1102,8 +1071,6 @@ def user_page(parameters):
     home_details += '</dl>\n</li>\n'
     if not display:
         home_details = ''
-    # details += '</li>\n'
-    # details += '</ul>\n'
     listen_details = '<li class="list-group-item">\n<h3 class="list-group-item-heading">Listens</h3>\n'
     listen_details += '<div class="list-group">\n'
     listens = curr_user.details["listens"]
@@ -1199,7 +1166,6 @@ def user_search(parameters):
         for curr_user in os.listdir(users_dir):
             if search_term.lower() in curr_user.lower():
                 matches.append(curr_user)
-                # matches += '<li class="list-group-item">%s</li>\n' % curr_user
             else:
                 with open(os.path.join(users_dir,curr_user,"details.txt")) as f:
                     for line in f:
@@ -1207,7 +1173,6 @@ def user_search(parameters):
                         if field == "full_name":
                             if search_term.lower() in value.lower():
                                 matches.append(curr_user)
-                                # matches += '<li class="list-group-item">%s</li>\n' % curr_user
                             else:
                                 break
     user_panels = '<div class="panel panel-default">'
@@ -1227,8 +1192,6 @@ def user_search(parameters):
     user_panels += "</div>"
     if not matches:
         user_panels = '<h1 class="text-center"><small>No Users</small></h1>'
-    # bleat_panels(matches)
-    # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     print """
 <div class="container">
     <div class="row">
@@ -1267,8 +1230,6 @@ def bleat_search(parameters):
                             matches.append(curr_bleat)
                         else:
                             break
-    # bleat_panels(matches)
-    # page_details = paginator('',len(bleats) / 16 + (len(bleats) % 16 > 0))
     matches.sort(reverse=True)
     print """
 <div class="container">
