@@ -843,11 +843,11 @@ def toggle_listen(parameters):
         field, _, value = line.rstrip().partition(": ")
         if field == "listens":
             listens = value.split()
-            if user not in listens: # listen
-                lines[index] = field + ": " + value.rstrip() + " " + user + "\n"
+            if curr_user not in listens: # listen
+                lines[index] = field + ": " + value.rstrip() + " " + curr_user + "\n"
                 message = "You are now listening to"
             else: # unlisten
-                listens.remove(user)
+                listens.remove(curr_user)
                 if listens: # if there are still listens
                     lines[index] = field + ": " + ' '.join(listens) + "\n"
                 else:
@@ -855,7 +855,7 @@ def toggle_listen(parameters):
                 message = "You have stopped listening to"
             break
     if field != "listens": # if no listens
-        lines.append("listens: " + user + "\n")
+        lines.append("listens: " + curr_user + "\n")
         message = "You are now listening to"
     with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
         f.writelines(lines)
