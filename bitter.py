@@ -1187,7 +1187,7 @@ def page_header(title):
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- My CSS -->
-        <link href="css/custom.css" rel="stylesheet">
+        <link href="bitter.css" rel="stylesheet">
         <style>
         body { padding-top: 80px; }
         </style>
