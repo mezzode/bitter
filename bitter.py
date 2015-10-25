@@ -90,9 +90,16 @@ def main():
             failed_login = True
     print # end header
 
-    if active_user != None: # someone is logged in
-        pass # so render pages to reflect their personal details
-    page_header()
+    if 'edit' in parameters and active_user:
+        title = 'Settings - Bitter'
+    elif 'user' in parameters:
+        title = parameters.getfirst('user') + ' - Bitter'
+    elif 'search' in parameters:
+        title = parameters.getfirst('search') + ' - Bitter'
+    else:
+        title = 'Bitter'
+    page_header(title)
+
     print "<!-- active_user: %s -->" % active_user
     if active_user != None: # someone is logged in
         print "<!-- %s is logged in -->" % active_user # so render pages to reflect their personal details
@@ -1357,7 +1364,7 @@ def search_page(parameters):
 #
 # HTML placed at the top of every page
 #
-def page_header():
+def page_header(title):
     print """<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1365,7 +1372,7 @@ def page_header():
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bitter</title>
+        <title>%s</title>
         <!-- MDL -->
         <link href="./material.min.css" rel="stylesheet">
         <script src="./material.min.js"></script>
@@ -1380,7 +1387,7 @@ def page_header():
         </style>
     </head>
     <body>
-"""
+""" % title
 
 def navbar():
     print """<!-- active_user: %s -->
