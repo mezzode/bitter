@@ -1249,7 +1249,7 @@ def bleat_search(parameters):
             for line in lines:
                 field, _, value = line.rstrip().partition(": ")
                 if field == "bleat":
-                    if search_term.startswith('#'):
+                    if search_term.startswith('#') or search_term.startswith('@'):
                         if re.search(re.escape(search_term)+r'\b',value,re.IGNORECASE):
                             matches.append(curr_bleat)
                         else:
