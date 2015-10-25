@@ -1373,8 +1373,8 @@ def page_header(title):
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>%s</title>
         <!-- MDL -->
-        <link href="./material.min.css" rel="stylesheet">
-        <script src="./material.min.js"></script>
+        <link href="css/material.min.css" rel="stylesheet">
+        <script src="js/material.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
