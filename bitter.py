@@ -60,7 +60,6 @@ def main():
     print "Content-Type: text/html"
     cgitb.enable()
     parameters = cgi.FieldStorage()
-    # active_user = None
     failed_login = False
     if "HTTP_COOKIE" in os.environ:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
@@ -87,6 +86,7 @@ def main():
             failed_login = True
     print # end header
 
+    # page header
     if 'edit' in parameters and active_user:
         title = 'Settings - Bitter'
     elif 'user' in parameters:
@@ -110,7 +110,7 @@ def main():
         elif 'delete-bleat' in parameters:
             if parameters.getfirst('delete-bleat') in os.listdir(bleats_dir):
                 delete_bleat(parameters.getfirst('delete-bleat'))
-                
+
     navbar()
     global page
     page = int(parameters.getfirst('page','1'))
