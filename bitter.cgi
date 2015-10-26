@@ -339,10 +339,10 @@ def edit_details_page(parameters):
             <input type="hidden" name="edit-type" value="pic">
             <div class="form-group">
                 <label>Profile Picture</label>
-                <input name="edit-pic" type="file" accept="image/jpeg, image/png">
+                <input name="edit-pic" type="file" accept="image/jpeg, image/png" required>
                 <span id="pic-help" class="help-block"></span>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Upload</button>
         </form>
     </li>
     </ul>
