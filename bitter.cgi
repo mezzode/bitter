@@ -193,16 +193,6 @@ def edit_details(parameters):
             if line.startswith("full_name"):
                 lines.remove(line)
         lines.append('full_name: '+parameters.getfirst('edit-name')+'\n')
-        if 'edit-pic' in parameters:
-            pic = parameters['edit-pic']
-            if pic.file:
-                if os.path.exists(os.path.join(users_dir,active_user,'profile.jpg')):
-                    os.remove(os.path.join(users_dir,active_user,'profile.jpg'))
-                with open(os.path.join(users_dir,active_user,'profile.jpg'),'wb') as f:
-                    while 1:
-                        chunk = pic.file.read(100000)
-                        if not chunk: break
-                        f.write(chunk)
         if 'edit-info' in parameters:
             lines.append('info: '+sanitise(parameters.getfirst('edit-info'))+'\n')
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
@@ -223,6 +213,17 @@ def edit_details(parameters):
         with open(os.path.join(users_dir,active_user,'details.txt'),'w') as f:
             f.writelines(lines)
         message = 'Home Details successfully updated.'
+    elif parameters.getfirst('edit-type') == 'pic':
+        pic = parameters['edit-pic']
+        if pic.file:
+            if os.path.exists(os.path.join(users_dir,active_user,'profile.jpg')):
+                os.remove(os.path.join(users_dir,active_user,'profile.jpg'))
+            with open(os.path.join(users_dir,active_user,'profile.jpg'),'wb') as f:
+                while 1:
+                    chunk = pic.file.read(100000)
+                    if not chunk: break
+                    f.write(chunk)
+        message = 'Profile Picture successfully changed.'
     elif parameters.getfirst('edit-type') == 'password':
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
@@ -271,7 +272,7 @@ def edit_details_page(parameters):
         print '<div class="collapse panel-collapse" id="profile">'
     print """<ul class="list-group">
     <li class="list-group-item">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST">
             <input type="hidden" name="edit-type" value="profile">
             <div class="form-group">
                 <label>Full Name</label>
@@ -279,15 +280,10 @@ def edit_details_page(parameters):
                 <span id="name-help" class="help-block"></span>
             </div>
             <div class="form-group">
-                <label>Profile Picture</label>
-                <input name="edit-pic" type="file" accept="image/jpeg, image/png">
-                <span id="pic-help" class="help-block"></span>
-            </div>
-            <div class="form-group">
                 <label>Profile Text</label>
                 <textarea name="edit-info" class="form-control" placeholder="Profile Text">%s</textarea>
             </div>
-            <button id="edit-user-submit" type="button" class="btn btn-default">Submit</button>
+            <button id="edit-user-submit" type="button" class="btn btn-default" disabled="disabled">Submit</button>
         </form>
     </li>
     </ul>
@@ -326,6 +322,32 @@ def edit_details_page(parameters):
     </ul>
 </div>
 </div>""" % (curr_user.details.get('home_suburb',''),curr_user.details.get('home_latitude',''),curr_user.details.get('home_longitude',''))
+    
+    print """<div class="panel panel-default">
+<div class="list-group">
+<div class="list-group-item">
+<a style="color: inherit;" class="list-group-item-heading" href="#pic" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Profile Picture</h4></a>
+</div>
+</div>"""
+    if parameters.getfirst('edit-type','') == 'pic':
+        print '<div class="collapse panel-collapse in" id="pic">'
+    else:
+        print '<div class="collapse panel-collapse" id="pic">'
+    print"""<ul class="list-group">
+    <li class="list-group-item">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="edit-type" value="pic">
+            <div class="form-group">
+                <label>Profile Picture</label>
+                <input name="edit-pic" type="file" accept="image/jpeg, image/png">
+                <span id="pic-help" class="help-block"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </li>
+    </ul>
+</div>
+</div>"""
 
     print """<div class="panel panel-default">
 <div class="list-group">
