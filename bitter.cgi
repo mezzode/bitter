@@ -224,6 +224,10 @@ def edit_details(parameters):
                     if not chunk: break
                     f.write(chunk)
         message = 'Profile Picture successfully changed.'
+    elif parameters.getfirst('edit-type') == 'pic-remove':
+        if os.path.exists(os.path.join(users_dir,active_user,'profile.jpg')):
+            os.remove(os.path.join(users_dir,active_user,'profile.jpg'))
+        message = 'Profile Picture successfully removed.'
     elif parameters.getfirst('edit-type') == 'password':
         with open(os.path.join(users_dir,active_user,'details.txt')) as f:
             lines = f.readlines()
@@ -329,16 +333,26 @@ def edit_details_page(parameters):
 <a style="color: inherit;" class="list-group-item-heading" href="#pic" data-toggle="collapse" data-parent="#edit"><h4 class="list-group-item-heading">Change Profile Picture</h4></a>
 </div>
 </div>"""
-    if parameters.getfirst('edit-type','') == 'pic':
+    if parameters.getfirst('edit-type','') == 'pic' or parameters.getfirst('edit-type','') == 'pic-remove':
         print '<div class="collapse panel-collapse in" id="pic">'
     else:
         print '<div class="collapse panel-collapse" id="pic">'
     print"""<ul class="list-group">
     <li class="list-group-item">
+        <form method="POST">
+            <input type="hidden" name="edit-type" value="pic-remove">
+            <div class="form-group">
+                <label>Current Profile Picture</label>
+                <img src="%s" style="max-width:300px; max-height:300px;" class="img-responsive" alt="Profile Picture">
+            </div>
+            <button type="submit" class="btn btn-default">Remove</button>
+        </form>
+    </li>
+    <li class="list-group-item">
         <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="edit-type" value="pic">
             <div class="form-group">
-                <label>Profile Picture</label>
+                <label>New Profile Picture</label>
                 <input name="edit-pic" type="file" accept="image/jpeg, image/png" required>
                 <span id="pic-help" class="help-block"></span>
             </div>
@@ -347,7 +361,7 @@ def edit_details_page(parameters):
     </li>
     </ul>
 </div>
-</div>"""
+</div>""" % curr_user.pic
 
     print """<div class="panel panel-default">
 <div class="list-group">
